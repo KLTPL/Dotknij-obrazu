@@ -1,9 +1,12 @@
 import type { ArtworkTexture } from '@repo/shared';
 import { type ReactNode, useRef, useState } from 'react';
 import {
+  type AccessibilityActionEvent,
+  type AccessibilityActionInfo,
   Animated,
   type GestureResponderEvent,
   type LayoutChangeEvent,
+  type PointerEvent,
   type StyleProp,
   StyleSheet,
   View,
@@ -39,7 +42,16 @@ type Props<T extends { id: string | number }> = {
   onHold?: (object: T | null, x: number, y: number) => void;
   onDoubleTap: (object: T | null) => void;
   onTwoFingerTap?: () => void;
+  /**
+   * Explore from hover events: a running screen reader turns a moving finger into hover instead
+   * of touches, and its own double tap then describes the place the finger explored last.
+   */
+  exploreByHover?: boolean;
   accessibilityLabel?: string;
+  accessibilityHint?: string;
+  /** Screen reader actions; their names arrive in onAccessibilityAction. */
+  accessibilityActions?: AccessibilityActionInfo[];
+  onAccessibilityAction?: (name: string) => void;
   style?: StyleProp<ViewStyle>;
   /** Drawn under the finger cursor; never receives touches. */
   children?: ReactNode;
@@ -49,12 +61,13 @@ const distance = (a: Point, b: Point) => Math.hypot(a.x - b.x, a.y - b.y);
 
 /**
  * Touch surface explored with one finger: reports the object under the finger, signals the
- * border of an object with knocks and a short sound, vibrates along contours and over
- * textures, and recognizes hold, double tap and two-finger tap.
+ * border of an object with knocks and a short sound and the edge of the painting with a long
+ * buzz, vibrates along contours and over textures, and recognizes hold, double tap and
+ * two-finger tap.
  */
 export function ExplorationBoard<T extends { id: string | number }>(props: Props<T>) {
   const { objectAt, contourAt, textureOf, onTouchStart, onMove, onObjectChange } = props;
-  const { onTouchEnd, onHold, onDoubleTap, onTwoFingerTap } = props;
+  const { onTouchEnd, onHold, onDoubleTap, onTwoFingerTap, exploreByHover = false } = props;
   const haptics = useTouchHaptics();
   const borderCue = useBorderCue();
   const sizeRef = useRef({ width: 1, height: 1 });
@@ -65,6 +78,8 @@ export function ExplorationBoard<T extends { id: string | number }>(props: Props
   const lastTapRef = useRef<{ time: number; point: Point } | null>(null);
   const touchStartedAtRef = useRef(0);
   const twoFingersRef = useRef(false);
+  const insideRef = useRef(true);
+  const hoveringRef = useRef(false);
   // The ring showing the audience where the finger is; animated values avoid re-rendering on every move
   const [cursor] = useState(() => new Animated.ValueXY());
   const [cursorOpacity] = useState(() => new Animated.Value(0));
@@ -110,9 +125,15 @@ export function ExplorationBoard<T extends { id: string | number }>(props: Props
     if (object && textureOf) haptics.travel(distance(point, lastPointRef.current), textureOf(object));
     lastPointRef.current = point;
 
+    const inside = x >= 0 && x < 1 && y >= 0 && y < 1;
+    const leftPainting = insideRef.current && !inside;
+    insideRef.current = inside;
+    if (leftPainting) haptics.frame();
+
     if (id !== currentRef.current) {
-      // The loops crossfade, so the border itself is marked with knocks and a short signal
-      haptics.border(object !== null);
+      // The loops crossfade, so the border itself is marked with knocks and a short signal;
+      // sliding off the painting is felt as its frame instead
+      if (!leftPainting) haptics.border(object !== null);
       borderCue.play(object !== null);
       currentRef.current = id;
       onObjectChange(object);
@@ -122,13 +143,45 @@ export function ExplorationBoard<T extends { id: string | number }>(props: Props
     }
   };
 
-  const handleGrant = (event: GestureResponderEvent) => {
+  const begin = (point: Point) => {
     onTouchStart?.();
+    cursorOpacity.setValue(1);
+    insideRef.current = true;
+    lastPointRef.current = point;
+    track(point);
+  };
+
+  const handleGrant = (event: GestureResponderEvent) => {
     touchStartedAtRef.current = Date.now();
     twoFingersRef.current = false;
-    cursorOpacity.setValue(1);
-    lastPointRef.current = pointOf(event);
-    track(lastPointRef.current);
+    begin(pointOf(event));
+  };
+
+  const handleHover = (event: PointerEvent) => {
+    const point = { x: event.nativeEvent.offsetX, y: event.nativeEvent.offsetY };
+    if (hoveringRef.current) {
+      track(point);
+      return;
+    }
+    hoveringRef.current = true;
+    begin(point);
+  };
+
+  const handleHoverEnd = () => {
+    if (!hoveringRef.current) return;
+    hoveringRef.current = false;
+    leaveObject();
+    onTouchEnd?.();
+  };
+
+  const handleAction = (event: AccessibilityActionEvent) => {
+    const name = event.nativeEvent.actionName;
+    if (name === 'activate' && exploreByHover) {
+      const { x, y } = normalized(lastPointRef.current);
+      onDoubleTap(objectAt(x, y));
+    } else {
+      props.onAccessibilityAction?.(name);
+    }
   };
 
   // Fires for every finger put down, also the ones joining a gesture that already started
@@ -165,6 +218,13 @@ export function ExplorationBoard<T extends { id: string | number }>(props: Props
       style={[styles.board, props.style]}
       accessible
       accessibilityLabel={props.accessibilityLabel}
+      accessibilityHint={props.accessibilityHint}
+      accessibilityActions={
+        exploreByHover ? [{ name: 'activate' }, ...(props.accessibilityActions ?? [])] : props.accessibilityActions
+      }
+      onAccessibilityAction={handleAction}
+      onPointerMove={exploreByHover ? handleHover : undefined}
+      onPointerLeave={exploreByHover ? handleHoverEnd : undefined}
       onLayout={(event: LayoutChangeEvent) => {
         sizeRef.current = event.nativeEvent.layout;
       }}

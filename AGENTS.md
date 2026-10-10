@@ -58,12 +58,17 @@ apps/mobile/
   assets/sounds/          WAV loops — OUTPUT of pipeline/sounds.py (CC0 and public domain
                           recordings) and scripts/generate-sounds.mjs
   assets/cues/            object boundary cues — OUTPUT of scripts/generate-sounds.mjs
-  src/app/                screens: index (gallery), artwork/[id] (exploration), training
+  src/app/                screens: index (welcome, then the gallery pager), artwork/[id]
+                          (exploration), details/[id] (texts of an artwork), settings, training
+  src/accessibility/      whether a screen reader is running (TalkBack, VoiceOver)
   src/artworks/           package reader (layer decoding), registry.ts (generated)
+  src/gallery/            gallery page, audio preview of the painting on screen, welcome
   src/exploration/        ExplorationBoard + sound, speech and orientation hooks — shared
                           by artwork exploration and training
   src/i18n/               chosen language and the texts of the screens in Polish and English
   src/readability-test/   training board and time measurement
+  src/settings/           settings saved on the phone (language, gallery sounds, welcome seen)
+  src/theme.ts, src/ui/   colours, sizes and the shared button
 packages/shared/          package contract: src/artwork-package.ts
 pipeline/
   artworks/<id>/          source.json (source and license), objects.json (objects and descriptions)
@@ -122,6 +127,9 @@ will block it — add the package to `allowBuilds` in `pnpm-workspace.yaml`.
 - Small commits, messages in the style `feat: ...`, `fix: ...`.
 - The app must work in Expo Go (nobody on the team needs the Android SDK), so no native modules
   outside Expo Go.
+- Screen reader first: speech the user did not ask for goes through `speaker.introduce`, which
+  stays silent under TalkBack (the reader speaks from labels instead); everything reachable by a
+  gesture must also be reachable through `accessibilityActions` or a button; targets ≥ 48 dp.
 - Gestures, haptics and audio latency can only be checked on a phone — after changes in
   `src/exploration/`, write down what has to be tested manually.
 - Files under about 300 lines; comments explain "why", because the jury asks about the code.

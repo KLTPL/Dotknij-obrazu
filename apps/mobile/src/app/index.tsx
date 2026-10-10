@@ -1,136 +1,111 @@
-import { Link } from 'expo-router';
-import { FlatList, Image, Linking, Pressable, StyleSheet, Text, View } from 'react-native';
+import { useRouter } from 'expo-router';
+import { useRef, useState } from 'react';
+import { FlatList, StyleSheet, Text, View, type ViewToken } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import type { ArtworkLanguage } from '@repo/shared';
-
-import { type ArtworkEntry, localizeManifest } from '@/artworks/artwork';
+import type { ArtworkEntry } from '@/artworks/artwork';
 import { ARTWORKS } from '@/artworks/registry';
+import { ArtworkPage } from '@/gallery/artwork-page';
+import { useGalleryPreview } from '@/gallery/use-gallery-preview';
+import { Welcome } from '@/gallery/welcome';
 import { useLanguage } from '@/i18n/language';
-import { LANGUAGE_NAMES } from '@/i18n/strings';
+import { useSettings } from '@/settings/settings';
+import { COLORS, SPACING, TYPE } from '@/theme';
+import { Button } from '@/ui/button';
 
-function ArtworkCard({ entry }: { entry: ArtworkEntry }) {
-  const { language, t } = useLanguage();
-  const { id, title, author, year, institution, license, objects, layers } = localizeManifest(entry.manifest, language);
-  const landscape = layers.width > layers.height;
-  return (
-    <Link href={{ pathname: '/artwork/[id]', params: { id } }} asChild>
-      <Pressable
-        style={styles.card}
-        accessibilityRole="button"
-        accessibilityLabel={t.gallery.cardLabel(title, author, year, objects.length, landscape)}
-        accessibilityHint={t.gallery.cardHint}
-      >
-        <Image source={entry.image} style={styles.thumbnail} resizeMode="cover" />
-        <View style={styles.cardText}>
-          <Text style={styles.title}>{title}</Text>
-          <Text style={styles.text}>
-            {author}, {year}
-          </Text>
-          <Text style={styles.orientation}>{landscape ? t.gallery.landscape : t.gallery.portrait}</Text>
-          <Text style={styles.muted}>
-            {institution} · {license}
-          </Text>
-        </View>
-      </Pressable>
-    </Link>
-  );
-}
-
-// The voice belongs to the phone's speech engine; phone makers hide this screen in different menus
-function openVoiceSettings() {
-  Linking.sendIntent('com.android.settings.TTS_SETTINGS').catch(() => Linking.openSettings());
-}
-
-function LanguageSwitch() {
-  const { language, setLanguage, t } = useLanguage();
-  return (
-    <View style={styles.languages} accessibilityRole="radiogroup" accessibilityLabel={t.gallery.language}>
-      {(Object.keys(LANGUAGE_NAMES) as ArtworkLanguage[]).map((value) => (
-        <Pressable
-          key={value}
-          onPress={() => setLanguage(value)}
-          style={[styles.language, language === value && styles.languageActive]}
-          accessibilityRole="radio"
-          accessibilityState={{ checked: language === value }}
-          accessibilityLabel={LANGUAGE_NAMES[value]}
-        >
-          <Text style={[styles.text, language === value && styles.languageActiveText]}>{LANGUAGE_NAMES[value]}</Text>
-        </Pressable>
-      ))}
-    </View>
-  );
-}
-
-function Header() {
-  const { t } = useLanguage();
-  return (
-    <View style={styles.header}>
-      <Text style={styles.appName} accessibilityRole="header">
-        Dotknij obrazu
-      </Text>
-      <Text style={styles.text}>{t.gallery.tagline}</Text>
-      <LanguageSwitch />
-      <Link href="/training" asChild>
-        <Pressable
-          style={styles.training}
-          accessibilityRole="button"
-          accessibilityLabel={t.gallery.training}
-          accessibilityHint={t.gallery.trainingHint}
-        >
-          <Text style={styles.trainingTitle}>{t.gallery.training}</Text>
-          <Text style={styles.trainingText}>{t.gallery.trainingText}</Text>
-        </Pressable>
-      </Link>
-      <Pressable
-        style={styles.voice}
-        onPress={openVoiceSettings}
-        accessibilityRole="button"
-        accessibilityLabel={t.gallery.voiceLabel}
-        accessibilityHint={t.gallery.voiceHint}
-      >
-        <Text style={styles.text}>{t.gallery.voice}</Text>
-      </Pressable>
-      <Text style={styles.section} accessibilityRole="header">
-        {t.gallery.heading}
-      </Text>
-    </View>
-  );
-}
+// A page counts as the current one once most of it is on screen
+const VIEWABILITY = { itemVisiblePercentThreshold: 60 };
 
 export default function GalleryScreen() {
+  const { settings } = useSettings();
+  return settings.onboarded ? <Gallery /> : <Welcome />;
+}
+
+/**
+ * One painting per screen, changed with a vertical swipe. The painting on screen introduces
+ * itself with its sounds and first sentence, so the gallery can be browsed without looking.
+ */
+function Gallery() {
+  const router = useRouter();
+  const { t } = useLanguage();
+  const listRef = useRef<FlatList<ArtworkEntry>>(null);
+  const [height, setHeight] = useState(0);
+  // Null while the end of the gallery is on screen
+  const [page, setPage] = useState<number | null>(0);
+  const preview = useGalleryPreview(page === null ? null : ARTWORKS[page]);
+  // FlatList requires a callback that never changes
+  const [onViewableItemsChanged] = useState(
+    () =>
+      ({ viewableItems }: { viewableItems: ViewToken<ArtworkEntry>[] }) =>
+        setPage(viewableItems[0]?.index ?? null),
+  );
+
+  const open = (entry: ArtworkEntry) =>
+    router.push({ pathname: '/artwork/[id]', params: { id: entry.manifest.id } });
+
   return (
     <SafeAreaView style={styles.screen} edges={['top', 'bottom']}>
-      <FlatList
-        data={ARTWORKS}
-        keyExtractor={(entry) => entry.manifest.id}
-        renderItem={({ item }) => <ArtworkCard entry={item} />}
-        ListHeaderComponent={Header}
-        contentContainerStyle={styles.list}
-      />
+      <View style={styles.bar}>
+        <Text style={styles.heading} accessibilityRole="header">
+          {t.gallery.heading}
+        </Text>
+        <Button
+          label={t.gallery.training}
+          accessibilityHint={t.gallery.trainingHint}
+          onPress={() => router.push('/training')}
+        />
+        <Button label={t.gallery.settings} onPress={() => router.push('/settings')} />
+      </View>
+      <View style={styles.pager} onLayout={(event) => setHeight(event.nativeEvent.layout.height)}>
+        {height > 0 && (
+          <FlatList
+            ref={listRef}
+            data={ARTWORKS}
+            keyExtractor={(entry) => entry.manifest.id}
+            renderItem={({ item }) => (
+              <ArtworkPage
+                entry={item}
+                height={height}
+                onOpen={() => open(item)}
+                onRepeat={preview.repeat}
+                onDetails={() => router.push({ pathname: '/details/[id]', params: { id: item.manifest.id } })}
+              />
+            )}
+            getItemLayout={(_, index) => ({ length: height, offset: height * index, index })}
+            pagingEnabled
+            showsVerticalScrollIndicator={false}
+            viewabilityConfig={VIEWABILITY}
+            onViewableItemsChanged={onViewableItemsChanged}
+            ListFooterComponent={
+              <View style={[styles.end, { height }]}>
+                <Text style={styles.endTitle} accessibilityRole="header">
+                  {t.gallery.end}
+                </Text>
+                <Button
+                  label={t.gallery.backToStart}
+                  onPress={() => listRef.current?.scrollToIndex({ index: 0 })}
+                />
+              </View>
+            }
+          />
+        )}
+      </View>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  screen: { flex: 1, backgroundColor: '#000' },
-  list: { padding: 16, gap: 14 },
-  header: { gap: 12 },
-  appName: { color: '#fff', fontSize: 32, fontWeight: '700' },
-  section: { color: '#fff', fontSize: 20, fontWeight: '600', marginTop: 8 },
-  training: { padding: 16, borderRadius: 14, backgroundColor: '#ffd60a' },
-  trainingTitle: { color: '#000', fontSize: 20, fontWeight: '700' },
-  trainingText: { color: '#000', fontSize: 15 },
-  voice: { padding: 14, borderRadius: 14, backgroundColor: '#1a1a1a' },
-  languages: { flexDirection: 'row', gap: 8 },
-  language: { flex: 1, padding: 12, borderRadius: 12, alignItems: 'center', backgroundColor: '#1a1a1a' },
-  languageActive: { backgroundColor: '#ffd60a' },
-  languageActiveText: { color: '#000', fontWeight: '700' },
-  card: { borderRadius: 14, overflow: 'hidden', backgroundColor: '#1a1a1a' },
-  thumbnail: { width: '100%', height: 170 },
-  cardText: { padding: 14, gap: 2 },
-  title: { color: '#fff', fontSize: 22, fontWeight: '700' },
-  text: { color: '#e0e0e0', fontSize: 16 },
-  orientation: { color: '#ffd60a', fontSize: 14, fontWeight: '600', marginTop: 4 },
-  muted: { color: '#a0a0a0', fontSize: 13 },
+  screen: { flex: 1, backgroundColor: COLORS.background },
+  bar: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    alignItems: 'center',
+    gap: SPACING.s,
+    paddingHorizontal: SPACING.l,
+    paddingVertical: SPACING.s,
+  },
+  heading: { ...TYPE.title, color: COLORS.text, flexGrow: 1 },
+  pager: { flex: 1 },
+  end: { justifyContent: 'center', alignItems: 'center', gap: SPACING.l, padding: SPACING.l },
+  endTitle: { ...TYPE.title, color: COLORS.text },
 });

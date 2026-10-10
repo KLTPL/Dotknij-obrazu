@@ -1,6 +1,6 @@
 import { useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { ExplorationBoard } from '@/exploration/exploration-board';
@@ -10,6 +10,7 @@ import { useLanguage } from '@/i18n/language';
 import { ControlPanel, type Mode } from '@/readability-test/control-panel';
 import { objectAt, SCENE_OBJECTS } from '@/readability-test/scene';
 import { useReadabilityTrial } from '@/readability-test/use-readability-trial';
+import { Button } from '@/ui/button';
 
 /**
  * Training on plain shapes before exploring an artwork. Its test mode measures whether
@@ -27,7 +28,7 @@ export default function TrainingScreen() {
   const [namesOnHold, setNamesOnHold] = useState(true);
 
   useEffect(() => {
-    speaker.speak(t.training.intro);
+    speaker.introduce(t.training.intro);
     return speaker.stop;
   }, [speaker, t]);
 
@@ -41,14 +42,7 @@ export default function TrainingScreen() {
   return (
     <SafeAreaView style={styles.screen} edges={['top', 'bottom']}>
       <View style={styles.bar}>
-        <Pressable
-          onPress={() => router.back()}
-          style={styles.back}
-          accessibilityRole="button"
-          accessibilityLabel={t.artwork.backLabel}
-        >
-          <Text style={styles.backText}>{t.artwork.back}</Text>
-        </Pressable>
+        <Button label={t.artwork.back} accessibilityLabel={t.artwork.backLabel} onPress={() => router.back()} />
         <Text style={styles.rule}>{t.training.rule}</Text>
       </View>
       <ExplorationBoard
@@ -101,8 +95,6 @@ export default function TrainingScreen() {
 const styles = StyleSheet.create({
   screen: { flex: 1, backgroundColor: '#000' },
   bar: { flexDirection: 'row', alignItems: 'center', gap: 12, padding: 12 },
-  back: { paddingVertical: 8, paddingHorizontal: 12, borderRadius: 8, backgroundColor: '#222' },
-  backText: { color: '#fff', fontSize: 16 },
   rule: { flex: 1, color: '#ffd60a', fontSize: 16, fontWeight: '600' },
   board: { flex: 1 },
   object: { position: 'absolute', borderRadius: 12, alignItems: 'center', justifyContent: 'center' },

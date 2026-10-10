@@ -1,10 +1,11 @@
 import type { ArtworkObject } from '@repo/shared';
-import { Redirect, useLocalSearchParams, useRouter } from 'expo-router';
+import { Redirect, useFocusEffect, useLocalSearchParams, useRouter } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
+import { AccessibilityInfo, Image, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { useScreenReader } from '@/accessibility/screen-reader';
 import { type ArtworkEntry, decodeLayers, localizeManifest, objectNearness, pixelIndex } from '@/artworks/artwork';
 import { ARTWORKS } from '@/artworks/registry';
 import { SOUNDS } from '@/audio/sounds';
@@ -13,6 +14,8 @@ import { useObjectSounds } from '@/exploration/use-object-sounds';
 import { useScreenOrientation } from '@/exploration/use-screen-orientation';
 import { useSpeaker } from '@/exploration/use-speaker';
 import { useLanguage } from '@/i18n/language';
+import { COLORS, SPACING } from '@/theme';
+import { Button } from '@/ui/button';
 
 // The farthest point of the artwork still plays at this share of full loudness
 const FAR_GAIN = 0.55;
@@ -21,6 +24,13 @@ const SOUNDSCAPE_FAR = 0.3;
 const SOUNDSCAPE_NEAR = 0.65;
 // The soundscape returns this long after the finger lifts, so taps do not make it flicker
 const SOUNDSCAPE_RETURN_MS = 1200;
+// Under a screen reader the soundscape plays at this share of its level, below the reader's voice
+const SOUNDSCAPE_SCREEN_READER = 0.5;
+// Android's back gesture fires for a touch starting this close to a side edge, so the painting
+// keeps away from it and a finger put on its edge explores instead of leaving the screen
+const EDGE_GUARD = 24;
+// The caption is for people watching; capped so a large font does not squeeze the painting
+const CAPTION_MAX_SCALE = 1.3;
 
 /** What was spoken last: the artwork (id 0) or an object, and whether its description or story. */
 type Spoken = { id: number; part: 'description' | 'story' };
@@ -53,6 +63,14 @@ function ArtworkExplorer({ entry }: { entry: ArtworkEntry }) {
       ),
     [layers],
   );
+  const screenReader = useScreenReader();
+  const ambient = useMemo(
+    () =>
+      screenReader
+        ? new Map([...soundscape].map(([objectId, level]) => [objectId, level * SOUNDSCAPE_SCREEN_READER]))
+        : soundscape,
+    [screenReader, soundscape],
+  );
   const returnRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const stopSoundscape = useCallback(() => {
     if (returnRef.current) clearTimeout(returnRef.current);
@@ -79,19 +97,43 @@ function ArtworkExplorer({ entry }: { entry: ArtworkEntry }) {
   useScreenOrientation(landscape);
 
   useEffect(() => {
-    // The whole artwork plays whenever no finger is on it; a touch leaves only what is under the finger
-    sounds.setAmbient(soundscape);
     // The screen turns by itself, but a blind user has to be told how to hold the phone
-    speaker.speak(t.artwork.intro(manifest.title, manifest.author, landscape));
-    return () => {
-      speaker.stop();
-      stopSoundscape();
-    };
-  }, [manifest, landscape, speaker, sounds, soundscape, stopSoundscape, t]);
+    speaker.introduce(t.artwork.intro(manifest.title, manifest.author, landscape));
+    return speaker.stop;
+  }, [manifest, landscape, speaker, t]);
+
+  useFocusEffect(
+    useCallback(() => {
+      // The whole artwork plays whenever no finger is on it; a touch leaves only what is under the finger.
+      // Another screen on top, like the details, silences it.
+      sounds.setAmbient(ambient);
+      return () => {
+        speaker.stop();
+        stopSoundscape();
+      };
+    }, [ambient, sounds, speaker, stopSoundscape]),
+  );
 
   const resumeSoundscape = () => {
     if (returnRef.current) clearTimeout(returnRef.current);
-    returnRef.current = setTimeout(() => sounds.setAmbient(soundscape), SOUNDSCAPE_RETURN_MS);
+    returnRef.current = setTimeout(() => sounds.setAmbient(ambient), SOUNDSCAPE_RETURN_MS);
+  };
+
+  const openDetails = () => router.push({ pathname: '/details/[id]', params: { id: manifest.id } });
+
+  // Everything that does not need a finger on the painting, for a screen reader's actions menu
+  const actions = [
+    { name: 'description', label: t.gallery.actionDescription },
+    ...(manifest.story ? [{ name: 'story', label: t.gallery.actionStory }] : []),
+    { name: 'objects', label: t.artwork.actionObjects },
+    { name: 'stop', label: t.artwork.actionStop },
+  ];
+  const handleAction = (name: string) => {
+    // Read by the screen reader itself, in the voice and pace its user has chosen
+    if (name === 'description') AccessibilityInfo.announceForAccessibility(manifest.description);
+    else if (name === 'story' && manifest.story) AccessibilityInfo.announceForAccessibility(manifest.story);
+    else if (name === 'objects') openDetails();
+    else if (name === 'stop') speaker.stop();
   };
 
   const contourAt = (x: number, y: number) => (layers.contours[pixelIndex(layers, x, y)] ?? 0) / 255;
@@ -104,22 +146,16 @@ function ArtworkExplorer({ entry }: { entry: ArtworkEntry }) {
     <SafeAreaView style={styles.screen}>
       <StatusBar hidden />
       <View style={styles.bar}>
-        <Pressable
-          onPress={() => router.back()}
-          style={styles.back}
-          accessibilityRole="button"
-          accessibilityLabel={t.artwork.backLabel}
-        >
-          <Text style={styles.backText}>{t.artwork.back}</Text>
-        </Pressable>
+        <Button label={t.artwork.back} accessibilityLabel={t.artwork.backLabel} onPress={() => router.back()} />
         <View style={styles.caption}>
-          <Text style={styles.captionTitle} numberOfLines={1}>
+          <Text style={styles.captionTitle} numberOfLines={1} maxFontSizeMultiplier={CAPTION_MAX_SCALE}>
             {active ? active.label : `${manifest.title} · ${manifest.author}`}
           </Text>
-          <Text style={styles.captionText} numberOfLines={1}>
+          <Text style={styles.captionText} numberOfLines={2} maxFontSizeMultiplier={CAPTION_MAX_SCALE}>
             {active ? active.shortDescription : `${landscape ? t.artwork.holdLandscape : t.artwork.holdPortrait} · ${t.artwork.gestures}`}
           </Text>
         </View>
+        <Button label={t.details.open} accessibilityLabel={t.details.openLabel} onPress={openDetails} />
       </View>
 
       <View style={styles.area} onLayout={(event) => setArea(event.nativeEvent.layout)}>
@@ -127,6 +163,10 @@ function ArtworkExplorer({ entry }: { entry: ArtworkEntry }) {
           <ExplorationBoard
             style={boardSize}
             accessibilityLabel={t.artwork.boardLabel(manifest.title)}
+            accessibilityHint={t.artwork.boardHint}
+            accessibilityActions={actions}
+            onAccessibilityAction={handleAction}
+            exploreByHover={screenReader}
             objectAt={(x, y) => objectsById.get(layers.objectIds[pixelIndex(layers, x, y)]) ?? null}
             contourAt={contourAt}
             textureOf={(object) => object.texture}
@@ -174,14 +214,18 @@ function ArtworkExplorer({ entry }: { entry: ArtworkEntry }) {
 }
 
 const styles = StyleSheet.create({
-  screen: { flex: 1, backgroundColor: '#000' },
-  bar: { flexDirection: 'row', alignItems: 'center', gap: 12, paddingHorizontal: 12, height: 52 },
-  back: { paddingVertical: 8, paddingHorizontal: 12, borderRadius: 8, backgroundColor: '#222' },
-  backText: { color: '#fff', fontSize: 16 },
+  screen: { flex: 1, backgroundColor: COLORS.background },
+  bar: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: SPACING.m,
+    paddingHorizontal: SPACING.m,
+    paddingVertical: SPACING.xs,
+  },
   caption: { flex: 1 },
-  captionTitle: { color: '#ffd60a', fontSize: 18, fontWeight: '700' },
-  captionText: { color: '#e0e0e0', fontSize: 13 },
-  area: { flex: 1, alignItems: 'center', justifyContent: 'center' },
+  captionTitle: { color: COLORS.accent, fontSize: 18, fontWeight: '700' },
+  captionText: { color: COLORS.textSecondary, fontSize: 13 },
+  area: { flex: 1, alignItems: 'center', justifyContent: 'center', marginHorizontal: EDGE_GUARD },
   // Explicit size: a bundled image otherwise keeps its own pixel size and only a corner would show
   layer: { position: 'absolute', left: 0, top: 0, width: '100%', height: '100%' },
   contours: { opacity: 0.35 },

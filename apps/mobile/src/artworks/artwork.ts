@@ -33,6 +33,11 @@ export function localizeManifest(manifest: ArtworkManifest, language: ArtworkLan
   };
 }
 
+/** The first sentence of the description: enough to decide in the gallery whether to open the painting. */
+export function teaserOf(manifest: ArtworkManifest): string {
+  return /^.+?[.!?](?=\s|$)/.exec(manifest.description)?.[0] ?? manifest.description;
+}
+
 export function decodeLayers(entry: ArtworkEntry): DecodedLayers {
   const { width, height } = entry.manifest.layers;
   const layers = entry.loadLayers();

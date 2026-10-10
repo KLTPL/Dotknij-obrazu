@@ -2,6 +2,7 @@ import * as Speech from 'expo-speech';
 import { useEffect, useMemo, useRef } from 'react';
 import { AppState } from 'react-native';
 
+import { useScreenReader } from '@/accessibility/screen-reader';
 import { useLanguage } from '@/i18n/language';
 
 /**
@@ -20,6 +21,7 @@ async function bestVoice(language: string): Promise<string | undefined> {
 /** Speaks text in the chosen language and lowers the object sound while the voice is talking. */
 export function useSpeaker(setDucked: (ducked: boolean) => void) {
   const { language, t } = useLanguage();
+  const screenReader = useScreenReader();
   const speakingRef = useRef(false);
   const voiceRef = useRef<string | undefined>(undefined);
 
@@ -46,20 +48,29 @@ export function useSpeaker(setDucked: (ducked: boolean) => void) {
       speakingRef.current = false;
       setDucked(false);
     };
+    const speak = (text: string) => {
+      void Speech.stop();
+      Speech.speak(text, {
+        language: t.locale,
+        voice: voiceRef.current,
+        onStart: () => {
+          speakingRef.current = true;
+          setDucked(true);
+        },
+        onDone: finished,
+        onStopped: finished,
+        onError: finished,
+      });
+    };
     return {
-      speak: (text: string) => {
-        void Speech.stop();
-        Speech.speak(text, {
-          language: t.locale,
-          voice: voiceRef.current,
-          onStart: () => {
-            speakingRef.current = true;
-            setDucked(true);
-          },
-          onDone: finished,
-          onStopped: finished,
-          onError: finished,
-        });
+      /** Speech the user asked for with a gesture. */
+      speak,
+      /**
+       * Speech the user did not ask for, like a screen's introduction. A running screen reader
+       * already reads the screen from its labels, so two voices would talk over each other.
+       */
+      introduce: (text: string) => {
+        if (!screenReader) speak(text);
       },
       stop: () => {
         finished();
@@ -67,5 +78,5 @@ export function useSpeaker(setDucked: (ducked: boolean) => void) {
       },
       isSpeaking: () => speakingRef.current,
     };
-  }, [setDucked, t.locale]);
+  }, [setDucked, t.locale, screenReader]);
 }

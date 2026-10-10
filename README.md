@@ -35,7 +35,8 @@ because React Native has no canvas from which pixels could be read.
 ## Stack
 
 - **Mobile:** Expo SDK 57 (React Native), TypeScript, expo-router, expo-audio, expo-haptics,
-  expo-speech, expo-screen-orientation — runs in Expo Go, with no custom native modules
+  expo-speech, expo-screen-orientation, expo-localization, AsyncStorage — runs in Expo Go,
+  with no custom native modules
 - **Pipeline:** Python, Hugging Face transformers (Depth Anything V2 Small, SAM 2.1), Claude API
 - **Monorepo:** pnpm workspaces — `apps/mobile`, `packages/shared`, with `pipeline/` alongside
 
@@ -75,16 +76,42 @@ Wide pictures rotate the screen to landscape so that objects are as large as pos
 shows the picture, white contour lines, a circle under the finger, a yellow highlight of the touched
 object and its caption — this is for an audience that cannot hear the headphones.
 
+### Gallery
+
+The gallery shows one painting per screen; a swipe up or down changes it. When a page settles,
+the painting introduces itself: all its object sounds play quietly together (an "audio
+thumbnail", can be turned off in the settings) and the app reads its title, author and first
+sentence of the description. One tap repeats the introduction, a double tap opens the painting
+for exploring — the same double tap as on the painting itself. On the first launch a welcome
+screen explains the idea and leads to the training.
+
+### Screen readers
+
+The app is built to be used with TalkBack switched on:
+
+- the app never speaks on its own over the screen reader; introductions are skipped and the
+  same information is in the labels TalkBack reads,
+- each gallery page and the painting board have actions (TalkBack: swipe up or down): the
+  description of the painting, its story and the list of objects, read in the user's own
+  TalkBack voice and pace,
+- the **Info** screen holds every description as plain text with headings, so nothing depends
+  on finding an object with a finger,
+- exploring by touch needs TalkBack paused; the app notices it and starts speaking for itself.
+  While TalkBack is on, the board also listens to its explore-by-touch hover events.
+
+The painting keeps 24 dp away from the side edges, so Android's back gesture does not catch a
+finger put on its edge; sliding off the painting is felt as one long buzz, like a frame.
+
 ### Languages
 
-The gallery has a Polish / English switch; the app starts in Polish on a phone set to Polish and
-in English on any other. The switch changes the screens, the spoken instructions, the speech
+Settings and the welcome screen have a Polish / English switch, remembered on the phone; the app
+starts in Polish on a phone set to Polish and in English on any other. The switch changes the screens, the spoken instructions, the speech
 engine's voice and the texts of the artworks. Each package carries its Polish texts and an
 optional `en` copy of them, so an artwork without a translation still works, in Polish.
 
 ### Training
 
-The "Trening" tile in the gallery is a board with three simple shapes (horse, bird, water).
+The "Trening" button in the gallery is a board with three simple shapes (horse, bird, water).
 Before putting on the blindfold, the tester has about 20 s with open eyes to get used to the
 principle "the sound says what, not where". The "Test" tab measures whether a blindfolded person
 finds the indicated object by sound alone (target: under 20 s); the panel below the board is

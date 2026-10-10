@@ -8,22 +8,65 @@ const pl = {
   /** Language of the speech engine. */
   locale: 'pl-PL',
   seconds: (seconds: number) => seconds.toFixed(1).replace('.', ','),
+  welcome: {
+    lead:
+      'Poznawaj obrazy dotykiem i słuchem. Wódź palcem po obrazie: dźwięk mówi, co jest pod palcem, ' +
+      'a telefon drga na krawędziach. Stuknij dwa razy, aby usłyszeć opis.',
+    advice: 'Zacznij od krótkiego treningu na prostych kształtach.',
+    buttons: 'Na dole ekranu są dwa przyciski: trening i galeria.',
+    training: 'Zacznij trening',
+    gallery: 'Przejdź do galerii',
+  },
   gallery: {
-    tagline: 'Poznaj obraz, wodząc po nim palcem. Dźwięk mówi, co jest pod palcem.',
-    language: 'Język',
-    training: 'Trening',
-    trainingText: '20 sekund ćwiczenia na prostych kształtach, zanim otworzysz obraz',
-    trainingHint: 'Krótkie ćwiczenie przed poznawaniem obrazów',
-    voice: 'Głos lektora i tempo mowy ›',
-    voiceLabel: 'Głos lektora',
-    voiceHint: 'Otwiera ustawienia mowy telefonu, gdzie można zmienić głos i tempo',
     heading: 'Galeria',
+    training: 'Trening',
+    trainingHint: 'Krótkie ćwiczenie przed poznawaniem obrazów',
+    settings: 'Ustawienia',
+    explore: 'Poznaj obraz',
     landscape: '↻ Telefon poziomo',
     portrait: 'Telefon pionowo',
-    cardLabel: (title: string, author: string, year: string, objects: number, landscape: boolean) =>
-      `${title}. ${author}, ${year}. Obiektów do odkrycia: ${objects}. ` +
+    objects: (count: number) => `Obiekty do odkrycia: ${count}`,
+    pageLabel: (title: string, author: string, year: string, teaser: string, objects: number, landscape: boolean) =>
+      `${title}. ${author}, ${year}. ${teaser} Obiektów do odkrycia: ${objects}. ` +
       (landscape ? 'Obraz poziomy, telefon trzeba będzie obrócić poziomo.' : 'Obraz pionowy.'),
-    cardHint: 'Otwiera obraz do poznawania dotykiem',
+    pageHint: 'Otwiera obraz do poznawania dotykiem',
+    teaser: (title: string, author: string, year: string, teaser: string) => `${title}. ${author}, ${year}. ${teaser}`,
+    howTo: 'Stuknij dwa razy, aby poznać obraz. Przesuń palcem w górę, aby przejść do następnego.',
+    actionDescription: 'Opis obrazu',
+    actionStory: 'Historia obrazu',
+    actionDetails: 'Szczegóły i lista obiektów',
+    end: 'Koniec galerii',
+    endSpoken: 'Koniec galerii. Przesuń palcem w dół, aby wrócić do obrazów.',
+    backToStart: 'Wróć do pierwszego obrazu',
+  },
+  settings: {
+    title: 'Ustawienia',
+    language: 'Język',
+    preview: 'Dźwięki w galerii',
+    previewText: 'Obraz na ekranie cicho gra swoje dźwięki',
+    voice: 'Głos lektora i tempo mowy',
+    voiceHint: 'Otwiera ustawienia mowy telefonu, gdzie można zmienić głos i tempo',
+    training: 'Trening',
+    welcome: 'Pokaż ekran powitalny',
+    gestures: 'Gesty na obrazie',
+    gestureList: [
+      'Wódź jednym palcem: słychać obiekt pod palcem, a kontury drgają.',
+      'Stuknij dwa razy: nazwa i opis obiektu. Jeszcze raz: jego historia.',
+      'Stuknij dwoma palcami: opis obrazu albo zatrzymanie mowy.',
+      'W galerii przesuń w górę lub w dół, aby zmienić obraz.',
+    ],
+    about: 'O aplikacji',
+    aboutText:
+      'Obrazy pochodzą z domeny publicznej. Dźwięki to nagrania CC0 i z domeny publicznej ' +
+      'oraz nasza własna synteza.',
+  },
+  details: {
+    open: 'Info',
+    openLabel: 'Opis obrazu i lista obiektów',
+    close: 'Zamknij',
+    description: 'Opis',
+    story: 'Historia',
+    objects: 'Obiekty',
   },
   artwork: {
     back: '‹ Galeria',
@@ -39,7 +82,10 @@ const pl = {
       (landscape ? 'Obraz poziomy. Obróć telefon poziomo. ' : 'Obraz pionowy. Trzymaj telefon pionowo. ') +
       'Słyszysz wszystkie dźwięki obrazu naraz. Wódź palcem po ekranie, aby je rozdzielić. ' +
       'Stuknij dwa razy, aby usłyszeć, czego dotykasz. Stuknij dwoma palcami, aby usłyszeć opis obrazu.',
-    boardLabel: (title: string) => `Obraz ${title}. Aby poznawać go palcem, wstrzymaj czytnik ekranu.`,
+    boardLabel: (title: string) => `Obraz ${title}`,
+    boardHint: 'Aby poznawać go palcem, wstrzymaj czytnik ekranu. Opis i lista obiektów są w akcjach.',
+    actionObjects: 'Lista obiektów',
+    actionStop: 'Zatrzymaj mowę',
   },
   training: {
     rule: 'Dźwięk mówi, co jest pod palcem, a nie gdzie.',
@@ -69,22 +115,63 @@ export type Strings = typeof pl;
 const en: Strings = {
   locale: 'en-US',
   seconds: (seconds) => seconds.toFixed(1),
+  welcome: {
+    lead:
+      'Explore paintings by touch and sound. Move a finger across a painting: the sound tells you what is ' +
+      'under your finger, and the phone vibrates on the edges. Double tap to hear a description.',
+    advice: 'Start with a short training on simple shapes.',
+    buttons: 'At the bottom of the screen there are two buttons: training and gallery.',
+    training: 'Start training',
+    gallery: 'Go to the gallery',
+  },
   gallery: {
-    tagline: 'Explore a painting by moving a finger across it. The sound tells you what is under your finger.',
-    language: 'Language',
-    training: 'Training',
-    trainingText: '20 seconds of practice on simple shapes before you open a painting',
-    trainingHint: 'A short exercise before exploring paintings',
-    voice: 'Narrator voice and speech rate ›',
-    voiceLabel: 'Narrator voice',
-    voiceHint: "Opens the phone's speech settings, where you can change the voice and its speed",
     heading: 'Gallery',
+    training: 'Training',
+    trainingHint: 'A short exercise before exploring paintings',
+    settings: 'Settings',
+    explore: 'Explore the painting',
     landscape: '↻ Phone sideways',
     portrait: 'Phone upright',
-    cardLabel: (title, author, year, objects, landscape) =>
-      `${title}. ${author}, ${year}. Objects to discover: ${objects}. ` +
+    objects: (count) => `Objects to discover: ${count}`,
+    pageLabel: (title, author, year, teaser, objects, landscape) =>
+      `${title}. ${author}, ${year}. ${teaser} Objects to discover: ${objects}. ` +
       (landscape ? 'A wide painting, you will need to turn the phone sideways.' : 'A tall painting.'),
-    cardHint: 'Opens the painting for exploring by touch',
+    pageHint: 'Opens the painting for exploring by touch',
+    teaser: (title, author, year, teaser) => `${title}. ${author}, ${year}. ${teaser}`,
+    howTo: 'Double tap to explore the painting. Swipe up to go to the next one.',
+    actionDescription: 'Description of the painting',
+    actionStory: 'Story of the painting',
+    actionDetails: 'Details and list of objects',
+    end: 'End of the gallery',
+    endSpoken: 'End of the gallery. Swipe down to go back to the paintings.',
+    backToStart: 'Back to the first painting',
+  },
+  settings: {
+    title: 'Settings',
+    language: 'Language',
+    preview: 'Sounds in the gallery',
+    previewText: 'The painting on screen quietly plays its sounds',
+    voice: 'Narrator voice and speech rate',
+    voiceHint: "Opens the phone's speech settings, where you can change the voice and its speed",
+    training: 'Training',
+    welcome: 'Show the welcome screen',
+    gestures: 'Gestures on a painting',
+    gestureList: [
+      'Move one finger: you hear the object under it, and outlines vibrate.',
+      'Double tap: name and description of an object. Again: its story.',
+      'Tap with two fingers: description of the painting, or stop speech.',
+      'In the gallery swipe up or down to change the painting.',
+    ],
+    about: 'About',
+    aboutText: 'The paintings are in the public domain. The sounds are CC0 and public domain recordings and our own synthesis.',
+  },
+  details: {
+    open: 'Info',
+    openLabel: 'Description of the painting and list of objects',
+    close: 'Close',
+    description: 'Description',
+    story: 'Story',
+    objects: 'Objects',
   },
   artwork: {
     back: '‹ Gallery',
@@ -100,7 +187,10 @@ const en: Strings = {
       (landscape ? 'A wide painting. Turn the phone sideways. ' : 'A tall painting. Hold the phone upright. ') +
       'You can hear all the sounds of the painting at once. Move a finger across the screen to tell them apart. ' +
       'Double tap to hear what you are touching. Tap with two fingers to hear a description of the painting.',
-    boardLabel: (title) => `Painting: ${title}. To explore it with a finger, pause the screen reader.`,
+    boardLabel: (title) => `Painting: ${title}`,
+    boardHint: 'To explore it with a finger, pause the screen reader. The description and the list of objects are in the actions.',
+    actionObjects: 'List of objects',
+    actionStop: 'Stop speech',
   },
   training: {
     rule: 'The sound tells you what is under your finger, not where.',
