@@ -13,9 +13,11 @@ import { useObjectSounds } from '@/exploration/use-object-sounds';
 import { useScreenOrientation } from '@/exploration/use-screen-orientation';
 import { useSpeaker } from '@/exploration/use-speaker';
 
-// The farthest point of the artwork still plays at this share of full volume
-const FAR_GAIN = 0.3;
+// The farthest point of the artwork still plays at this share of full loudness
+const FAR_GAIN = 0.55;
 const GESTURES = 'Przytrzymaj: nazwa · stuknij 2 razy: opis obiektu · dwa palce: opis obrazu';
+const HOLD_LANDSCAPE = '↻ Trzymaj telefon poziomo';
+const HOLD_PORTRAIT = 'Trzymaj telefon pionowo';
 
 export default function ArtworkScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -39,15 +41,18 @@ function ArtworkExplorer({ entry }: { entry: ArtworkEntry }) {
   const [area, setArea] = useState({ width: 0, height: 0 });
 
   const aspectRatio = layers.width / layers.height;
-  useScreenOrientation(aspectRatio > 1);
+  const landscape = aspectRatio > 1;
+  useScreenOrientation(landscape);
 
   useEffect(() => {
+    // The screen turns by itself, but a blind user has to be told how to hold the phone
+    const hold = landscape ? 'Obraz poziomy. Obróć telefon poziomo.' : 'Obraz pionowy. Trzymaj telefon pionowo.';
     speaker.speak(
-      `${manifest.title}. ${manifest.author}. Wódź palcem po ekranie. ` +
+      `${manifest.title}. ${manifest.author}. ${hold} Wódź palcem po ekranie. ` +
         'Stuknij dwoma palcami, aby usłyszeć opis obrazu.',
     );
     return speaker.stop;
-  }, [manifest, speaker]);
+  }, [manifest, landscape, speaker]);
 
   // The largest board with the artwork's proportions that fits the free area
   const boardWidth = Math.min(area.width, area.height * aspectRatio);
@@ -70,7 +75,7 @@ function ArtworkExplorer({ entry }: { entry: ArtworkEntry }) {
             {active ? active.label : `${manifest.title} · ${manifest.author}`}
           </Text>
           <Text style={styles.captionText} numberOfLines={1}>
-            {active ? active.shortDescription : GESTURES}
+            {active ? active.shortDescription : `${landscape ? HOLD_LANDSCAPE : HOLD_PORTRAIT} · ${GESTURES}`}
           </Text>
         </View>
       </View>

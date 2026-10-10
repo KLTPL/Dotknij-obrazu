@@ -140,7 +140,8 @@ builda natywnego zamiast Expo Go.
 
 **Dlaczego wszystkie pętle grają cały czas?** Start odtwarzania po dotknięciu dodaje słyszalne
 opóźnienie. Każdy obiekt ma odtwarzacz grający z głośnością 0, a dotknięcie tylko go podgłaśnia
-(w 90 ms), więc dźwięk nadąża za palcem.
+(w ok. 140 ms), więc dźwięk nadąża za palcem. Poprzedni obiekt wycisza się wolniej, więc na granicy
+dźwięki przenikają się zamiast przeskakiwać.
 
 **Kto za to zapłaci?** Muzea i galerie: publiczne instytucje kultury obowiązuje ustawa
 o zapewnianiu dostępności z 2019 r. Reliefy dotykowe są drogie i powstają dla pojedynczych dzieł,

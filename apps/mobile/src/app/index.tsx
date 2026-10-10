@@ -6,13 +6,17 @@ import type { ArtworkEntry } from '@/artworks/artwork';
 import { ARTWORKS } from '@/artworks/registry';
 
 function ArtworkCard({ entry }: { entry: ArtworkEntry }) {
-  const { id, title, author, year, institution, license, objects } = entry.manifest;
+  const { id, title, author, year, institution, license, objects, layers } = entry.manifest;
+  const landscape = layers.width > layers.height;
   return (
     <Link href={{ pathname: '/artwork/[id]', params: { id } }} asChild>
       <Pressable
         style={styles.card}
         accessibilityRole="button"
-        accessibilityLabel={`${title}. ${author}, ${year}. Obiektów do odkrycia: ${objects.length}.`}
+        accessibilityLabel={
+          `${title}. ${author}, ${year}. Obiektów do odkrycia: ${objects.length}. ` +
+          (landscape ? 'Obraz poziomy, telefon trzeba będzie obrócić poziomo.' : 'Obraz pionowy.')
+        }
         accessibilityHint="Otwiera obraz do poznawania dotykiem"
       >
         <Image source={entry.image} style={styles.thumbnail} resizeMode="cover" />
@@ -21,6 +25,7 @@ function ArtworkCard({ entry }: { entry: ArtworkEntry }) {
           <Text style={styles.text}>
             {author}, {year}
           </Text>
+          <Text style={styles.orientation}>{landscape ? '↻ Telefon poziomo' : 'Telefon pionowo'}</Text>
           <Text style={styles.muted}>
             {institution} · {license}
           </Text>
@@ -83,5 +88,6 @@ const styles = StyleSheet.create({
   cardText: { padding: 14, gap: 2 },
   title: { color: '#fff', fontSize: 22, fontWeight: '700' },
   text: { color: '#e0e0e0', fontSize: 16 },
+  orientation: { color: '#ffd60a', fontSize: 14, fontWeight: '600', marginTop: 4 },
   muted: { color: '#a0a0a0', fontSize: 13 },
 });
