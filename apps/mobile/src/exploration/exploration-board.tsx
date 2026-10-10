@@ -30,11 +30,13 @@ type Props<T extends { id: string | number }> = {
   /** Surface of an object, felt while the finger moves over it. */
   textureOf?: (object: T) => ArtworkTexture;
   onTouchStart?: () => void;
+  /** Every finger left the board. */
+  onTouchEnd?: () => void;
   onMove?: (x: number, y: number) => void;
   /** Fires on entering or leaving an object, and with null when the finger lifts. */
   onObjectChange: (object: T | null) => void;
   /** The finger rested in one place; the object is null on the background. */
-  onHold: (object: T | null, x: number, y: number) => void;
+  onHold?: (object: T | null, x: number, y: number) => void;
   onDoubleTap: (object: T | null) => void;
   onTwoFingerTap?: () => void;
   accessibilityLabel?: string;
@@ -52,7 +54,7 @@ const distance = (a: Point, b: Point) => Math.hypot(a.x - b.x, a.y - b.y);
  */
 export function ExplorationBoard<T extends { id: string | number }>(props: Props<T>) {
   const { objectAt, contourAt, textureOf, onTouchStart, onMove, onObjectChange } = props;
-  const { onHold, onDoubleTap, onTwoFingerTap } = props;
+  const { onTouchEnd, onHold, onDoubleTap, onTwoFingerTap } = props;
   const haptics = useTouchHaptics();
   const borderCue = useBorderCue();
   const sizeRef = useRef({ width: 1, height: 1 });
@@ -83,6 +85,7 @@ export function ExplorationBoard<T extends { id: string | number }>(props: Props
 
   const restartHold = (object: T | null, point: Point) => {
     cancelHold();
+    if (!onHold) return;
     holdAnchorRef.current = point;
     const { x, y } = normalized(point);
     holdTimerRef.current = setTimeout(() => onHold(object, x, y), HOLD_MS);
@@ -138,6 +141,7 @@ export function ExplorationBoard<T extends { id: string | number }>(props: Props
   const handleRelease = (event: GestureResponderEvent) => {
     const wasTwoFingers = twoFingersRef.current;
     leaveObject();
+    onTouchEnd?.();
     if (wasTwoFingers) {
       lastTapRef.current = null;
       if (Date.now() - touchStartedAtRef.current < TWO_FINGER_TAP_MS) onTwoFingerTap?.();
@@ -174,7 +178,10 @@ export function ExplorationBoard<T extends { id: string | number }>(props: Props
         if (!twoFingersRef.current && event.nativeEvent.touches.length < 2) track(pointOf(event));
       }}
       onResponderRelease={handleRelease}
-      onResponderTerminate={leaveObject}
+      onResponderTerminate={() => {
+        leaveObject();
+        onTouchEnd?.();
+      }}
     >
       {/* pointerEvents="none" keeps locationX/Y relative to the board itself */}
       <View pointerEvents="none" style={StyleSheet.absoluteFill}>

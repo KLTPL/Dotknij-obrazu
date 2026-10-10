@@ -10,7 +10,7 @@ temat „Code For Culture”, kategoria **Sztuka**.
 
 **Dotknij obrazu** — aplikacja mobilna, w której osoba niewidoma poznaje obraz, wodząc
 palcem po ekranie. Pod palcem gra dźwięk obiektu (koń → tętent), na krawędziach obiektów
-telefon wibruje, przytrzymanie palca odczytuje nazwę obiektu. Dźwięk mówi **co** jest
+telefon wibruje, podwójne stuknięcie odczytuje nazwę i opis obiektu. Dźwięk mówi **co** jest
 pod palcem, a nie **gdzie** — położenie palca użytkownik zna z dotyku.
 
 Aplikacja ma działać **lokalnie** — nie ma deploymentu, nie dodawaj konfiguracji CI/CD ani hostingu.

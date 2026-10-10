@@ -4,8 +4,8 @@ Projekt drużyny na hackathon BEST Hacks 2026 (Politechnika Wrocławska, 10–11
 temat „Code For Culture”, kategoria Sztuka.
 
 Aplikacja mobilna, dzięki której osoba niewidoma poznaje obraz, wodząc palcem po ekranie:
-pod palcem gra dźwięk obiektu, na krawędziach obiektów telefon wibruje, a przytrzymanie
-palca odczytuje nazwę obiektu.
+pod palcem gra dźwięk obiektu, na krawędziach obiektów telefon wibruje, a podwójne
+stuknięcie odczytuje nazwę i opis obiektu.
 
 ## Jak to działa
 
@@ -59,16 +59,17 @@ Potrzebne są **słuchawki przewodowe** — Bluetooth opóźnia dźwięk względ
 | wodzenie jednym palcem    | dźwięk obiektu pod palcem; granicę obiektu zaznacza sygnał i wibracja |
 | jazda palcem po konturze  | pulsująca wibracja, która gęstnieje na środku linii; kontury bliższych rzeczy są mocniejsze |
 | ruch palca wewnątrz obiektu | faktura: gładka, miękka, ziarnista albo szorstka |
-| przytrzymanie palca       | nazwa obiektu, a na konturze: czyj to obrys       |
-| podwójne stuknięcie       | dłuższy opis obiektu                              |
-| stuknięcie dwoma palcami  | opis całego obrazu z pejzażem dźwiękowym albo przerwanie mowy |
+| podwójne stuknięcie       | nazwa i opis obiektu                              |
+| stuknięcie dwoma palcami  | opis całego obrazu albo przerwanie mowy           |
 
 Wejście w obiekt to dwa wznoszące się tony i dwa stuknięcia wibracji, wyjście na tło — dwa
 opadające tony i jedno stuknięcie. Dźwięki obiektów przenikają się płynnie, więc dopiero ten
 sygnał mówi dokładnie, w którym miejscu jest granica.
 
-Po otwarciu obrazu słychać **pejzaż dźwiękowy**: wszystkie obiekty grają naraz, bliższe głośniej.
-Pierwsze dotknięcie go wycisza i zostaje tylko dźwięk spod palca. Pejzaż wraca pod opisem całego obrazu.
+Gdy nikt nie dotyka ekranu, słychać **pejzaż dźwiękowy**: wszystkie obiekty grają naraz, bliższe głośniej.
+Dotknięcie go wycisza i zostaje tylko dźwięk spod palca; pejzaż wraca chwilę po oderwaniu palca.
+Aplikacja sama nie wypowiada nazw — obiekt poznaje się po dźwięku i wibracji, a nazwę i opis
+podaje dopiero podwójne stuknięcie.
 
 Szerokie obrazy obracają ekran do poziomu, żeby obiekty były jak największe. Na ekranie widać
 obraz, białe linie konturów, kółko pod palcem, żółte podświetlenie dotykanego obiektu i jego podpis — to dla widowni,
@@ -154,8 +155,7 @@ wskazanego widoku bez wyłączania VoiceOver — to naturalny następny krok w n
 **Jak działa wodzenie po konturach?** Telefon nie potrafi wibrować z zadaną siłą, więc siłę
 udajemy rytmem: na skraju konturu są rzadkie, krótkie impulsy, a na środku linii zlewają się
 w ciągłe brzęczenie. Zjechanie z linii od razu słychać w palcu, więc da się obrysować sylwetkę
-konia albo pień drzewa. Kontur rzeczy bliskiej widzowi wibruje mocniej niż kontur tła, a po
-przytrzymaniu palca na linii aplikacja mówi, czyj to obrys. Wewnątrz obiektu czuć jego fakturę:
+konia albo pień drzewa. Kontur rzeczy bliskiej widzowi wibruje mocniej niż kontur tła. Wewnątrz obiektu czuć jego fakturę:
 jeden impuls na każde kilkanaście punktów ruchu palca, więc nieruchomy palec nie czuje nic —
 tak jak na prawdziwej powierzchni.
 
