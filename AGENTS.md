@@ -1,119 +1,123 @@
 # AGENTS.md
 
-Instrukcje dla agentów AI (Claude Code, Codex, Cursor itd.) pracujących w tym repo.
-`CLAUDE.md` tylko importuje ten plik — edytuj tutaj.
+Instructions for AI agents (Claude Code, Codex, Cursor, etc.) working in this repo.
+`CLAUDE.md` only imports this file — edit here.
 
-## Kontekst
+## Context
 
-Projekt na hackathon **BEST Hacks 2026** (10–11.10.2026, 24 h, drużyna 2–4 osoby),
-temat „Code For Culture”, kategoria **Sztuka**.
+A project for the **BEST Hacks 2026** hackathon (10–11 Oct 2026, 24 h, team of 2–4), theme
+"Code For Culture", category **Art**.
 
-**Dotknij obrazu** — aplikacja mobilna, w której osoba niewidoma poznaje obraz, wodząc
-palcem po ekranie. Pod palcem gra dźwięk obiektu (koń → tętent), na krawędziach obiektów
-telefon wibruje, podwójne stuknięcie odczytuje nazwę i opis obiektu. Dźwięk mówi **co** jest
-pod palcem, a nie **gdzie** — położenie palca użytkownik zna z dotyku.
+**Dotknij obrazu** ("Touch the picture") is a mobile app in which a blind person explores a
+picture by moving a finger across the screen. The sound of the object under the finger plays
+(horse → hoofbeats), the phone vibrates on object edges, and a double tap reads out the object's
+name and description. The sound says **what** is under the finger, not **where** — the user
+knows the finger's position from touch.
 
-Aplikacja ma działać **lokalnie** — nie ma deploymentu, nie dodawaj konfiguracji CI/CD ani hostingu.
+The app runs **locally** — there is no deployment, so do not add CI/CD or hosting configuration.
 
-### Co wynika z regulaminu (`Regulamin.pdf`)
+### What follows from the rules (`Regulamin.pdf`)
 
-- Cały projekt musi powstać w trakcie hackathonu i być pracą własną — nie kopiuj cudzych
-  rozwiązań; biblioteki open source są OK.
-- Zmiany w projekcie po upływie czasu = dyskwalifikacja. Nie commituj i nie pushuj po deadlinie.
-- Rozwiązanie trafia do publicznego repozytorium — **żadnych sekretów w repo** (`.env` jest w `.gitignore`).
-- Zakaz rozwiązań naruszających bezpieczeństwo / wykorzystujących podatności oraz treści
-  obraźliwych, politycznych, religijnych, wulgarnych (dotyczy też obrazów, dźwięków, tekstów w UI i nazw).
-  Dobierając dzieła, omijaj sceny religijne.
-- Naruszenie praw autorskich = dyskwalifikacja: tylko dzieła z domeny publicznej, dźwięki
-  CC0 lub z domeny publicznej albo wygenerowane przez nas.
-- Kryteria oceny (to jest priorytet przy każdej decyzji):
-  1. **Stopień realizacji** (0–10) — działający kod, nie makieta; zgodność z tematem.
-  2. **Aspekt techniczny** (0–10) — sensowna, skalowalna architektura; zespół musi umieć
-     uzasadnić decyzje na Q&A, więc kod ma być prosty i zrozumiały.
-  3. **Design i funkcjonalność** (0–10) — intuicyjny UX/UI, funkcje realnie rozwiązują problem.
-  4. **Kreatywność i innowacyjność** (0–10).
-  5. Etap 2: **przydatność / potencjał biznesowy** (0–10) i **prezentacja** (0–5, 5 minut).
+- The whole project must be created during the hackathon and be our own work — do not copy
+  other people's solutions; open source libraries are fine.
+- Changes to the project after the deadline = disqualification. Do not commit or push after the deadline.
+- The solution goes into a public repository — **no secrets in the repo** (`.env` is in `.gitignore`).
+- No solutions that compromise security / exploit vulnerabilities, and no offensive, political,
+  religious or vulgar content (this includes images, sounds, UI texts and names).
+  When choosing artworks, avoid religious scenes.
+- Copyright infringement = disqualification: only public domain artworks, CC0 or public domain
+  sounds, or ones we generated ourselves.
+- Judging criteria (this is the priority for every decision):
+  1. **Degree of completion** (0–10) — working code, not a mockup; fit with the theme.
+  2. **Technical aspect** (0–10) — sensible, scalable architecture; the team must be able to
+     justify decisions in the Q&A, so the code must be simple and understandable.
+  3. **Design and functionality** (0–10) — intuitive UX/UI, features that really solve the problem.
+  4. **Creativity and innovation** (0–10).
+  5. Stage 2: **usefulness / business potential** (0–10) and **presentation** (0–5, 5 minutes).
 
-Wniosek: najpierw działający rdzeń (palec → obiekt → dźwięk + wibracja), potem dopieszczanie.
-Bez nadmiarowych abstrakcji, bez funkcji „na zapas”.
+Takeaway: a working core first (finger → object → sound + vibration), polish later.
+No needless abstractions, no features "just in case".
 
 ## Stack
 
-| Warstwa  | Technologia                                                    |
+| Layer    | Technology                                                     |
 | -------- | -------------------------------------------------------------- |
-| Monorepo | pnpm workspaces (`nodeLinker: hoisted` — wymagane przez Metro) |
+| Monorepo | pnpm workspaces (`nodeLinker: hoisted` — required by Metro)    |
 | Mobile   | Expo SDK 57 (React Native) + TypeScript + expo-router          |
-| Audio    | expo-audio (pętle grają stale, zmienia się tylko głośność)     |
-| Haptyka  | expo-haptics                                                   |
-| Mowa     | expo-speech (systemowy TTS, offline)                           |
-| Wspólne  | `@repo/shared` — typy formatu paczki dzieła (tylko typy)       |
+| Audio    | expo-audio (loops play constantly, only the volume changes)    |
+| Haptics  | expo-haptics                                                   |
+| Speech   | expo-speech (system TTS, offline)                              |
+| Shared   | `@repo/shared` — artwork package format types (types only)     |
 | Pipeline | Python 3.10–3.12: transformers (Depth Anything V2, SAM 2.1), Claude API |
 
-## Struktura
+## Structure
 
 ```
 apps/mobile/
-  assets/artworks/<id>/   paczki dzieł — WYNIK pipeline'u, nie edytować ręcznie
-  assets/sounds/          pętle WAV — WYNIK pipeline/sounds.py (nagrania CC0 i z domeny publicznej) i scripts/generate-sounds.mjs
-  assets/cues/            sygnały granicy obiektu — WYNIK scripts/generate-sounds.mjs
-  src/app/                ekrany: index (galeria), artwork/[id] (eksploracja), training
-  src/artworks/           odczyt paczki (dekodowanie warstw), registry.ts (generowany)
-  src/exploration/        ExplorationBoard + hooki dźwięku, mowy i orientacji — wspólne
-                          dla eksploracji dzieła i treningu
-  src/readability-test/   plansza treningowa i pomiar czasu
-packages/shared/          kontrakt paczki: src/artwork-package.ts
+  assets/artworks/<id>/   artwork packages — OUTPUT of the pipeline, do not edit by hand
+  assets/sounds/          WAV loops — OUTPUT of pipeline/sounds.py (CC0 and public domain
+                          recordings) and scripts/generate-sounds.mjs
+  assets/cues/            object boundary cues — OUTPUT of scripts/generate-sounds.mjs
+  src/app/                screens: index (gallery), artwork/[id] (exploration), training
+  src/artworks/           package reader (layer decoding), registry.ts (generated)
+  src/exploration/        ExplorationBoard + sound, speech and orientation hooks — shared
+                          by artwork exploration and training
+  src/readability-test/   training board and time measurement
+packages/shared/          package contract: src/artwork-package.ts
 pipeline/
-  artworks/<id>/          source.json (źródło i licencja), objects.json (obiekty i opisy)
-  build.py                orkiestracja; kroki w describe.py, depth.py, segment.py, pack.py
-  import_met.py           source.json z API The Met
-  sounds.py, sounds.json  pętle dźwięków wycinane z nagrań CC0 i z domeny publicznej
-  work/                   cache (gitignored): pobrane obrazy, głębia, podglądy masek
+  artworks/<id>/          source.json (source and license), objects.json (objects and descriptions)
+  build.py                orchestration; steps in describe.py, depth.py, segment.py, pack.py
+  import_met.py           source.json from The Met API
+  sounds.py, sounds.json  sound loops cut from CC0 and public domain recordings
+  work/                   cache (gitignored): downloaded images, depth, mask previews
 ```
 
-## Komendy (z roota)
+## Commands (from the root)
 
 ```bash
 pnpm install
-pnpm dev              # Expo dev server — zeskanuj QR w Expo Go na telefonie
+pnpm dev              # Expo dev server — scan the QR code in Expo Go on a phone
 pnpm lint | typecheck
-pipeline/.venv/bin/python pipeline/sounds.py           # po zmianie sounds.json
-pipeline/.venv/bin/python pipeline/build.py --all      # po zmianie objects.json lub pipeline'u
+pipeline/.venv/bin/python pipeline/sounds.py           # after changing sounds.json
+pipeline/.venv/bin/python pipeline/build.py --all      # after changing objects.json or the pipeline
 ```
 
-Sprawdzenie bundla bez telefonu: `npx expo export --platform android --output-dir <katalog tymczasowy>`
-w `apps/mobile`.
+Checking the bundle without a phone: `npx expo export --platform android --output-dir <temp dir>`
+in `apps/mobile`.
 
-Dodawanie zależności do aplikacji: `pnpm --filter @repo/mobile exec expo install <pkg>`
-(dobiera wersję zgodną z SDK). Jeśli nowa paczka ma skrypt instalacyjny, pnpm go
-zablokuje — dopisz ją do `allowBuilds` w `pnpm-workspace.yaml`.
+Adding dependencies to the app: `pnpm --filter @repo/mobile exec expo install <pkg>`
+(picks the version compatible with the SDK). If a new package has an install script, pnpm
+will block it — add the package to `allowBuilds` in `pnpm-workspace.yaml`.
 
-## Paczka dzieła
+## Artwork package
 
-- Kontrakt: `packages/shared/src/artwork-package.ts`. Zmiana formatu = zmiana typów,
-  `pipeline/pack.py` i `apps/mobile/src/artworks/artwork.ts` w jednym commicie.
-- Warstwy (id obiektu, głębia, kontury) to surowe bajty w base64, nie PNG. Warstwa konturów
-  to bliskość linii (0 kilka pikseli od konturu, na konturze tym więcej, im bliżej widza);
-  steruje wibracją w `src/exploration/use-touch-haptics.ts`, gdzie są też faktury obiektów.
-- Nowy dźwięk: wpis w `pipeline/sounds.json` (nagranie CC0 z bigsoundbank.com albo plik
-  w domenie publicznej z polami `url` i `license`, np. z Wikimedia Commons; początek i długość
-  fragmentu) → `pipeline/sounds.py`, potem wpis w `apps/mobile/src/audio/sounds.ts`.
-  Pętla nie może mieć ciszy dłuższej niż ok. 0,5 s, bo palec na obiekcie nie może trafić
-  w pustkę. Tylko CC0 lub domena publiczna z atrybucją (`ATTRIBUTION.md` generuje się sam)
-  albo własna synteza w `apps/mobile/scripts/generate-sounds.mjs`.
-- Nowe dzieło: `source.json` → `build.py` → poprawki w `objects.json` (pole `polygons`
-  zastępuje maskę z SAM, a z `"refine": true` SAM szuka dokładnych sylwetek wewnątrz wielokąta) → `build.py` → podgląd w `pipeline/work/<id>/preview.jpg`.
-  Tylko domena publiczna / CC0, bez scen religijnych i politycznych.
-- Obiekt musi być na ekranie telefonu co najmniej wielkości opuszka palca.
+- Contract: `packages/shared/src/artwork-package.ts`. Changing the format means changing the
+  types, `pipeline/pack.py` and `apps/mobile/src/artworks/artwork.ts` in a single commit.
+- Layers (object id, depth, contours) are raw bytes in base64, not PNG. The contour layer is
+  line proximity (0 a few pixels away from the contour, higher on the contour, the more so the
+  closer to the viewer); it drives the vibration in `src/exploration/use-touch-haptics.ts`,
+  which also holds the object textures.
+- New sound: an entry in `pipeline/sounds.json` (a CC0 recording from bigsoundbank.com, or a
+  public domain file with `url` and `license` fields, e.g. from Wikimedia Commons; start and
+  length of the fragment) → `pipeline/sounds.py`, then an entry in `apps/mobile/src/audio/sounds.ts`.
+  A loop must not contain silence longer than about 0.5 s, because a finger on an object must
+  not land in a void. Only CC0 or public domain with attribution (`ATTRIBUTION.md` is generated
+  automatically), or our own synthesis in `apps/mobile/scripts/generate-sounds.mjs`.
+- New artwork: `source.json` → `build.py` → fixes in `objects.json` (the `polygons` field
+  replaces the SAM mask, and with `"refine": true` SAM looks for exact silhouettes inside the
+  polygon) → `build.py` → preview in `pipeline/work/<id>/preview.jpg`.
+  Public domain / CC0 only, no religious or political scenes.
+- An object must be at least the size of a fingertip on the phone screen.
 
-## Konwencje
+## Conventions
 
-- TypeScript strict, bez `any` tam, gdzie da się tego uniknąć.
-- Kod, nazwy i commity po angielsku; teksty w UI po polsku.
-- Po zmianach uruchom `pnpm typecheck` i `pnpm lint`.
-- Małe commity, komunikaty w stylu `feat: ...`, `fix: ...`.
-- Aplikacja ma działać w Expo Go (nikt w zespole nie musi mieć Android SDK), więc bez modułów
-  natywnych spoza Expo Go.
-- Gesty, haptykę i opóźnienie dźwięku da się sprawdzić tylko na telefonie — po zmianach w
-  `src/exploration/` napisz, co trzeba przetestować ręcznie.
-- Pliki poniżej ok. 300 linii; komentarze tłumaczą „dlaczego”, bo jury pyta o kod.
-- Python w `pipeline/`: komunikaty dla użytkownika po polsku, kod i komentarze po angielsku.
+- TypeScript strict, no `any` where it can be avoided.
+- Code, names and commits in English; UI texts in Polish.
+- After changes run `pnpm typecheck` and `pnpm lint`.
+- Small commits, messages in the style `feat: ...`, `fix: ...`.
+- The app must work in Expo Go (nobody on the team needs the Android SDK), so no native modules
+  outside Expo Go.
+- Gestures, haptics and audio latency can only be checked on a phone — after changes in
+  `src/exploration/`, write down what has to be tested manually.
+- Files under about 300 lines; comments explain "why", because the jury asks about the code.
+- Python in `pipeline/`: user-facing messages in Polish, code and comments in English.
