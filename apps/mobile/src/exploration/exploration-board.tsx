@@ -10,6 +10,8 @@ import {
   type ViewStyle,
 } from 'react-native';
 
+import { useContourHaptics } from './use-contour-haptics';
+
 const HOLD_MS = 600;
 const HOLD_SLOP_PX = 12;
 const DOUBLE_TAP_MS = 350;
@@ -22,8 +24,8 @@ type Point = { x: number; y: number };
 type Props<T extends { id: string | number }> = {
   /** Object under a point. Here and below x and y are 0..1 of the board. */
   objectAt: (x: number, y: number) => T | null;
-  /** True on a border between objects. Without it a border is where the object changes. */
-  isEdge?: (x: number, y: number) => boolean;
+  /** Closeness to a contour that can be traced, 0..1; felt as vibration. */
+  contourAt?: (x: number, y: number) => number;
   onTouchStart?: () => void;
   onMove?: (x: number, y: number) => void;
   /** Fires on entering or leaving an object, and with null when the finger lifts. */
@@ -40,14 +42,14 @@ type Props<T extends { id: string | number }> = {
 const distance = (a: Point, b: Point) => Math.hypot(a.x - b.x, a.y - b.y);
 
 /**
- * Touch surface explored with one finger: reports the object under the finger,
- * ticks on every border and recognizes hold, double tap and two-finger tap.
+ * Touch surface explored with one finger: reports the object under the finger, ticks when
+ * the object changes, vibrates along contours and recognizes hold, double tap and two-finger tap.
  */
 export function ExplorationBoard<T extends { id: string | number }>(props: Props<T>) {
-  const { objectAt, isEdge, onTouchStart, onMove, onObjectChange, onHold, onDoubleTap, onTwoFingerTap } = props;
+  const { objectAt, contourAt, onTouchStart, onMove, onObjectChange, onHold, onDoubleTap, onTwoFingerTap } = props;
+  const contourHaptics = useContourHaptics();
   const sizeRef = useRef({ width: 1, height: 1 });
   const currentRef = useRef<T['id'] | null>(null);
-  const onEdgeRef = useRef(false);
   const holdTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const holdAnchorRef = useRef<Point>({ x: 0, y: 0 });
   const lastTapRef = useRef<{ time: number; point: Point } | null>(null);
@@ -80,9 +82,9 @@ export function ExplorationBoard<T extends { id: string | number }>(props: Props
   const leaveObject = () => {
     cancelHold();
     cursorOpacity.setValue(0);
+    contourHaptics.setStrength(0);
     if (currentRef.current !== null) onObjectChange(null);
     currentRef.current = null;
-    onEdgeRef.current = false;
   };
 
   const track = (point: Point) => {
@@ -90,16 +92,13 @@ export function ExplorationBoard<T extends { id: string | number }>(props: Props
     cursor.setValue(point);
     onMove?.(x, y);
 
+    contourHaptics.setStrength(contourAt?.(x, y) ?? 0);
+
     const object = objectAt(x, y);
     const id = object?.id ?? null;
-    const onEdge = isEdge?.(x, y) ?? false;
-    const changed = id !== currentRef.current;
-    // One tick per border: when the finger enters the edge band,
-    // or when the object changes because a fast finger jumped over the band
-    if ((onEdge && !onEdgeRef.current) || (changed && !onEdge)) void Haptics.selectionAsync();
-    onEdgeRef.current = onEdge;
-
-    if (changed) {
+    if (id !== currentRef.current) {
+      // A single distinct tick marks the moment the sound changes
+      void Haptics.selectionAsync();
       currentRef.current = id;
       onObjectChange(object);
       restartHold(object, point);

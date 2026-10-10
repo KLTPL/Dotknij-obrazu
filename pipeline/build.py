@@ -24,7 +24,7 @@ from PIL import Image
 from depth import estimate_depth
 from describe import describe_artwork
 from pack import write_package, write_preview, write_registry
-from segment import clean_mask, edge_layer, merge_masks, polygon_mask, sam_masks
+from segment import clean_mask, contour_layer, merge_masks, polygon_mask, sam_masks
 
 PIPELINE_DIR = Path(__file__).parent
 ARTWORKS_DIR = PIPELINE_DIR / "artworks"
@@ -94,10 +94,13 @@ def build(artwork_id: str, redo: set[str]) -> None:
     depth = np.load(depth_file)
 
     print("  segmentuję obiekty")
-    object_ids = merge_masks(object_masks(image, described["objects"], size))
+    masks = object_masks(image, described["objects"], size)
+    object_ids = merge_masks(masks)
+    sam_segmented = [mask for item, mask in zip(described["objects"], masks) if not item.get("polygons")]
+    contours = contour_layer(depth, sam_segmented)
 
-    write_package(PACKAGES_DIR / artwork_id, source, described, image, object_ids, depth, edge_layer(object_ids))
-    write_preview(work_dir / "preview.jpg", image, object_ids, depth)
+    write_package(PACKAGES_DIR / artwork_id, source, described, image, object_ids, depth, contours)
+    write_preview(work_dir / "preview.jpg", image, object_ids, depth, contours)
     print(f"  zapisano {PACKAGES_DIR / artwork_id}, podgląd masek: {work_dir / 'preview.jpg'}")
 
 

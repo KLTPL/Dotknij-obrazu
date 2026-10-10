@@ -6,6 +6,7 @@
  *   layers.json       ArtworkLayers
  *   image.jpg         the artwork shown on screen
  *   highlight-<n>.png transparent overlay marking object <n> (same aspect ratio as the image)
+ *   contours.png      transparent overlay drawing the contour layer as white lines
  */
 
 export type ArtworkObject = {
@@ -48,6 +49,9 @@ export type ArtworkLayers = {
   objectIds: string;
   /** 0 = far, 255 = near. */
   depth: string;
-  /** Non-zero on borders between objects (and between an object and the background). */
-  edges: string;
+  /**
+   * Closeness to the nearest contour worth tracing with a finger: 255 on the contour,
+   * falling to 0 a few pixels away. Drives the vibration.
+   */
+  contours: string;
 };

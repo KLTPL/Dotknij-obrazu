@@ -7,6 +7,8 @@ export type ArtworkEntry = {
   manifest: ArtworkManifest;
   /** Metro asset id of image.jpg. */
   image: number;
+  /** Metro asset id of contours.png. */
+  contours: number;
   /** Deferred, because layers.json is large and only the opened artwork needs it. */
   loadLayers: () => ArtworkLayers;
   /** Metro asset ids of the highlight overlays, by object id. */
@@ -18,7 +20,7 @@ export type DecodedLayers = {
   height: number;
   objectIds: Uint8Array;
   depth: Uint8Array;
-  edges: Uint8Array;
+  contours: Uint8Array;
 };
 
 export function decodeLayers(entry: ArtworkEntry): DecodedLayers {
@@ -29,7 +31,7 @@ export function decodeLayers(entry: ArtworkEntry): DecodedLayers {
     height,
     objectIds: decodeBase64(layers.objectIds),
     depth: decodeBase64(layers.depth),
-    edges: decodeBase64(layers.edges),
+    contours: decodeBase64(layers.contours),
   };
 }
 

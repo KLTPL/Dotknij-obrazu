@@ -14,13 +14,14 @@ obraz z domeny publicznej
         │  pipeline/ (Python)
         ├─ Depth Anything V2 ──────────► mapa głębi
         ├─ Claude (structured outputs) ► obiekty, nazwy, audiodeskrypcja, dźwięk
-        └─ SAM 2 / poligony kuratora ──► maski obiektów ► mapa id + krawędzie
+        ├─ SAM 2 / poligony kuratora ──► maski obiektów ► mapa id obiektów
+        └─ skoki głębi + obrysy masek ─► mapa konturów (sylwetki do wodzenia palcem)
         ▼
 apps/mobile/assets/artworks/<id>/   „paczka sensoryczna”: manifest.json, layers.json,
         │                           image.jpg, highlight-<n>.png
         ▼
 aplikacja (Expo): palec ► piksel w mapie id ► dźwięk obiektu
-                          piksel w mapie krawędzi ► tyknięcie haptyczne
+                          piksel w mapie konturów ► wibracja, tym gęstsza, im bliżej linii
                           piksel w mapie głębi ► głośność (bliżej = głośniej)
 ```
 
@@ -55,13 +56,14 @@ Potrzebne są **słuchawki przewodowe** — Bluetooth opóźnia dźwięk względ
 
 | Gest                      | Działanie                                         |
 | ------------------------- | ------------------------------------------------- |
-| wodzenie jednym palcem    | dźwięk obiektu pod palcem, tyknięcie na krawędzi  |
+| wodzenie jednym palcem    | dźwięk obiektu pod palcem, tyknięcie przy zmianie obiektu |
+| jazda palcem po konturze  | pulsująca wibracja, która gęstnieje na środku linii |
 | przytrzymanie palca       | nazwa obiektu                                     |
 | podwójne stuknięcie       | dłuższy opis obiektu                              |
 | stuknięcie dwoma palcami  | opis całego obrazu albo przerwanie mowy           |
 
 Szerokie obrazy obracają ekran do poziomu, żeby obiekty były jak największe. Na ekranie widać
-obraz, kółko pod palcem, żółte podświetlenie dotykanego obiektu i jego podpis — to dla widowni,
+obraz, białe linie konturów, kółko pod palcem, żółte podświetlenie dotykanego obiektu i jego podpis — to dla widowni,
 która nie słyszy słuchawek.
 
 ### Trening
@@ -93,7 +95,8 @@ Wejście to `pipeline/artworks/<id>/source.json` (tytuł, autor, licencja, adres
    i zwraca dla każdego polską nazwę, ramkę, opisy zgodne z zasadami audiodeskrypcji i dźwięk
    z listy plików w `apps/mobile/assets/sounds`; wynik trafia do `objects.json`,
 3. **głębia** — Depth Anything V2 Small,
-4. **maski** — SAM 2.1 z ramką obiektu; z masek powstają mapa id obiektów i mapa krawędzi,
+4. **maski i kontury** — SAM 2.1 z ramką obiektu daje mapę id obiektów; mapa konturów powstaje
+   z nagłych skoków głębi (sylwetki) i obrysów masek, a każdy piksel pamięta odległość od linii,
 5. zapisuje paczkę do `apps/mobile/assets/artworks/<id>/` i odświeża listę dzieł
    w `apps/mobile/src/artworks/registry.ts`.
 
@@ -136,6 +139,11 @@ listą z etykietami dla czytnika. Ekran eksploracji to świadomie włączany try
 dotyku: użytkownik wstrzymuje czytnik, a mówienie przejmuje aplikacja (expo-speech). Na iOS
 istnieje do tego cecha dostępności „allows direct interaction”, która przepuszcza dotyk do
 wskazanego widoku bez wyłączania VoiceOver — to naturalny następny krok w natywnym buildzie.
+
+**Jak działa wodzenie po konturach?** Telefon nie potrafi wibrować z zadaną siłą, więc siłę
+udajemy rytmem: na skraju konturu są rzadkie, krótkie impulsy, a na środku linii zlewają się
+w ciągłe brzęczenie. Zjechanie z linii od razu słychać w palcu, więc da się obrysować sylwetkę
+konia albo pień drzewa.
 
 **Dlaczego głębia steruje tylko głośnością?** expo-audio nie ma panoramy ani filtrów.
 Panorama stereo i filtr zależny od głębi wymagają `react-native-audio-api`, czyli własnego

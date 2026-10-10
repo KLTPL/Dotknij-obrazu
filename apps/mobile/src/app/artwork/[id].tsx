@@ -86,7 +86,7 @@ function ArtworkExplorer({ entry }: { entry: ArtworkEntry }) {
             style={boardSize}
             accessibilityLabel={`Obraz ${manifest.title}. Aby poznawać go palcem, wstrzymaj czytnik ekranu.`}
             objectAt={(x, y) => objectsById.get(layers.objectIds[pixelIndex(layers, x, y)]) ?? null}
-            isEdge={(x, y) => layers.edges[pixelIndex(layers, x, y)] > 0}
+            contourAt={(x, y) => (layers.contours[pixelIndex(layers, x, y)] ?? 0) / 255}
             onMove={(x, y) => {
               const depth = layers.depth[pixelIndex(layers, x, y)] ?? 0;
               sounds.setGain(FAR_GAIN + (1 - FAR_GAIN) * (depth / 255));
@@ -102,6 +102,8 @@ function ArtworkExplorer({ entry }: { entry: ArtworkEntry }) {
             onTwoFingerTap={() => (speaker.isSpeaking() ? speaker.stop() : speaker.speak(manifest.description))}
           >
             <Image source={entry.image} style={styles.layer} resizeMode="stretch" />
+            {/* Faint lines show the audience which contours the finger can feel */}
+            <Image source={entry.contours} style={[styles.layer, styles.contours]} resizeMode="stretch" />
             {/* Every overlay stays mounted, so showing one does not wait for the image to decode */}
             {manifest.objects.map((object) => (
               <Image
@@ -129,4 +131,5 @@ const styles = StyleSheet.create({
   area: { flex: 1, alignItems: 'center', justifyContent: 'center' },
   // Explicit size: a bundled image otherwise keeps its own pixel size and only a corner would show
   layer: { position: 'absolute', left: 0, top: 0, width: '100%', height: '100%' },
+  contours: { opacity: 0.35 },
 });

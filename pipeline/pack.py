@@ -34,7 +34,7 @@ def write_package(
     image: Image.Image,
     object_ids: np.ndarray,
     depth: np.ndarray,
-    edges: np.ndarray,
+    contours: np.ndarray,
 ) -> None:
     out_dir.mkdir(parents=True, exist_ok=True)
     for stale in out_dir.glob("highlight-*.png"):
@@ -64,7 +64,7 @@ def write_package(
     }
     (out_dir / "manifest.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n")
 
-    layers = {"objectIds": encode_layer(object_ids), "depth": encode_layer(depth), "edges": encode_layer(edges)}
+    layers = {"objectIds": encode_layer(object_ids), "depth": encode_layer(depth), "contours": encode_layer(contours)}
     (out_dir / "layers.json").write_text(json.dumps(layers) + "\n")
 
     display = image.copy()
@@ -74,15 +74,22 @@ def write_package(
     for item in manifest["objects"]:
         highlight_image(object_ids == item["id"]).save(out_dir / f"highlight-{item['id']}.png", optimize=True)
 
+    # White lines whose opacity follows the contour layer: shows the audience what the finger feels
+    lines = np.full((height, width, 4), 255, dtype=np.uint8)
+    lines[:, :, 3] = contours
+    Image.fromarray(lines, "RGBA").save(out_dir / "contours.png", optimize=True)
 
-def write_preview(path: Path, image: Image.Image, object_ids: np.ndarray, depth: np.ndarray) -> None:
-    """Masks over the artwork next to the depth map, for the curator to check the result."""
+
+def write_preview(
+    path: Path, image: Image.Image, object_ids: np.ndarray, depth: np.ndarray, contours: np.ndarray
+) -> None:
+    """Masks over the artwork, the depth map and the contours, for the curator to check the result."""
     height, width = object_ids.shape
     colors = np.array([(0, 0, 0)] + [PREVIEW_COLORS[i % len(PREVIEW_COLORS)] for i in range(255)])
     tinted = np.asarray(image.resize((width, height))) * 0.45 + colors[object_ids] * 0.55
     tinted[object_ids == 0] = np.asarray(image.resize((width, height)))[object_ids == 0]
-    depth_rgb = np.repeat(depth[:, :, None], 3, axis=2)
-    Image.fromarray(np.hstack([tinted.astype(np.uint8), depth_rgb])).save(path, quality=85)
+    gray = [np.repeat(layer[:, :, None], 3, axis=2) for layer in (depth, contours)]
+    Image.fromarray(np.hstack([tinted.astype(np.uint8), *gray])).save(path, quality=85)
 
 
 def write_registry(artworks_dir: Path, registry_file: Path) -> None:
@@ -98,6 +105,7 @@ def write_registry(artworks_dir: Path, registry_file: Path) -> None:
             "  {\n"
             f"    manifest: require('{base}/manifest.json'),\n"
             f"    image: require('{base}/image.jpg'),\n"
+            f"    contours: require('{base}/contours.png'),\n"
             f"    loadLayers: () => require('{base}/layers.json'),\n"
             f"    highlights: {{\n{highlights}    }},\n"
             "  },\n"

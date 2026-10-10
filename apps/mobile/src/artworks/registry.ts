@@ -5,6 +5,7 @@ export const ARTWORKS: ArtworkEntry[] = [
   {
     manifest: require('../../assets/artworks/czworka/manifest.json'),
     image: require('../../assets/artworks/czworka/image.jpg'),
+    contours: require('../../assets/artworks/czworka/contours.png'),
     loadLayers: () => require('../../assets/artworks/czworka/layers.json'),
     highlights: {
       1: require('../../assets/artworks/czworka/highlight-1.png'),
@@ -16,6 +17,7 @@ export const ARTWORKS: ArtworkEntry[] = [
   {
     manifest: require('../../assets/artworks/mleczarka/manifest.json'),
     image: require('../../assets/artworks/mleczarka/image.jpg'),
+    contours: require('../../assets/artworks/mleczarka/contours.png'),
     loadLayers: () => require('../../assets/artworks/mleczarka/layers.json'),
     highlights: {
       1: require('../../assets/artworks/mleczarka/highlight-1.png'),
@@ -28,6 +30,7 @@ export const ARTWORKS: ArtworkEntry[] = [
   {
     manifest: require('../../assets/artworks/mysliwi/manifest.json'),
     image: require('../../assets/artworks/mysliwi/image.jpg'),
+    contours: require('../../assets/artworks/mysliwi/contours.png'),
     loadLayers: () => require('../../assets/artworks/mysliwi/layers.json'),
     highlights: {
       1: require('../../assets/artworks/mysliwi/highlight-1.png'),
@@ -41,6 +44,7 @@ export const ARTWORKS: ArtworkEntry[] = [
   {
     manifest: require('../../assets/artworks/wielka-fala/manifest.json'),
     image: require('../../assets/artworks/wielka-fala/image.jpg'),
+    contours: require('../../assets/artworks/wielka-fala/contours.png'),
     loadLayers: () => require('../../assets/artworks/wielka-fala/layers.json'),
     highlights: {
       1: require('../../assets/artworks/wielka-fala/highlight-1.png'),

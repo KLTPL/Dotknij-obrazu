@@ -1,4 +1,4 @@
-"""Step 4: one mask per object, merged into the object-id layer and the edge layer."""
+"""Step 4: one mask per object, merged into the object-id layer; plus the contour layer."""
 
 import numpy as np
 from PIL import Image, ImageDraw
@@ -6,7 +6,9 @@ from scipy import ndimage
 
 SAM_MODEL = "facebook/sam2.1-hiera-small"
 MIN_REGION_SHARE = 0.002  # specks smaller than this share of the image are dropped
-EDGE_WIDTH_PX = 3
+DEPTH_STEP = 4  # change of depth per pixel (on the 0-255 scale) that counts as a silhouette
+MIN_CONTOUR_PX = 40  # shorter silhouette fragments are noise
+CONTOUR_RADIUS_PX = 9  # the vibration fades out this far from a contour, about 3 mm on a phone
 
 
 def polygon_mask(polygons: list[list[list[float]]], size: tuple[int, int]) -> np.ndarray:
@@ -65,10 +67,24 @@ def merge_masks(masks: list[np.ndarray]) -> np.ndarray:
     return object_ids
 
 
-def edge_layer(object_ids: np.ndarray) -> np.ndarray:
-    """255 where the object id changes between neighbouring pixels, widened to a few pixels."""
-    edges = np.zeros(object_ids.shape, dtype=bool)
-    edges[:, 1:] |= object_ids[:, 1:] != object_ids[:, :-1]
-    edges[1:, :] |= object_ids[1:, :] != object_ids[:-1, :]
-    edges = ndimage.binary_dilation(edges, iterations=EDGE_WIDTH_PX // 2)
-    return edges.astype(np.uint8) * 255
+def mask_outline(mask: np.ndarray) -> np.ndarray:
+    return mask & ~ndimage.binary_erosion(mask)
+
+
+def contour_layer(depth: np.ndarray, precise_masks: list[np.ndarray]) -> np.ndarray:
+    """How close each pixel is to a contour worth tracing with a finger: 255 on it, 0 far away.
+
+    Contours are silhouettes found as sudden changes of depth (a horse against the road)
+    and outlines of the masks segmented by SAM. Hand-drawn polygons are too rough to trace.
+    """
+    smooth = ndimage.gaussian_filter(depth.astype(float), 1.0)
+    slope = np.hypot(ndimage.sobel(smooth, axis=0), ndimage.sobel(smooth, axis=1)) / 8
+    silhouettes = slope > DEPTH_STEP
+    labels, count = ndimage.label(silhouettes)
+    sizes = ndimage.sum(silhouettes, labels, range(1, count + 1))
+    contours = np.isin(labels, [i + 1 for i, size in enumerate(sizes) if size >= MIN_CONTOUR_PX])
+    for mask in precise_masks:
+        contours |= mask_outline(mask)
+
+    distance = ndimage.distance_transform_edt(~contours)
+    return (np.clip(1 - distance / CONTOUR_RADIUS_PX, 0, 1) * 255).astype(np.uint8)
