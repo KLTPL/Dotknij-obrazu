@@ -3,8 +3,10 @@
     python sounds.py            # every sound listed in sounds.json
     python sounds.py horse dogs # only the named ones
 
-Each entry of sounds.json names a recording on bigsoundbank.com (all released under CC0)
-and the fragment to loop. Requires ffmpeg. Also writes ATTRIBUTION.md next to the sounds.
+Each entry of sounds.json names a recording and the fragment to loop. Recordings come from
+bigsoundbank.com (all released under CC0); an entry with "url" and "license" points straight at
+a public domain file elsewhere, e.g. on Wikimedia Commons. Requires ffmpeg. Also writes
+ATTRIBUTION.md next to the sounds.
 """
 
 import json
@@ -25,13 +27,19 @@ TARGET_RMS = 0.18
 PEAK_LIMIT = 0.9
 
 
-def download(entry: dict) -> Path:
+def audio_url(entry: dict) -> str:
+    if "url" in entry:
+        return entry["url"]
     # Page ".../horse-gallop-s0611.html" has its audio at ".../UPLOAD/mp3/0611.mp3"
     number = re.search(r"-s(\d+)\.html$", entry["page"]).group(1)
-    path = WORK_DIR / "sounds" / f"{number}.mp3"
+    return f"https://bigsoundbank.com/UPLOAD/mp3/{number}.mp3"
+
+
+def download(entry: dict) -> Path:
+    url = audio_url(entry)
+    path = WORK_DIR / "sounds" / Path(url).name
     if not path.exists():
         path.parent.mkdir(parents=True, exist_ok=True)
-        url = f"https://bigsoundbank.com/UPLOAD/mp3/{number}.mp3"
         request = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
         with urllib.request.urlopen(request) as response:
             path.write_bytes(response.read())
@@ -74,13 +82,16 @@ def write_wav(path: Path, samples: np.ndarray) -> None:
 
 def write_attribution(entries: list[dict]) -> None:
     rows = "".join(
-        f"| `{entry['name']}.wav` | [{entry['title']}]({entry['page']}) | {entry['author']} | CC0 |\n" for entry in entries
+        f"| `{entry['name']}.wav` | [{entry['title']}]({entry['page']}) | {entry['author']} "
+        f"| {entry.get('license', 'CC0')} |\n"
+        for entry in entries
     )
     (SOUNDS_DIR / "ATTRIBUTION.md").write_text(
         "# Źródła dźwięków\n\n"
         "Generowane przez `pipeline/sounds.py` - nie edytować ręcznie.\n\n"
-        "Nagrania pochodzą z [BigSoundBank](https://bigsoundbank.com/licenses.html) i są udostępnione\n"
-        "na licencji CC0 (domena publiczna). Wycięliśmy z nich zapętlone fragmenty.\n\n"
+        "Nagrania pochodzą z [BigSoundBank](https://bigsoundbank.com/licenses.html), gdzie są udostępnione\n"
+        "na licencji CC0, albo z Wikimedia Commons, gdzie są w domenie publicznej.\n"
+        "Wycięliśmy z nich zapętlone fragmenty.\n\n"
         "| Plik | Nagranie | Autor | Licencja |\n| --- | --- | --- | --- |\n"
         f"{rows}\n"
         "Pozostałe pliki w tym katalogu są syntezowane przez `apps/mobile/scripts/generate-sounds.mjs`.\n"

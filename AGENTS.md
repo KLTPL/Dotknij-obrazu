@@ -25,7 +25,7 @@ Aplikacja ma działać **lokalnie** — nie ma deploymentu, nie dodawaj konfigur
   obraźliwych, politycznych, religijnych, wulgarnych (dotyczy też obrazów, dźwięków, tekstów w UI i nazw).
   Dobierając dzieła, omijaj sceny religijne.
 - Naruszenie praw autorskich = dyskwalifikacja: tylko dzieła z domeny publicznej, dźwięki
-  CC0 albo wygenerowane przez nas.
+  CC0 lub z domeny publicznej albo wygenerowane przez nas.
 - Kryteria oceny (to jest priorytet przy każdej decyzji):
   1. **Stopień realizacji** (0–10) — działający kod, nie makieta; zgodność z tematem.
   2. **Aspekt techniczny** (0–10) — sensowna, skalowalna architektura; zespół musi umieć
@@ -54,7 +54,7 @@ Bez nadmiarowych abstrakcji, bez funkcji „na zapas”.
 ```
 apps/mobile/
   assets/artworks/<id>/   paczki dzieł — WYNIK pipeline'u, nie edytować ręcznie
-  assets/sounds/          pętle WAV — WYNIK pipeline/sounds.py (nagrania CC0) i scripts/generate-sounds.mjs
+  assets/sounds/          pętle WAV — WYNIK pipeline/sounds.py (nagrania CC0 i z domeny publicznej) i scripts/generate-sounds.mjs
   assets/cues/            sygnały granicy obiektu — WYNIK scripts/generate-sounds.mjs
   src/app/                ekrany: index (galeria), artwork/[id] (eksploracja), training
   src/artworks/           odczyt paczki (dekodowanie warstw), registry.ts (generowany)
@@ -66,7 +66,7 @@ pipeline/
   artworks/<id>/          source.json (źródło i licencja), objects.json (obiekty i opisy)
   build.py                orkiestracja; kroki w describe.py, depth.py, segment.py, pack.py
   import_met.py           source.json z API The Met
-  sounds.py, sounds.json  pętle dźwięków wycinane z nagrań CC0
+  sounds.py, sounds.json  pętle dźwięków wycinane z nagrań CC0 i z domeny publicznej
   work/                   cache (gitignored): pobrane obrazy, głębia, podglądy masek
 ```
 
@@ -94,11 +94,12 @@ zablokuje — dopisz ją do `allowBuilds` w `pnpm-workspace.yaml`.
 - Warstwy (id obiektu, głębia, kontury) to surowe bajty w base64, nie PNG. Warstwa konturów
   to bliskość linii (0 kilka pikseli od konturu, na konturze tym więcej, im bliżej widza);
   steruje wibracją w `src/exploration/use-touch-haptics.ts`, gdzie są też faktury obiektów.
-- Nowy dźwięk: wpis w `pipeline/sounds.json` (nagranie CC0 z bigsoundbank.com, początek
-  i długość fragmentu) → `pipeline/sounds.py`, potem wpis w `apps/mobile/src/audio/sounds.ts`.
+- Nowy dźwięk: wpis w `pipeline/sounds.json` (nagranie CC0 z bigsoundbank.com albo plik
+  w domenie publicznej z polami `url` i `license`, np. z Wikimedia Commons; początek i długość
+  fragmentu) → `pipeline/sounds.py`, potem wpis w `apps/mobile/src/audio/sounds.ts`.
   Pętla nie może mieć ciszy dłuższej niż ok. 0,5 s, bo palec na obiekcie nie może trafić
-  w pustkę. Tylko CC0 z atrybucją (`ATTRIBUTION.md` generuje się sam) albo własna synteza
-  w `apps/mobile/scripts/generate-sounds.mjs`.
+  w pustkę. Tylko CC0 lub domena publiczna z atrybucją (`ATTRIBUTION.md` generuje się sam)
+  albo własna synteza w `apps/mobile/scripts/generate-sounds.mjs`.
 - Nowe dzieło: `source.json` → `build.py` → poprawki w `objects.json` (pole `polygons`
   zastępuje maskę z SAM, a z `"refine": true` SAM szuka dokładnych sylwetek wewnątrz wielokąta) → `build.py` → podgląd w `pipeline/work/<id>/preview.jpg`.
   Tylko domena publiczna / CC0, bez scen religijnych i politycznych.
