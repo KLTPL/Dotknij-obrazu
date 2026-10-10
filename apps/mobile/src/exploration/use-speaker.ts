@@ -1,5 +1,6 @@
 import * as Speech from 'expo-speech';
 import { useEffect, useMemo, useRef } from 'react';
+import { AppState } from 'react-native';
 
 /**
  * The best Polish voice of the phone's speech engine: a high-quality one if any is installed,
@@ -25,6 +26,14 @@ export function useSpeaker(setDucked: (ducked: boolean) => void) {
         voiceRef.current = voice;
       })
       .catch(() => {});
+  }, []);
+
+  useEffect(() => {
+    // A description must not keep talking from a pocket after the app is left
+    const appState = AppState.addEventListener('change', (state) => {
+      if (state !== 'active') void Speech.stop();
+    });
+    return () => appState.remove();
   }, []);
 
   return useMemo(() => {

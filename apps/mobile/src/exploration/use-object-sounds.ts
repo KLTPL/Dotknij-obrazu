@@ -1,5 +1,6 @@
 import { type AudioPlayer, type AudioSource, createAudioPlayer, setAudioModeAsync } from 'expo-audio';
 import { useEffect, useMemo, useRef } from 'react';
+import { AppState } from 'react-native';
 
 // A quick fade-in keeps the sound in step with the finger; the slow fade-out lets the previous
 // object linger underneath, so crossing a border sounds like a blend instead of a switch
@@ -38,7 +39,7 @@ export function useObjectSounds<Id extends string | number>(objects: readonly Ob
 
     const timer = setInterval(() => {
       voices.forEach((voice, id) => {
-        if (!voice.started && voice.player.isLoaded) {
+        if (!voice.started && voice.player.isLoaded && AppState.currentState === 'active') {
           voice.player.play();
           voice.started = true;
         }
@@ -53,8 +54,18 @@ export function useObjectSounds<Id extends string | number>(objects: readonly Ob
       });
     }, TICK_MS);
 
+    // The loops never stop by themselves, so they are paused when the app is left or the screen turns off
+    const appState = AppState.addEventListener('change', (state) => {
+      voices.forEach((voice) => {
+        if (!voice.started) return;
+        if (state === 'active') voice.player.play();
+        else voice.player.pause();
+      });
+    });
+
     return () => {
       clearInterval(timer);
+      appState.remove();
       voices.forEach((voice) => voice.player.remove());
     };
   }, [objects]);
