@@ -116,7 +116,7 @@ export function ExplorationBoard<T extends { id: string | number }>(props: Props
     track(pointOf(event));
   };
 
-  // Also fires for every additional finger put down during the gesture
+  // Fires for every finger put down, also the ones joining a gesture that already started
   const handleStart = (event: GestureResponderEvent) => {
     if (event.nativeEvent.touches.length < 2) return;
     twoFingersRef.current = true;
@@ -158,7 +158,8 @@ export function ExplorationBoard<T extends { id: string | number }>(props: Props
       onResponderGrant={handleGrant}
       onResponderStart={handleStart}
       onResponderMove={(event) => {
-        if (!twoFingersRef.current) track(pointOf(event));
+        // With two fingers down there is no single point to explore
+        if (!twoFingersRef.current && event.nativeEvent.touches.length < 2) track(pointOf(event));
       }}
       onResponderRelease={handleRelease}
       onResponderTerminate={leaveObject}
