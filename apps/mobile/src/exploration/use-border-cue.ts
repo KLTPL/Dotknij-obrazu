@@ -19,8 +19,8 @@ export function useBorderCue() {
     playersRef.current = { enter, leave };
     return () => {
       playersRef.current = null;
-      enter.remove();
-      leave.remove();
+      enter.release();
+      leave.release();
     };
   }, []);
 

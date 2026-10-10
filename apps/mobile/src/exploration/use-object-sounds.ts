@@ -66,7 +66,12 @@ export function useObjectSounds<Id extends string | number>(objects: readonly Ob
     return () => {
       clearInterval(timer);
       appState.remove();
-      voices.forEach((voice) => voice.player.remove());
+      // On Android remove() only forgets the player and its loop would play on forever,
+      // so the player is stopped and its native resources are released explicitly
+      voices.forEach((voice) => {
+        voice.player.pause();
+        voice.player.release();
+      });
     };
   }, [objects]);
 
