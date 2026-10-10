@@ -96,13 +96,13 @@ function ArtworkExplorer({ entry }: { entry: ArtworkEntry }) {
             }
             onTwoFingerTap={() => (speaker.isSpeaking() ? speaker.stop() : speaker.speak(manifest.description))}
           >
-            <Image source={entry.image} style={StyleSheet.absoluteFill} resizeMode="stretch" />
+            <Image source={entry.image} style={styles.layer} resizeMode="stretch" />
             {/* Every overlay stays mounted, so showing one does not wait for the image to decode */}
             {manifest.objects.map((object) => (
               <Image
                 key={object.id}
                 source={entry.highlights[object.id]}
-                style={[StyleSheet.absoluteFill, { opacity: active?.id === object.id ? 1 : 0 }]}
+                style={[styles.layer, { opacity: active?.id === object.id ? 1 : 0 }]}
                 resizeMode="stretch"
               />
             ))}
@@ -122,4 +122,6 @@ const styles = StyleSheet.create({
   captionTitle: { color: '#ffd60a', fontSize: 18, fontWeight: '700' },
   captionText: { color: '#e0e0e0', fontSize: 13 },
   area: { flex: 1, alignItems: 'center', justifyContent: 'center' },
+  // Explicit size: a bundled image otherwise keeps its own pixel size and only a corner would show
+  layer: { position: 'absolute', left: 0, top: 0, width: '100%', height: '100%' },
 });
