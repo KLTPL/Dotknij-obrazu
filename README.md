@@ -1,40 +1,34 @@
-# BEST Hacks 2026
+# Dotknij obrazu
 
-Projekt drużyny na hackathon BEST Hacks 2026 (Politechnika Wrocławska, 10–11.10.2026).
+Projekt drużyny na hackathon BEST Hacks 2026 (Politechnika Wrocławska, 10–11.10.2026),
+temat „Code For Culture”, kategoria Sztuka.
 
-> Opis projektu zostanie uzupełniony po ogłoszeniu zadania.
+Aplikacja mobilna, dzięki której osoba niewidoma poznaje obraz, wodząc palcem po ekranie:
+pod palcem gra dźwięk obiektu, na krawędziach obiektów telefon wibruje, a przytrzymanie
+palca odczytuje nazwę obiektu.
 
 ## Stack
 
-- **Frontend:** Vite, React, TypeScript, Tailwind CSS, shadcn/ui, Lucide
-- **Backend:** NestJS, Prisma ORM 7.9, PostgreSQL
-- **Monorepo:** pnpm workspaces — `apps/web`, `apps/api`, `packages/shared`
+- **Mobile:** Expo (React Native), TypeScript, expo-audio, expo-haptics, expo-speech
+- **Monorepo:** pnpm workspaces — `apps/mobile`, `packages/shared`
 
 ## Uruchomienie lokalne
 
-Wymagania: Node.js ≥ 22.12, pnpm 12, Docker.
+Wymagania: Node.js ≥ 22.12, pnpm 12, telefon z aplikacją Expo Go (ta sama sieć Wi-Fi co komputer).
 
 ```bash
 pnpm install
-cp apps/api/.env.example apps/api/.env
-pnpm db:up        # PostgreSQL w dockerze na localhost:5433
-pnpm db:migrate   # migracje bazy
-pnpm dev          # web: http://localhost:5173, api: http://localhost:3000/api
+pnpm dev          # zeskanuj kod QR w Expo Go
 ```
 
-Po starcie strona główna pokazuje status API i bazy (`GET /api/health`).
+Do testu potrzebne są **słuchawki przewodowe** — Bluetooth opóźnia dźwięk względem palca.
 
 ## Przydatne komendy
 
-| Komenda             | Opis                                   |
-| ------------------- | -------------------------------------- |
-| `pnpm dev`          | wszystko w trybie watch                |
-| `pnpm build`        | build wszystkich paczek                |
-| `pnpm lint`         | lint (oxlint w web, eslint w api)      |
-| `pnpm typecheck`    | sprawdzenie typów                      |
-| `pnpm test`         | testy jednostkowe                      |
-| `pnpm db:studio`    | Prisma Studio                          |
-| `pnpm db:reset`     | wyczyszczenie bazy i ponowne migracje  |
-| `pnpm db:down`      | zatrzymanie bazy                       |
+| Komenda          | Opis                      |
+| ---------------- | ------------------------- |
+| `pnpm dev`       | serwer deweloperski Expo  |
+| `pnpm lint`      | lint                      |
+| `pnpm typecheck` | sprawdzenie typów         |
 
 Konwencje i szczegóły architektury: [AGENTS.md](./AGENTS.md).

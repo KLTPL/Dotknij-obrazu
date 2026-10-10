@@ -7,17 +7,8 @@
     "node": ">=22.12"
   },
   "scripts": {
-    "postinstall": "pnpm --filter @repo/shared build && pnpm db:generate",
-    "dev": "pnpm --filter @repo/shared build && pnpm -r --parallel dev",
-    "build": "pnpm -r build",
+    "dev": "pnpm --filter @repo/mobile start",
     "lint": "pnpm -r lint",
-    "typecheck": "pnpm -r typecheck",
-    "test": "pnpm -r test",
-    "db:up": "docker compose up -d --wait",
-    "db:down": "docker compose down",
-    "db:reset": "docker compose down -v && docker compose up -d --wait && pnpm db:migrate",
-    "db:generate": "pnpm --filter @repo/api exec prisma generate",
-    "db:migrate": "pnpm --filter @repo/api exec prisma migrate dev",
-    "db:studio": "pnpm --filter @repo/api exec prisma studio"
+    "typecheck": "pnpm -r typecheck"
   }
 }

@@ -5,8 +5,14 @@ Instrukcje dla agentów AI (Claude Code, Codex, Cursor itd.) pracujących w tym 
 
 ## Kontekst
 
-Projekt na hackathon **BEST Hacks 2026** (10–11.10.2026, 24 h, drużyna 2–4 osoby).
-Temat i szczegółowe wymagania: _do uzupełnienia po ogłoszeniu zadania_.
+Projekt na hackathon **BEST Hacks 2026** (10–11.10.2026, 24 h, drużyna 2–4 osoby),
+temat „Code For Culture”, kategoria **Sztuka**.
+
+**Dotknij obrazu** — aplikacja mobilna, w której osoba niewidoma poznaje obraz, wodząc
+palcem po ekranie. Pod palcem gra dźwięk obiektu (koń → tętent), na krawędziach obiektów
+telefon wibruje, przytrzymanie palca odczytuje nazwę obiektu. Dźwięk mówi **co** jest
+pod palcem, a nie **gdzie** — położenie palca użytkownik zna z dotyku.
+
 Aplikacja ma działać **lokalnie** — nie ma deploymentu, nie dodawaj konfiguracji CI/CD ani hostingu.
 
 ### Co wynika z regulaminu (`Regulamin.pdf`)
@@ -16,7 +22,10 @@ Aplikacja ma działać **lokalnie** — nie ma deploymentu, nie dodawaj konfigur
 - Zmiany w projekcie po upływie czasu = dyskwalifikacja. Nie commituj i nie pushuj po deadlinie.
 - Rozwiązanie trafia do publicznego repozytorium — **żadnych sekretów w repo** (`.env` jest w `.gitignore`).
 - Zakaz rozwiązań naruszających bezpieczeństwo / wykorzystujących podatności oraz treści
-  obraźliwych, politycznych, religijnych, wulgarnych (dotyczy też seedów, tekstów w UI i nazw).
+  obraźliwych, politycznych, religijnych, wulgarnych (dotyczy też obrazów, dźwięków, tekstów w UI i nazw).
+  Dobierając dzieła, omijaj sceny religijne.
+- Naruszenie praw autorskich = dyskwalifikacja: tylko dzieła z domeny publicznej, dźwięki
+  CC0 albo wygenerowane przez nas.
 - Kryteria oceny (to jest priorytet przy każdej decyzji):
   1. **Stopień realizacji** (0–10) — działający kod, nie makieta; zgodność z tematem.
   2. **Aspekt techniczny** (0–10) — sensowna, skalowalna architektura; zespół musi umieć
@@ -25,91 +34,49 @@ Aplikacja ma działać **lokalnie** — nie ma deploymentu, nie dodawaj konfigur
   4. **Kreatywność i innowacyjność** (0–10).
   5. Etap 2: **przydatność / potencjał biznesowy** (0–10) i **prezentacja** (0–5, 5 minut).
 
-Wniosek: najpierw działający pionowy wycinek (UI → API → DB), potem dopieszczanie. Bez
-nadmiarowych abstrakcji, bez funkcji „na zapas”.
+Wniosek: najpierw działający rdzeń (palec → obiekt → dźwięk + wibracja), potem dopieszczanie.
+Bez nadmiarowych abstrakcji, bez funkcji „na zapas”.
 
 ## Stack
 
-| Warstwa  | Technologia                                                        |
-| -------- | ------------------------------------------------------------------ |
-| Monorepo | pnpm workspaces (bez Turborepo/Nx — `pnpm -r --parallel` wystarcza) |
-| Frontend | Vite 8 + React 19 + TypeScript                                     |
-| UI       | Tailwind CSS 4, shadcn/ui (styl `radix-nova`), Lucide React        |
-| Backend  | NestJS 11 (CommonJS)                                               |
-| Baza     | PostgreSQL 17 (docker compose), Prisma ORM **7.9.x**               |
-| Wspólne  | `@repo/shared` — typy i schematy zod                               |
+| Warstwa  | Technologia                                                   |
+| -------- | ------------------------------------------------------------- |
+| Monorepo | pnpm workspaces (`nodeLinker: hoisted` — wymagane przez Metro) |
+| Mobile   | Expo (React Native) + TypeScript + expo-router                |
+| Audio    | expo-audio (na razie; docelowo react-native-audio-api)        |
+| Haptyka  | expo-haptics                                                  |
+| Mowa     | expo-speech (systemowy TTS, offline)                          |
+| Wspólne  | `@repo/shared` — kontrakty (np. format paczki dzieła)         |
 
-**Prisma jest przypięta do 7.9.1 — nie podnoś do 8.x (breaking changes).** `prisma`,
-`@prisma/client` i `@prisma/adapter-pg` muszą mieć tę samą wersję.
+Planowane: pipeline w Pythonie przygotowujący „paczki sensoryczne” dzieł
+(mapa głębi, maski obiektów, opisy) — jeszcze go nie ma.
 
 ## Struktura
 
 ```
 apps/
-  api/                NestJS
-    prisma/           schema.prisma + migracje
-    prisma.config.ts  konfiguracja Prisma CLI (URL bazy z .env)
-    src/
-      prisma/         PrismaModule (globalny) + PrismaService
-      health/         przykładowy moduł — wzorzec dla kolejnych
-      generated/      wygenerowany klient Prisma (gitignored, nie edytować)
-  web/                Vite + React
-    src/components/ui komponenty shadcn (generowane przez CLI)
-    src/lib/utils.ts  cn()
+  mobile/             aplikacja Expo
 packages/
-  shared/             wspólne typy / schematy zod
-docker-compose.yml    Postgres na porcie 5433
+  shared/             wspólne typy
 ```
 
 ## Komendy (z roota)
 
 ```bash
 pnpm install
-cp apps/api/.env.example apps/api/.env   # tylko za pierwszym razem
-pnpm db:up            # Postgres w dockerze (localhost:5433)
-pnpm db:migrate       # prisma migrate dev (po zmianie schema.prisma: --name <opis>)
-pnpm dev              # shared (watch) + api :3000 + web :5173
-pnpm build | lint | typecheck | test
-pnpm --filter @repo/api test:e2e   # wymaga działającej bazy
-pnpm db:studio | db:generate | db:down | db:reset
+pnpm dev              # Expo dev server — zeskanuj QR w Expo Go na telefonie
+pnpm lint | typecheck
 ```
 
-Dodawanie zależności: `pnpm --filter @repo/web add <pkg>` (analogicznie `@repo/api`, `@repo/shared`).
-Jeśli nowa paczka ma skrypt instalacyjny, pnpm go zablokuje — dopisz ją do `allowBuilds`
-w `pnpm-workspace.yaml`.
+Dodawanie zależności do aplikacji: `pnpm --filter @repo/mobile exec expo install <pkg>`
+(dobiera wersję zgodną z SDK). Jeśli nowa paczka ma skrypt instalacyjny, pnpm go
+zablokuje — dopisz ją do `allowBuilds` w `pnpm-workspace.yaml`.
 
 ## Konwencje
 
-### Ogólne
 - TypeScript strict, bez `any` tam, gdzie da się tego uniknąć.
-- Kod, nazwy i commity po angielsku; teksty w UI po polsku (chyba że zadanie wymaga inaczej).
+- Kod, nazwy i commity po angielsku; teksty w UI po polsku.
 - Po zmianach uruchom `pnpm typecheck` i `pnpm lint`.
 - Małe commity, komunikaty w stylu `feat: ...`, `fix: ...`.
-
-### `packages/shared`
-- Kontrakt API (DTO request/response) definiuj tutaj jako schemat zod + `z.infer` typ
-  i używaj po obu stronach.
-- Web importuje **źródła TS** bezpośrednio, API importuje **zbudowany CJS z `dist/`**
-  (`pnpm dev` buduje i obserwuje paczkę automatycznie; samo API bez `pnpm dev` wymaga
-  wcześniej `pnpm --filter @repo/shared build`).
-- Dlatego: bez `enum` i `namespace` (używaj `as const` / `z.enum`), importy typów przez
-  `import type`, żadnych zależności od Node ani DOM.
-
-### `apps/api`
-- Jeden moduł Nest na domenę: `src/<feature>/<feature>.{module,controller,service}.ts`.
-- Dostęp do bazy tylko przez `PrismaService` (wstrzykiwany, moduł jest globalny).
-- Klient importuj z `../generated/prisma/client`, nie z `@prisma/client`.
-- Wszystkie endpointy są pod prefiksem `/api` (ustawiony w `main.ts`).
-- Walidacja wejścia schematami zod z `@repo/shared`.
-- Po każdej zmianie `schema.prisma`: `pnpm db:migrate --name <opis>` i commit migracji.
-
-### `apps/web`
-- Do API odwołuj się relatywnie (`fetch('/api/...')`) — Vite proxuje `/api` na `:3000`,
-  więc CORS nie jest potrzebny.
-- Odpowiedzi API parsuj schematami z `@repo/shared`.
-- Komponenty UI: najpierw shadcn —
-  `pnpm --filter @repo/web exec shadcn add <komponent>`; nie pisz ręcznie tego, co jest w rejestrze.
-- Alias `@/` → `apps/web/src`. Ikony tylko z `lucide-react`.
-- Stylowanie klasami Tailwind i tokenami motywu z `src/index.css` (`bg-background`,
-  `text-muted-foreground`…), bez hardkodowanych kolorów.
-- Next.js rozważamy tylko, jeśli zadanie będzie wymagało SSR — domyślnie zostaje Vite.
+- Dopóki nie potrzebujemy natywnych modułów spoza Expo Go, aplikacja ma działać w Expo Go
+  (nikt w zespole nie musi mieć Android SDK).

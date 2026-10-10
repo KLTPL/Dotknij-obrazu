@@ -2,8 +2,5 @@ packages:
   - apps/*
   - packages/*
 
-allowBuilds:
-  '@parcel/watcher': true
-  '@prisma/engines': true
-  prisma: true
-  unrs-resolver: true
+# Expo/Metro resolves dependencies most reliably from a flat node_modules
+nodeLinker: hoisted
