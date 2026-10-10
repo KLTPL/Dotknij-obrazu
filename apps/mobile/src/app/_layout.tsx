@@ -5,15 +5,7 @@ export default function RootLayout() {
   return (
     <>
       <StatusBar style="light" />
-      <Stack
-        screenOptions={{
-          headerStyle: { backgroundColor: '#000' },
-          headerTintColor: '#fff',
-          contentStyle: { backgroundColor: '#000' },
-        }}
-      >
-        <Stack.Screen name="index" options={{ headerShown: false }} />
-      </Stack>
+      <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: '#000' } }} />
     </>
   );
 }

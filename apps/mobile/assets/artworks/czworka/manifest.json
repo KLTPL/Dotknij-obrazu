@@ -1,0 +1,44 @@
+{
+  "id": "czworka",
+  "title": "Czwórka",
+  "author": "Józef Chełmoński",
+  "year": "1880",
+  "institution": "Muzeum Narodowe w Warszawie",
+  "license": "Domena publiczna",
+  "source": "https://commons.wikimedia.org/wiki/File:J%C3%B3zef_Che%C5%82mo%C5%84ski_-_Four-in-hand_-_MP_1927_-_National_Museum_in_Warsaw.jpg",
+  "description": "Czterokonny zaprzęg pędzi po rozmokłej, błotnistej drodze przez płaski step, prosto w stronę widza. Konie zajmują środek obrazu, za nimi widać drewniany wóz z dwoma mężczyznami. Górną połowę wypełnia szare, zachmurzone niebo, dolną ciemne błoto z kałużami, a obie części rozdziela niska linia horyzontu. Kolory są stonowane: szarości, brązy i czerń, rozjaśnione bielą ubrania woźnicy i żółtym blaskiem mosiężnych ozdób uprzęży.",
+  "layers": {
+    "width": 512,
+    "height": 237
+  },
+  "objects": [
+    {
+      "id": 1,
+      "label": "niebo",
+      "shortDescription": "Szare, ciężkie niebo nad płaskim stepem.",
+      "longDescription": "Niebo zajmuje całą górną połowę obrazu. Jest szare i jednolicie zachmurzone, bez słońca. Tuż nad horyzontem, po lewej stronie, biegnie wąski, jaśniejszy pas żółtawego światła.",
+      "sound": "wind"
+    },
+    {
+      "id": 2,
+      "label": "błotnista droga",
+      "shortDescription": "Rozjeżdżona droga pełna błota i kałuż.",
+      "longDescription": "Dolną połowę obrazu wypełnia szeroka, rozmokła droga. Błoto jest ciemnobrązowe i czarne, poprzecinane koleinami. W kałużach odbija się szare niebo, a spod końskich kopyt pryska woda.",
+      "sound": "mud"
+    },
+    {
+      "id": 3,
+      "label": "konie",
+      "shortDescription": "Cztery gniade konie w pełnym galopie.",
+      "longDescription": "Cztery gniade konie biegną obok siebie prosto na widza, rozciągnięte na całą szerokość środka obrazu. Mają rozwiane grzywy, rozdęte chrapy i otwarte pyski. Ich uprząż zdobią okrągłe, błyszczące mosiężne krążki. Kopyta rozbryzgują błoto.",
+      "sound": "horse"
+    },
+    {
+      "id": 4,
+      "label": "wóz z ludźmi",
+      "shortDescription": "Dwaj mężczyźni na drewnianym wozie za końmi.",
+      "longDescription": "Za końmi, pośrodku obrazu, jedzie drewniany wóz. Siedzi na nim dwóch mężczyzn. Woźnica w wysokiej futrzanej czapce i białym kożuchu pochyla się do przodu i trzyma lejce. Obok niego siedzi drugi mężczyzna w czerwonej kamizelce, z fajką w ustach.",
+      "sound": "cart"
+    }
+  ]
+}

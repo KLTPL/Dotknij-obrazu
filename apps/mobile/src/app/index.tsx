@@ -1,58 +1,69 @@
-import * as Speech from 'expo-speech';
-import { useState } from 'react';
-import { StyleSheet } from 'react-native';
+import { Link } from 'expo-router';
+import { FlatList, Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { ControlPanel, type Mode } from '@/readability-test/control-panel';
-import { ExplorationBoard } from '@/readability-test/exploration-board';
-import { SCENE_OBJECTS } from '@/readability-test/scene';
-import { useObjectSounds } from '@/readability-test/use-object-sounds';
-import { useReadabilityTrial } from '@/readability-test/use-readability-trial';
-import { useSpeaker } from '@/readability-test/use-speaker';
+import type { ArtworkEntry } from '@/artworks/artwork';
+import { ARTWORKS } from '@/artworks/registry';
 
-/**
- * Readability test: can a blindfolded person find an object by sound alone?
- * The tester only touches the board; a teammate operates the panel below it.
- */
-export default function ReadabilityTestScreen() {
-  const sounds = useObjectSounds(SCENE_OBJECTS);
-  const speak = useSpeaker(sounds.setDucked);
-  const trial = useReadabilityTrial(speak);
-  const [mode, setMode] = useState<Mode>('training');
-  const [showObjects, setShowObjects] = useState(true);
-  const [namesOnHold, setNamesOnHold] = useState(true);
+function ArtworkCard({ entry }: { entry: ArtworkEntry }) {
+  const { id, title, author, year, institution, license, objects } = entry.manifest;
+  return (
+    <Link href={{ pathname: '/artwork/[id]', params: { id } }} asChild>
+      <Pressable
+        style={styles.card}
+        accessibilityRole="button"
+        accessibilityLabel={`${title}. ${author}, ${year}. Obiektów do odkrycia: ${objects.length}.`}
+        accessibilityHint="Otwiera obraz do poznawania dotykiem"
+      >
+        <Image source={entry.image} style={styles.thumbnail} resizeMode="cover" />
+        <View style={styles.cardText}>
+          <Text style={styles.title}>{title}</Text>
+          <Text style={styles.text}>
+            {author}, {year}
+          </Text>
+          <Text style={styles.muted}>
+            {institution} · {license}
+          </Text>
+        </View>
+      </Pressable>
+    </Link>
+  );
+}
 
-  const changeMode = (next: Mode) => {
-    void Speech.stop();
-    trial.cancel();
-    setMode(next);
-    setShowObjects(next === 'training');
-  };
+function Header() {
+  return (
+    <View style={styles.header}>
+      <Text style={styles.appName} accessibilityRole="header">
+        Dotknij obrazu
+      </Text>
+      <Text style={styles.text}>Poznaj obraz, wodząc po nim palcem. Dźwięk mówi, co jest pod palcem.</Text>
+      <Link href="/training" asChild>
+        <Pressable
+          style={styles.training}
+          accessibilityRole="button"
+          accessibilityLabel="Trening"
+          accessibilityHint="Krótkie ćwiczenie przed poznawaniem obrazów"
+        >
+          <Text style={styles.trainingTitle}>Trening</Text>
+          <Text style={styles.trainingText}>20 sekund ćwiczenia na prostych kształtach, zanim otworzysz obraz</Text>
+        </Pressable>
+      </Link>
+      <Text style={styles.section} accessibilityRole="header">
+        Galeria
+      </Text>
+    </View>
+  );
+}
 
+export default function GalleryScreen() {
   return (
     <SafeAreaView style={styles.screen} edges={['top', 'bottom']}>
-      <ExplorationBoard
-        objects={trial.layout}
-        showObjects={showObjects}
-        onTouchStart={trial.markTouch}
-        onObjectChange={(object) => sounds.setActive(object?.id ?? null)}
-        onHold={(object) => namesOnHold && speak(object.name)}
-        onDoubleTap={(object) => {
-          if (mode === 'test') trial.confirm(object);
-          else if (object) speak(object.name);
-        }}
-      />
-      <ControlPanel
-        mode={mode}
-        onModeChange={changeMode}
-        showObjects={showObjects}
-        onShowObjectsChange={setShowObjects}
-        namesOnHold={namesOnHold}
-        onNamesOnHoldChange={setNamesOnHold}
-        trialRunning={trial.target !== null}
-        onStartTrial={trial.start}
-        onShuffle={trial.shuffleLayout}
-        results={trial.results}
+      <FlatList
+        data={ARTWORKS}
+        keyExtractor={(entry) => entry.manifest.id}
+        renderItem={({ item }) => <ArtworkCard entry={item} />}
+        ListHeaderComponent={Header}
+        contentContainerStyle={styles.list}
       />
     </SafeAreaView>
   );
@@ -60,4 +71,17 @@ export default function ReadabilityTestScreen() {
 
 const styles = StyleSheet.create({
   screen: { flex: 1, backgroundColor: '#000' },
+  list: { padding: 16, gap: 14 },
+  header: { gap: 12 },
+  appName: { color: '#fff', fontSize: 32, fontWeight: '700' },
+  section: { color: '#fff', fontSize: 20, fontWeight: '600', marginTop: 8 },
+  training: { padding: 16, borderRadius: 14, backgroundColor: '#ffd60a' },
+  trainingTitle: { color: '#000', fontSize: 20, fontWeight: '700' },
+  trainingText: { color: '#000', fontSize: 15 },
+  card: { borderRadius: 14, overflow: 'hidden', backgroundColor: '#1a1a1a' },
+  thumbnail: { width: '100%', height: 170 },
+  cardText: { padding: 14, gap: 2 },
+  title: { color: '#fff', fontSize: 22, fontWeight: '700' },
+  text: { color: '#e0e0e0', fontSize: 16 },
+  muted: { color: '#a0a0a0', fontSize: 13 },
 });

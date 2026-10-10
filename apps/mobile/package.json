@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "dependencies": {
     "@expo/ui": "~57.0.22",
+    "@repo/shared": "workspace:*",
     "expo": "~57.0.27",
     "expo-audio": "~57.0.5",
     "expo-constants": "~57.0.21",
@@ -14,6 +15,7 @@
     "expo-image": "~57.0.5",
     "expo-linking": "~57.0.12",
     "expo-router": "~57.0.25",
+    "expo-screen-orientation": "~57.0.2",
     "expo-speech": "~57.0.3",
     "expo-splash-screen": "~57.0.9",
     "expo-status-bar": "~57.0.1",
@@ -42,7 +44,7 @@
     "ios": "expo start --ios",
     "lint": "expo lint",
     "typecheck": "tsc --noEmit",
-    "sounds": "node scripts/generate-test-sounds.mjs"
+    "sounds": "node scripts/generate-sounds.mjs"
   },
   "private": true
 }

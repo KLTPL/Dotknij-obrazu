@@ -1,0 +1,51 @@
+{
+  "id": "mleczarka",
+  "title": "Mleczarka",
+  "author": "Johannes Vermeer",
+  "year": "ok. 1660",
+  "institution": "Rijksmuseum, Amsterdam",
+  "license": "Domena publiczna",
+  "source": "https://commons.wikimedia.org/wiki/File:Johannes_Vermeer_-_Het_melkmeisje_-_Google_Art_Project.jpg",
+  "description": "W skromnej kuchni młoda kobieta nalewa mleko z glinianego dzbanka do misy. Stoi pośrodku obrazu, zwrócona w lewo, przy stole zastawionym chlebem. Po lewej stronie, u góry, znajduje się okno, przez które wpada dzienne światło, a prawą stronę zajmuje pusta, jasna ściana. Dominują żółć kaftana, błękit fartucha i chłodna biel ściany.",
+  "layers": {
+    "width": 457,
+    "height": 512
+  },
+  "objects": [
+    {
+      "id": 1,
+      "label": "kobieta",
+      "shortDescription": "Młoda służąca w żółtym kaftanie i niebieskim fartuchu.",
+      "longDescription": "Kobieta stoi pośrodku obrazu, lekko pochylona, ze wzrokiem spuszczonym na dzbanek. Na głowie ma biały płócienny czepek. Nosi żółty kaftan z podwiniętymi zielonymi rękawami, niebieski fartuch i czerwoną spódnicę. Jej twarz i przedramiona oświetla światło z okna.",
+      "sound": "hum"
+    },
+    {
+      "id": 2,
+      "label": "dzbanek z mlekiem",
+      "shortDescription": "Z glinianego dzbanka leje się cienka strużka mleka.",
+      "longDescription": "Kobieta trzyma oburącz przechylony, brązowy gliniany dzbanek. Z jego otworu spływa cienka, biała strużka mleka. Mleko wpada do szerokiej glinianej misy z dwoma uchami, która stoi na stole.",
+      "sound": "pour"
+    },
+    {
+      "id": 3,
+      "label": "chleb",
+      "shortDescription": "Wiklinowy kosz z bochenkiem i kawałki chleba na stole.",
+      "longDescription": "Na stole, w lewej dolnej części obrazu, stoi płaski wiklinowy kosz z dużym, okrągłym bochenkiem. Obok leżą mniejsze bułki i ułamane kawałki chleba. Skórka jest złocistobrązowa i chropowata, błyszczą na niej drobne punkty światła.",
+      "sound": "crunch"
+    },
+    {
+      "id": 4,
+      "label": "okno",
+      "shortDescription": "Wysokie okno z małymi szybkami, źródło światła.",
+      "longDescription": "W lewym górnym rogu obrazu znajduje się wysokie okno podzielone na małe, prostokątne szybki. Jedna z nich jest pęknięta. Przez okno wpada chłodne, dzienne światło, które oświetla całą kuchnię.",
+      "sound": "bird"
+    },
+    {
+      "id": 5,
+      "label": "stół",
+      "shortDescription": "Stół nakryty ciemnozielonym obrusem.",
+      "longDescription": "Lewy dolny róg obrazu zajmuje stół nakryty ciemnozielonym obrusem. Z jego krawędzi zwisa zmięta niebieska tkanina. Na stole stoją kosz z chlebem, misa oraz niebieski kamionkowy dzban z pokrywką.",
+      "sound": "knock"
+    }
+  ]
+}

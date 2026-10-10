@@ -1,0 +1,58 @@
+{
+  "id": "mysliwi",
+  "title": "Myśliwi na śniegu",
+  "author": "Pieter Bruegel starszy",
+  "year": "1565",
+  "institution": "Kunsthistorisches Museum, Wiedeń",
+  "license": "Domena publiczna",
+  "source": "https://commons.wikimedia.org/wiki/File:Pieter_Bruegel_the_Elder_-_Hunters_in_the_Snow_(Winter)_-_Google_Art_Project.jpg",
+  "description": "Zimowy pejzaż oglądany z wysokiego wzgórza. Na pierwszym planie, po lewej stronie, trzej myśliwi z gromadą psów schodzą po śniegu w stronę doliny. W dolinie, po prawej, leżą zamarznięte stawy, na których bawią się drobne sylwetki ludzi, a w oddali wznoszą się skaliste góry. Obraz utrzymany jest w bieli śniegu, zgaszonej zieleni nieba i lodu oraz czerni drzew i postaci.",
+  "layers": {
+    "width": 512,
+    "height": 364
+  },
+  "objects": [
+    {
+      "id": 1,
+      "label": "myśliwi",
+      "shortDescription": "Trzej myśliwi z włóczniami brną przez śnieg.",
+      "longDescription": "Trzech mężczyzn idzie od lewej strony w głąb obrazu, plecami do widza. Są przygarbieni, mają ciemne, grube ubrania i niosą na ramionach długie włócznie. Jeden z nich dźwiga na plecach upolowanego lisa. Ich stopy zapadają się w głębokim śniegu.",
+      "sound": "steps"
+    },
+    {
+      "id": 2,
+      "label": "psy",
+      "shortDescription": "Gromada chudych psów myśliwskich idzie za ludźmi.",
+      "longDescription": "W lewym dolnym rogu obrazu, za myśliwymi, idzie kilkanaście psów. Są chude, mają długie nogi i podkulone ogony. Ich sierść jest brązowa, ruda i szara. Idą ze spuszczonymi łbami, węsząc po śniegu.",
+      "sound": "dogs"
+    },
+    {
+      "id": 3,
+      "label": "ognisko",
+      "shortDescription": "Ludzie rozpalają ognisko przed gospodą.",
+      "longDescription": "Po lewej stronie, przed ceglanym budynkiem gospody, płonie duże ognisko. Żółtopomarańczowe płomienie pochylają się na wietrze. Wokół ognia krząta się kilka osób w ciemnych ubraniach, jedna z nich dokłada do niego słomy.",
+      "sound": "fire"
+    },
+    {
+      "id": 4,
+      "label": "drzewa z ptakami",
+      "shortDescription": "Wysokie, nagie drzewa, a na gałęziach czarne ptaki.",
+      "longDescription": "Górną lewą część obrazu przecinają ciemne pnie i nagie gałęzie wysokich drzew, wyraźnie odcinające się od zielonkawego nieba. Na gałęziach siedzi kilka czarnych ptaków. Jeden ptak z rozłożonymi skrzydłami szybuje nad doliną.",
+      "sound": "crow"
+    },
+    {
+      "id": 5,
+      "label": "zamarznięte stawy",
+      "shortDescription": "Na zielonkawym lodzie ludzie jeżdżą na łyżwach.",
+      "longDescription": "W dolinie, w prawej części obrazu, leżą dwa prostokątne zamarznięte stawy. Lód ma szarozielony kolor. Poruszają się po nim dziesiątki drobnych, ciemnych sylwetek: ludzie jeżdżą na łyżwach, ciągną sanki i grają kijami.",
+      "sound": "skates"
+    },
+    {
+      "id": 6,
+      "label": "góry",
+      "shortDescription": "Ostre, ośnieżone szczyty na horyzoncie.",
+      "longDescription": "W prawym górnym rogu obrazu, daleko na horyzoncie, wznoszą się strome, poszarpane skały pokryte śniegiem. U ich stóp leży niewielka wioska. Nad górami rozciąga się gładkie, szarozielone niebo.",
+      "sound": "wind"
+    }
+  ]
+}
