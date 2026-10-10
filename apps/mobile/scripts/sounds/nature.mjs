@@ -99,3 +99,13 @@ export function skates() {
   });
   return buffer;
 }
+
+// Breaking sea wave: a deep roar that builds up, then foam hissing as it collapses
+export function waves() {
+  const random = mulberry32(111);
+  const duration = 4;
+  const roar = swell(seamlessLoop(duration, noise(random, biquad('lowpass', 420, 0.8))), 1, 0.9);
+  // The foam peaks a quarter of the loop after the roar, like a crest falling over
+  const foam = swell(seamlessLoop(duration, noise(random, biquad('highpass', 2200, 0.7))), 1, 1, -Math.PI / 2);
+  return roar.map((s, i) => 2.5 * s + 0.6 * foam[i]);
+}

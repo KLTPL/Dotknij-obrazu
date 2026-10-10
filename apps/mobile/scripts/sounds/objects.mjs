@@ -63,3 +63,20 @@ export function hum() {
   });
   return buffer;
 }
+
+// Rowing boat: the oar creaks against the hull, dips with a splash, then water drips off the blade
+export function oars() {
+  const random = mulberry32(122);
+  const buffer = new Float64Array(seconds(2.4));
+  [0, 1.2].forEach((stroke) => {
+    const creak = sweep((t) => 360 + 700 * t + 25 * Math.sign(Math.sin(2 * Math.PI * 34 * t)));
+    addEvent(buffer, stroke, 0.36, (t) => 0.5 * creak(t) * Math.sin((Math.PI * t) / 0.36));
+    const splash = noise(random, biquad('bandpass', 1300, 0.8));
+    addEvent(buffer, stroke + 0.42, 0.3, (t) => 1.4 * splash() * Math.min(1, t / 0.01) * Math.exp(-t / 0.08));
+    for (let i = 0; i < 5; i++) {
+      const drip = sweep((t) => 1100 + 500 * i + 7000 * t);
+      addEvent(buffer, stroke + 0.72 + i * 0.09, 0.03, (t) => 0.35 * drip(t) * Math.sin((Math.PI * t) / 0.03));
+    }
+  });
+  return buffer;
+}

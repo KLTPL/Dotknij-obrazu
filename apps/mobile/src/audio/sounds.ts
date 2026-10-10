@@ -15,9 +15,11 @@ export const SOUNDS: Record<string, AudioSource> = {
   hum: require('../../assets/sounds/hum.wav'),
   knock: require('../../assets/sounds/knock.wav'),
   mud: require('../../assets/sounds/mud.wav'),
+  oars: require('../../assets/sounds/oars.wav'),
   pour: require('../../assets/sounds/pour.wav'),
   skates: require('../../assets/sounds/skates.wav'),
   steps: require('../../assets/sounds/steps.wav'),
   water: require('../../assets/sounds/water.wav'),
+  waves: require('../../assets/sounds/waves.wav'),
   wind: require('../../assets/sounds/wind.wav'),
 };
