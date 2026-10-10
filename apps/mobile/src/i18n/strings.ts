@@ -54,6 +54,7 @@ const pl = {
       'Stuknij dwa razy: nazwa i opis obiektu. Jeszcze raz: jego historia.',
       'Stuknij dwoma palcami: opis obrazu albo zatrzymanie mowy.',
       'W galerii przesuń w górę lub w dół, aby zmienić obraz.',
+      'Gest wstecz, czyli przesunięcie palcem od krawędzi ekranu do środka: powrót do galerii.',
     ],
     about: 'O aplikacji',
     aboutText:
@@ -81,7 +82,8 @@ const pl = {
       `${title}. ${author}. ` +
       (landscape ? 'Obraz poziomy. Obróć telefon poziomo. ' : 'Obraz pionowy. Trzymaj telefon pionowo. ') +
       'Słyszysz wszystkie dźwięki obrazu naraz. Wódź palcem po ekranie, aby je rozdzielić. ' +
-      'Stuknij dwa razy, aby usłyszeć, czego dotykasz. Stuknij dwoma palcami, aby usłyszeć opis obrazu.',
+      'Stuknij dwa razy, aby usłyszeć, czego dotykasz. Stuknij dwoma palcami, aby usłyszeć opis obrazu. ' +
+      'Aby wrócić do galerii, użyj gestu wstecz: przesuń palcem od krawędzi ekranu do środka.',
     boardLabel: (title: string) => `Obraz ${title}`,
     boardHint: 'Aby poznawać go palcem, wstrzymaj czytnik ekranu. Opis i lista obiektów są w akcjach.',
     actionObjects: 'Lista obiektów',
@@ -161,6 +163,7 @@ const en: Strings = {
       'Double tap: name and description of an object. Again: its story.',
       'Tap with two fingers: description of the painting, or stop speech.',
       'In the gallery swipe up or down to change the painting.',
+      'The back gesture, a swipe from the edge of the screen towards the middle: back to the gallery.',
     ],
     about: 'About',
     aboutText: 'The paintings are in the public domain. The sounds are CC0 and public domain recordings and our own synthesis.',
@@ -186,7 +189,8 @@ const en: Strings = {
       `${title}. ${author}. ` +
       (landscape ? 'A wide painting. Turn the phone sideways. ' : 'A tall painting. Hold the phone upright. ') +
       'You can hear all the sounds of the painting at once. Move a finger across the screen to tell them apart. ' +
-      'Double tap to hear what you are touching. Tap with two fingers to hear a description of the painting.',
+      'Double tap to hear what you are touching. Tap with two fingers to hear a description of the painting. ' +
+      'To go back to the gallery, use the back gesture: swipe from the edge of the screen towards the middle.',
     boardLabel: (title) => `Painting: ${title}`,
     boardHint: 'To explore it with a finger, pause the screen reader. The description and the list of objects are in the actions.',
     actionObjects: 'List of objects',
