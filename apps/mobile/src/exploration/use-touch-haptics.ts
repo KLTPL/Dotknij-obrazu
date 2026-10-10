@@ -16,6 +16,8 @@ const ENTER_PATTERN = [0, 30, 50, 30];
 const LEAVE_PULSE_MS = 30;
 // Contour and texture pulses pause for this long, because any new vibration cuts off the knocks
 const BORDER_QUIET_MS = 150;
+// Sliding off the painting: one long buzz, unlike any knock, like a finger slipping over a frame
+const FRAME_PULSE_MS = 90;
 
 /**
  * How each surface feels: one pulse of `pulseMs` for every `spacing` points the finger travels.
@@ -66,6 +68,11 @@ export function useTouchHaptics() {
       border: (entered: boolean) => {
         quietUntilRef.current = Date.now() + BORDER_QUIET_MS;
         Vibration.vibrate(entered ? ENTER_PATTERN : LEAVE_PULSE_MS);
+      },
+      /** The finger slid off the edge of the painting. */
+      frame: () => {
+        quietUntilRef.current = Date.now() + BORDER_QUIET_MS;
+        Vibration.vibrate(FRAME_PULSE_MS);
       },
       /** Call on every move with the distance covered since the previous one. */
       travel: (distance: number, texture: ArtworkTexture) => {
