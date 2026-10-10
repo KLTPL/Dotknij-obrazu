@@ -15,12 +15,14 @@ type Voice = { player: AudioPlayer; level: number; started: boolean };
 
 /**
  * Keeps every object's loop running at volume 0 and crossfades to the active one.
+ * The loops can also play together quietly, as the soundscape of the whole artwork.
  * Starting playback on touch would add audible latency; a volume change is instant.
  */
 export function useObjectSounds<Id extends string | number>(objects: readonly ObjectSound<Id>[]) {
   const activeRef = useRef<Id | null>(null);
   const gainRef = useRef(1);
   const duckedRef = useRef(false);
+  const ambientRef = useRef<ReadonlyMap<Id, number> | null>(null);
 
   useEffect(() => {
     void setAudioModeAsync({ playsInSilentMode: true });
@@ -40,7 +42,8 @@ export function useObjectSounds<Id extends string | number>(objects: readonly Ob
           voice.player.play();
           voice.started = true;
         }
-        const target = id === activeRef.current ? gainRef.current * (duckedRef.current ? DUCKED_LEVEL : 1) : 0;
+        const level = id === activeRef.current ? gainRef.current : (ambientRef.current?.get(id) ?? 0);
+        const target = level * (duckedRef.current ? DUCKED_LEVEL : 1);
         if (voice.level === target) return;
         voice.level =
           voice.level < target
@@ -64,6 +67,10 @@ export function useObjectSounds<Id extends string | number>(objects: readonly Ob
       /** Loudness of the active object, 0..1; used to make closer things louder. */
       setGain: (gain: number) => {
         gainRef.current = gain;
+      },
+      /** Levels (0..1) at which the objects not under the finger play together; null silences them. */
+      setAmbient: (levels: ReadonlyMap<Id, number> | null) => {
+        ambientRef.current = levels;
       },
       setDucked: (ducked: boolean) => {
         duckedRef.current = ducked;

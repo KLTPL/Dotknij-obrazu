@@ -81,7 +81,8 @@
             0.7
           ]
         ]
-      ]
+      ],
+      "refine": true
     },
     {
       "label": "psy",
@@ -155,7 +156,8 @@
             0.79
           ]
         ]
-      ]
+      ],
+      "refine": true
     },
     {
       "label": "ognisko",
@@ -201,7 +203,8 @@
             0.66
           ]
         ]
-      ]
+      ],
+      "refine": true
     },
     {
       "label": "drzewa z ptakami",

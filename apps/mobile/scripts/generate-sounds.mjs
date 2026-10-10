@@ -1,12 +1,13 @@
-// Synthesizes the sounds we have no recording for into assets/sounds.
-// Every other sound is cut from a CC0 recording by pipeline/sounds.py.
+// Synthesizes the sounds we have no recording for: object loops into assets/sounds
+// (every other loop is cut from a CC0 recording by pipeline/sounds.py) and the border
+// signals into assets/cues, apart from the loops, so no artwork object can be given one.
 // Run: pnpm --filter @repo/mobile sounds
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const SAMPLE_RATE = 22050;
-const OUT_DIR = join(dirname(fileURLToPath(import.meta.url)), '..', 'assets', 'sounds');
+const ASSETS_DIR = join(dirname(fileURLToPath(import.meta.url)), '..', 'assets');
 
 const seconds = (duration) => Math.round(duration * SAMPLE_RATE);
 
@@ -74,8 +75,27 @@ function hum() {
   return buffer;
 }
 
-mkdirSync(OUT_DIR, { recursive: true });
-for (const [name, generate] of Object.entries({ hum })) {
-  writeFileSync(join(OUT_DIR, `${name}.wav`), encodeWav(normalize(generate())));
-  console.log(`assets/sounds/${name}.wav`);
+// Two quick notes marking the border of an object: rising when the finger enters, falling when it leaves
+function borderCue(firstNote, secondNote) {
+  const noteDuration = 0.07;
+  const buffer = new Float64Array(seconds(2 * noteDuration));
+  [firstNote, secondNote].forEach((frequency, i) => {
+    const tone = sweep(() => frequency);
+    addEvent(buffer, i * noteDuration, noteDuration, (t) => {
+      const envelope = Math.min(1, t / 0.005) * Math.min(1, (noteDuration - t) / 0.03);
+      return envelope * tone(t);
+    });
+  });
+  return buffer;
+}
+
+const enter = () => borderCue(660, 990);
+const leave = () => borderCue(660, 440);
+
+const files = { 'sounds/hum': hum, 'cues/enter': enter, 'cues/leave': leave };
+for (const [name, generate] of Object.entries(files)) {
+  const path = join(ASSETS_DIR, `${name}.wav`);
+  mkdirSync(dirname(path), { recursive: true });
+  writeFileSync(path, encodeWav(normalize(generate())));
+  console.log(`assets/${name}.wav`);
 }

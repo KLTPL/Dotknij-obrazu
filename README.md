@@ -56,12 +56,19 @@ Potrzebne są **słuchawki przewodowe** — Bluetooth opóźnia dźwięk względ
 
 | Gest                      | Działanie                                         |
 | ------------------------- | ------------------------------------------------- |
-| wodzenie jednym palcem    | dźwięk obiektu pod palcem, tyknięcie przy zmianie obiektu |
+| wodzenie jednym palcem    | dźwięk obiektu pod palcem; granicę obiektu zaznacza sygnał i wibracja |
 | jazda palcem po konturze  | pulsująca wibracja, która gęstnieje na środku linii; kontury bliższych rzeczy są mocniejsze |
 | ruch palca wewnątrz obiektu | faktura: gładka, miękka, ziarnista albo szorstka |
 | przytrzymanie palca       | nazwa obiektu, a na konturze: czyj to obrys       |
 | podwójne stuknięcie       | dłuższy opis obiektu                              |
-| stuknięcie dwoma palcami  | opis całego obrazu albo przerwanie mowy           |
+| stuknięcie dwoma palcami  | opis całego obrazu z pejzażem dźwiękowym albo przerwanie mowy |
+
+Wejście w obiekt to dwa wznoszące się tony i dwa stuknięcia wibracji, wyjście na tło — dwa
+opadające tony i jedno stuknięcie. Dźwięki obiektów przenikają się płynnie, więc dopiero ten
+sygnał mówi dokładnie, w którym miejscu jest granica.
+
+Po otwarciu obrazu słychać **pejzaż dźwiękowy**: wszystkie obiekty grają naraz, bliższe głośniej.
+Pierwsze dotknięcie go wycisza i zostaje tylko dźwięk spod palca. Pejzaż wraca pod opisem całego obrazu.
 
 Szerokie obrazy obracają ekran do poziomu, żeby obiekty były jak największe. Na ekranie widać
 obraz, białe linie konturów, kółko pod palcem, żółte podświetlenie dotykanego obiektu i jego podpis — to dla widowni,
@@ -105,12 +112,15 @@ Wejście to `pipeline/artworks/<id>/source.json` (tytuł, autor, licencja, adres
 
 `objects.json` powstaje raz i zostaje w repo, więc człowiek może go poprawić: zmienić opis,
 dźwięk, ramkę albo dodać do obiektu pole `polygons` (lista wielokątów, współrzędne 0–1),
-które zastępuje maskę z SAM. Po każdej zmianie wystarczy ponownie uruchomić `build.py`
+które zastępuje maskę z SAM. Z `"refine": true` wielokąt mówi tylko, gdzie szukać: SAM dostaje
+siatkę punktów wewnątrz niego i zwraca dokładne sylwetki tego, co tam jest (np. każdego konia
+z zaprzęgu), a to, co wylewa się poza wielokąt, odpada jako tło. Po każdej zmianie wystarczy ponownie uruchomić `build.py`
 i obejrzeć `pipeline/work/<id>/preview.jpg`. `--redo describe` generuje opis od nowa
 i nadpisuje poprawki.
 
 Stan na teraz: opisy i obiekty czterech dzieł w repo zostały przygotowane ręcznie w tym trybie
-(obszary takie jak niebo czy grupa koni łatwiej obrysować niż wysegmentować automatycznie).
+(obszary takie jak niebo łatwiej obrysować niż wysegmentować; konie, psy, myśliwi i łodzie
+są obrysowane zgrubnie, a ich sylwetki znajduje SAM).
 Krok z Claude jest zaimplementowany, ale nie był jeszcze uruchomiony z prawdziwym kluczem API.
 SAM 3 z promptem tekstowym nie jest używany — wymaga nowszego PyTorcha niż dostępny na naszym sprzęcie,
 dlatego maski liczy SAM 2.1 z ramką.

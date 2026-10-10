@@ -8,6 +8,7 @@ Inputs live in pipeline/artworks/<id>/:
     source.json   title, author, licence and the image URL (written by hand or by import_met.py)
     objects.json  objects and descriptions; created by Claude on the first run, then kept,
                   so a curator can correct the texts, boxes or add "polygons" by hand
+                  ("refine": true makes SAM find the exact things inside the polygons)
 
 Slow intermediate results (downloaded image, depth map) are cached in pipeline/work/<id>/.
 """
@@ -24,7 +25,7 @@ from PIL import Image
 from depth import estimate_depth
 from describe import describe_artwork
 from pack import write_package, write_preview, write_registry
-from segment import clean_mask, contour_layer, merge_masks, polygon_mask, sam_masks
+from segment import clean_mask, contour_layer, merge_masks, polygon_mask, sam_masks, things_inside
 
 PIPELINE_DIR = Path(__file__).parent
 ARTWORKS_DIR = PIPELINE_DIR / "artworks"
@@ -54,16 +55,28 @@ def layer_size(image: Image.Image) -> tuple[int, int]:
 
 
 def object_masks(image: Image.Image, objects: list[dict], size: tuple[int, int]) -> list[np.ndarray]:
-    """Curator polygons win; every other object is segmented by SAM inside its box."""
+    """Curator polygons win; every other object is segmented by SAM inside its box.
+
+    A polygon marked "refine" only says where to look: SAM finds the exact things inside it.
+    """
     automatic = [item for item in objects if not item.get("polygons")]
     segmented = iter(sam_masks(image, [item["box"] for item in automatic], size) if automatic else [])
-    masks = [
-        polygon_mask(item["polygons"], size) if item.get("polygons") else clean_mask(next(segmented))
-        for item in objects
-    ]
-    for item, mask in zip(objects, masks):
+    masks = []
+    for item in objects:
+        if not item.get("polygons"):
+            mask = clean_mask(next(segmented))
+        else:
+            mask = polygon_mask(item["polygons"], size)
+            if item.get("refine"):
+                mask = things_inside(image, mask, size)
+        masks.append(mask)
         print(f"  {item['label']}: {mask.mean():.1%} obrazu")
     return masks
+
+
+def is_precise(item: dict) -> bool:
+    """Whether the mask follows the real outline of the object, so its edge is worth tracing."""
+    return not item.get("polygons") or bool(item.get("refine"))
 
 
 def build(artwork_id: str, redo: set[str]) -> None:
@@ -96,8 +109,8 @@ def build(artwork_id: str, redo: set[str]) -> None:
     print("  segmentuję obiekty")
     masks = object_masks(image, described["objects"], size)
     object_ids = merge_masks(masks)
-    sam_segmented = [mask for item, mask in zip(described["objects"], masks) if not item.get("polygons")]
-    contours = contour_layer(depth, sam_segmented)
+    precise = [mask for item, mask in zip(described["objects"], masks) if is_precise(item)]
+    contours = contour_layer(depth, precise)
 
     write_package(PACKAGES_DIR / artwork_id, source, described, image, object_ids, depth, contours)
     write_preview(work_dir / "preview.jpg", image, object_ids, depth, contours)

@@ -1,5 +1,4 @@
 import type { ArtworkTexture } from '@repo/shared';
-import * as Haptics from 'expo-haptics';
 import { type ReactNode, useRef, useState } from 'react';
 import {
   Animated,
@@ -11,6 +10,7 @@ import {
   type ViewStyle,
 } from 'react-native';
 
+import { useBorderCue } from './use-border-cue';
 import { useTouchHaptics } from './use-touch-haptics';
 
 const HOLD_MS = 600;
@@ -46,14 +46,15 @@ type Props<T extends { id: string | number }> = {
 const distance = (a: Point, b: Point) => Math.hypot(a.x - b.x, a.y - b.y);
 
 /**
- * Touch surface explored with one finger: reports the object under the finger, ticks when
- * the object changes, vibrates along contours and over textures, and recognizes hold,
- * double tap and two-finger tap.
+ * Touch surface explored with one finger: reports the object under the finger, signals the
+ * border of an object with knocks and a short sound, vibrates along contours and over
+ * textures, and recognizes hold, double tap and two-finger tap.
  */
 export function ExplorationBoard<T extends { id: string | number }>(props: Props<T>) {
   const { objectAt, contourAt, textureOf, onTouchStart, onMove, onObjectChange } = props;
   const { onHold, onDoubleTap, onTwoFingerTap } = props;
   const haptics = useTouchHaptics();
+  const borderCue = useBorderCue();
   const sizeRef = useRef({ width: 1, height: 1 });
   const currentRef = useRef<T['id'] | null>(null);
   const holdTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -107,8 +108,9 @@ export function ExplorationBoard<T extends { id: string | number }>(props: Props
     lastPointRef.current = point;
 
     if (id !== currentRef.current) {
-      // A single distinct tick marks the moment the sound changes
-      void Haptics.selectionAsync();
+      // The loops crossfade, so the border itself is marked with knocks and a short signal
+      haptics.border(object !== null);
+      borderCue.play(object !== null);
       currentRef.current = id;
       onObjectChange(object);
       restartHold(object, point);

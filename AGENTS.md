@@ -55,6 +55,7 @@ Bez nadmiarowych abstrakcji, bez funkcji „na zapas”.
 apps/mobile/
   assets/artworks/<id>/   paczki dzieł — WYNIK pipeline'u, nie edytować ręcznie
   assets/sounds/          pętle WAV — WYNIK pipeline/sounds.py (nagrania CC0) i scripts/generate-sounds.mjs
+  assets/cues/            sygnały granicy obiektu — WYNIK scripts/generate-sounds.mjs
   src/app/                ekrany: index (galeria), artwork/[id] (eksploracja), training
   src/artworks/           odczyt paczki (dekodowanie warstw), registry.ts (generowany)
   src/exploration/        ExplorationBoard + hooki dźwięku, mowy i orientacji — wspólne
@@ -99,7 +100,7 @@ zablokuje — dopisz ją do `allowBuilds` w `pnpm-workspace.yaml`.
   w pustkę. Tylko CC0 z atrybucją (`ATTRIBUTION.md` generuje się sam) albo własna synteza
   w `apps/mobile/scripts/generate-sounds.mjs`.
 - Nowe dzieło: `source.json` → `build.py` → poprawki w `objects.json` (pole `polygons`
-  zastępuje maskę z SAM) → `build.py` → podgląd w `pipeline/work/<id>/preview.jpg`.
+  zastępuje maskę z SAM, a z `"refine": true` SAM szuka dokładnych sylwetek wewnątrz wielokąta) → `build.py` → podgląd w `pipeline/work/<id>/preview.jpg`.
   Tylko domena publiczna / CC0, bez scen religijnych i politycznych.
 - Obiekt musi być na ekranie telefonu co najmniej wielkości opuszka palca.
 

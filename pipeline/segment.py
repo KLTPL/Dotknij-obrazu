@@ -1,11 +1,17 @@
 """Step 4: one mask per object, merged into the object-id layer; plus the contour layer."""
 
+from functools import lru_cache
+
 import numpy as np
 from PIL import Image, ImageDraw
 from scipy import ndimage
 
 SAM_MODEL = "facebook/sam2.1-hiera-small"
 MIN_REGION_SHARE = 0.002  # specks smaller than this share of the image are dropped
+GRID_STEP = 0.035  # spacing of the points probing a curator polygon, as a share of the image width
+MIN_INSIDE_SHARE = 0.85  # a probed thing counts if this much of it lies inside the polygon
+MIN_THINGS_SHARE = 0.25  # below this share of the polygon the probing failed and the polygon stays
+FINGER_MARGIN_PX = 3  # thin parts such as legs are widened, so a fingertip can stay on them
 DEPTH_STEP = 4  # change of depth per pixel (on the 0-255 scale) that counts as a silhouette
 MIN_CONTOUR_PX = 40  # shorter silhouette fragments are noise
 CONTOUR_RADIUS_PX = 9  # the vibration fades out this far from a contour, about 3 mm on a phone
@@ -22,22 +28,23 @@ def polygon_mask(polygons: list[list[list[float]]], size: tuple[int, int]) -> np
     return np.asarray(canvas) > 0
 
 
-def sam_masks(image: Image.Image, boxes: list[dict], size: tuple[int, int]) -> list[np.ndarray]:
-    """Segments the object inside each box (normalized x0, y0, x1, y1) with SAM 2."""
+@lru_cache(maxsize=1)
+def load_sam():
     import torch
     from transformers import Sam2Model, Sam2Processor  # slow import, only needed for this step
 
     # torch 2.2 is the last release for Intel Macs and lacks this helper used by the processor
     if not hasattr(torch.compiler, "is_compiling"):
         torch.compiler.is_compiling = lambda: False
+    return Sam2Processor.from_pretrained(SAM_MODEL), Sam2Model.from_pretrained(SAM_MODEL)
 
-    processor = Sam2Processor.from_pretrained(SAM_MODEL)
-    model = Sam2Model.from_pretrained(SAM_MODEL)
-    pixel_boxes = [
-        [box["x0"] * image.width, box["y0"] * image.height, box["x1"] * image.width, box["y1"] * image.height]
-        for box in boxes
-    ]
-    inputs = processor(images=image, input_boxes=[pixel_boxes], return_tensors="pt")
+
+def run_sam(image: Image.Image, size: tuple[int, int], **prompts) -> list[np.ndarray]:
+    """One mask per prompted object, scaled to the layer size."""
+    import torch
+
+    processor, model = load_sam()
+    inputs = processor(images=image, return_tensors="pt", **prompts)
     with torch.no_grad():
         outputs = model(**inputs, multimask_output=False)
     masks = processor.post_process_masks(outputs.pred_masks, inputs["original_sizes"])[0]
@@ -45,6 +52,42 @@ def sam_masks(image: Image.Image, boxes: list[dict], size: tuple[int, int]) -> l
         np.asarray(Image.fromarray(mask[0].numpy().astype(np.uint8) * 255).resize(size, Image.Resampling.NEAREST)) > 0
         for mask in masks
     ]
+
+
+def sam_masks(image: Image.Image, boxes: list[dict], size: tuple[int, int]) -> list[np.ndarray]:
+    """Segments the object inside each box (normalized x0, y0, x1, y1) with SAM 2."""
+    pixel_boxes = [
+        [box["x0"] * image.width, box["y0"] * image.height, box["x1"] * image.width, box["y1"] * image.height]
+        for box in boxes
+    ]
+    return run_sam(image, size, input_boxes=[pixel_boxes])
+
+
+def things_inside(image: Image.Image, region: np.ndarray, size: tuple[int, int]) -> np.ndarray:
+    """Exact silhouette of the things a curator circled roughly, e.g. every horse of a team.
+
+    One box cannot describe a group, so SAM is asked what lies under each point of a grid
+    covering the polygon. Whatever spills far outside the polygon is background (the road
+    under the horses) and is dropped; the rest is joined into one mask.
+    """
+    width, height = size
+    step_y = GRID_STEP * width / height
+    points = [
+        [x * image.width, y * image.height]
+        for y in np.arange(step_y / 2, 1, step_y)
+        for x in np.arange(GRID_STEP / 2, 1, GRID_STEP)
+        if region[int(y * height), int(x * width)]
+    ]
+    if not points:
+        return region
+    things = np.zeros(region.shape, dtype=bool)
+    for mask in run_sam(image, size, input_points=[[[point] for point in points]], input_labels=[[[1]] * len(points)]):
+        if mask.any() and (mask & region).sum() >= MIN_INSIDE_SHARE * mask.sum():
+            things |= mask
+    things &= region
+    if things.sum() < MIN_THINGS_SHARE * region.sum():
+        return region
+    return clean_mask(ndimage.binary_dilation(things, iterations=FINGER_MARGIN_PX)) & region
 
 
 def clean_mask(mask: np.ndarray) -> np.ndarray:
@@ -76,7 +119,7 @@ def contour_layer(depth: np.ndarray, precise_masks: list[np.ndarray]) -> np.ndar
     """How close each pixel is to a contour worth tracing with a finger, 0 far away from any.
 
     Contours are silhouettes found as sudden changes of depth (a horse against the road)
-    and outlines of the masks segmented by SAM. Hand-drawn polygons are too rough to trace.
+    and outlines of the masks found by SAM. Plain hand-drawn polygons are too rough to trace.
     The value on a contour grows with depth, so the outline of a near thing feels stronger.
     """
     smooth = ndimage.gaussian_filter(depth.astype(float), 1.0)

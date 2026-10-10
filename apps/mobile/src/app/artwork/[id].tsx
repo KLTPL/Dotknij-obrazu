@@ -1,11 +1,11 @@
 import type { ArtworkObject } from '@repo/shared';
 import { Redirect, useLocalSearchParams, useRouter } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { type ArtworkEntry, contourOwner, decodeLayers, pixelIndex } from '@/artworks/artwork';
+import { type ArtworkEntry, contourOwner, decodeLayers, objectNearness, pixelIndex } from '@/artworks/artwork';
 import { ARTWORKS } from '@/artworks/registry';
 import { SOUNDS } from '@/audio/sounds';
 import { ExplorationBoard } from '@/exploration/exploration-board';
@@ -17,6 +17,11 @@ import { useSpeaker } from '@/exploration/use-speaker';
 const FAR_GAIN = 0.55;
 // Resting the finger this close to the middle of a contour names the outline instead of the object
 const ON_CONTOUR = 0.35;
+// Soundscape: every object plays at once, the farthest at the first level, the nearest at the second
+const SOUNDSCAPE_FAR = 0.3;
+const SOUNDSCAPE_NEAR = 0.65;
+// After the voice stops, the soundscape stays this long at full loudness and then fades away
+const SOUNDSCAPE_TAIL_MS = 5000;
 const GESTURES = 'Przytrzymaj: nazwa · stuknij 2 razy: opis obiektu · dwa palce: opis obrazu';
 const HOLD_LANDSCAPE = '↻ Trzymaj telefon poziomo';
 const HOLD_PORTRAIT = 'Trzymaj telefon pionowo';
@@ -38,7 +43,30 @@ function ArtworkExplorer({ entry }: { entry: ArtworkEntry }) {
     [manifest],
   );
   const sounds = useObjectSounds(objectSounds);
-  const speaker = useSpeaker(sounds.setDucked);
+  const soundscape = useMemo(
+    () =>
+      new Map(
+        [...objectNearness(layers)].map(([objectId, nearness]) => [
+          objectId,
+          SOUNDSCAPE_FAR + (SOUNDSCAPE_NEAR - SOUNDSCAPE_FAR) * nearness,
+        ]),
+      ),
+    [layers],
+  );
+  const tailRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const stopSoundscape = useCallback(() => {
+    if (tailRef.current) clearTimeout(tailRef.current);
+    sounds.setAmbient(null);
+  }, [sounds]);
+  const handleSpeaking = useCallback(
+    (speaking: boolean) => {
+      sounds.setDucked(speaking);
+      if (tailRef.current) clearTimeout(tailRef.current);
+      if (!speaking) tailRef.current = setTimeout(() => sounds.setAmbient(null), SOUNDSCAPE_TAIL_MS);
+    },
+    [sounds],
+  );
+  const speaker = useSpeaker(handleSpeaking);
   const [active, setActive] = useState<ArtworkObject | null>(null);
   const [area, setArea] = useState({ width: 0, height: 0 });
 
@@ -49,12 +77,27 @@ function ArtworkExplorer({ entry }: { entry: ArtworkEntry }) {
   useEffect(() => {
     // The screen turns by itself, but a blind user has to be told how to hold the phone
     const hold = landscape ? 'Obraz poziomy. Obróć telefon poziomo.' : 'Obraz pionowy. Trzymaj telefon pionowo.';
+    // The whole artwork is heard first, under the introduction; the first touch takes it apart
+    sounds.setAmbient(soundscape);
     speaker.speak(
-      `${manifest.title}. ${manifest.author}. ${hold} Wódź palcem po ekranie. ` +
-        'Stuknij dwoma palcami, aby usłyszeć opis obrazu.',
+      `${manifest.title}. ${manifest.author}. ${hold} Słyszysz wszystkie dźwięki obrazu naraz. ` +
+        'Wódź palcem po ekranie, aby je rozdzielić. Stuknij dwoma palcami, aby usłyszeć opis obrazu.',
     );
-    return speaker.stop;
-  }, [manifest, landscape, speaker]);
+    return () => {
+      speaker.stop();
+      stopSoundscape();
+    };
+  }, [manifest, landscape, speaker, sounds, soundscape, stopSoundscape]);
+
+  const describeArtwork = () => {
+    if (speaker.isSpeaking()) {
+      speaker.stop();
+      stopSoundscape();
+    } else {
+      sounds.setAmbient(soundscape);
+      speaker.speak(manifest.description);
+    }
+  };
 
   const contourAt = (x: number, y: number) => (layers.contours[pixelIndex(layers, x, y)] ?? 0) / 255;
 
@@ -101,6 +144,7 @@ function ArtworkExplorer({ entry }: { entry: ArtworkEntry }) {
             objectAt={(x, y) => objectsById.get(layers.objectIds[pixelIndex(layers, x, y)]) ?? null}
             contourAt={contourAt}
             textureOf={(object) => object.texture}
+            onTouchStart={stopSoundscape}
             onMove={(x, y) => {
               const depth = layers.depth[pixelIndex(layers, x, y)] ?? 0;
               sounds.setGain(FAR_GAIN + (1 - FAR_GAIN) * (depth / 255));
@@ -113,7 +157,7 @@ function ArtworkExplorer({ entry }: { entry: ArtworkEntry }) {
             onDoubleTap={(object) =>
               speaker.speak(object ? `${object.label}. ${object.longDescription}` : 'Tutaj nie ma opisanego obiektu.')
             }
-            onTwoFingerTap={() => (speaker.isSpeaking() ? speaker.stop() : speaker.speak(manifest.description))}
+            onTwoFingerTap={describeArtwork}
           >
             <Image source={entry.image} style={styles.layer} resizeMode="stretch" />
             {/* Faint lines show the audience which contours the finger can feel */}

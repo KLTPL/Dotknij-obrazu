@@ -35,6 +35,19 @@ export function decodeLayers(entry: ArtworkEntry): DecodedLayers {
   };
 }
 
+/** How close to the viewer each object is on average, 0 (far) to 1 (near), by object id. */
+export function objectNearness(layers: DecodedLayers): Map<number, number> {
+  const sums = new Map<number, { depth: number; pixels: number }>();
+  layers.objectIds.forEach((id, index) => {
+    if (id === 0) return;
+    const sum = sums.get(id) ?? { depth: 0, pixels: 0 };
+    sum.depth += layers.depth[index];
+    sum.pixels += 1;
+    sums.set(id, sum);
+  });
+  return new Map([...sums].map(([id, { depth, pixels }]) => [id, depth / pixels / 255]));
+}
+
 const OWNER_SEARCH_RADIUS_PX = 12;
 
 /**
