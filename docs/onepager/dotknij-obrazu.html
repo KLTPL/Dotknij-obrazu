@@ -32,75 +32,83 @@
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
-  html { font-family: "Inter", sans-serif; font-size: 8pt; line-height: 1.46; color: var(--ink); }
+  html { font-family: "Inter", sans-serif; font-size: 7.5pt; line-height: 1.42; color: var(--ink); }
 
-  .page { padding: 11.5mm 14mm 0 14mm; height: 297mm; position: relative; }
+  .page { padding: 9mm 14mm 0 14mm; height: 297mm; position: relative; }
 
   /* ---------- masthead ---------- */
   .meta {
     display: flex; justify-content: space-between;
-    font-size: 6.6pt; font-weight: 500; letter-spacing: .16em; text-transform: uppercase;
-    color: var(--muted); padding-bottom: 2.4mm; border-bottom: .5pt solid var(--ink);
+    font-size: 6.4pt; font-weight: 500; letter-spacing: .16em; text-transform: uppercase;
+    color: var(--muted); padding-bottom: 2.2mm; border-bottom: .5pt solid var(--ink);
   }
   .meta b { color: var(--ink); font-weight: 600; }
 
-  .masthead { display: flex; align-items: flex-end; gap: 10mm; margin-top: 5.5mm; }
+  .masthead { display: flex; align-items: flex-end; gap: 10mm; margin-top: 4mm; }
   .title-block { flex: 0 0 auto; }
   h1 {
-    font-family: "Fraunces Display"; font-weight: 300; font-size: 50pt; line-height: .9;
+    font-family: "Fraunces Display"; font-weight: 300; font-size: 40pt; line-height: .9;
     letter-spacing: -.025em;
   }
   h1 em { font-style: italic; color: var(--accent); }
   .braille {
-    font-family: "DejaVu Sans"; font-size: 13pt; letter-spacing: .14em; color: var(--accent);
-    margin-top: 2.6mm; line-height: 1;
+    font-family: "DejaVu Sans"; font-size: 12pt; letter-spacing: .14em; color: var(--accent);
+    margin-top: 2.2mm; line-height: 1;
   }
   .braille-note {
-    font-size: 6pt; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-top: 1.3mm;
+    font-size: 5.8pt; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-top: 1.1mm;
   }
   .lead {
-    flex: 1; font-family: "Fraunces Text"; font-style: italic; font-size: 11pt; line-height: 1.38;
-    padding-bottom: 4.6mm; hyphens: manual;
+    flex: 1; font-family: "Fraunces Text"; font-style: italic; font-size: 10.4pt; line-height: 1.36;
+    padding-bottom: 3.6mm; hyphens: manual;
   }
 
-  /* ---------- flow strip ---------- */
-  .flow {
-    margin-top: 4.5mm; padding: 2.3mm 0; border-top: .5pt solid var(--rule); border-bottom: .5pt solid var(--rule);
-    display: flex; justify-content: space-between; align-items: baseline;
-    font-size: 7pt; letter-spacing: .12em; text-transform: uppercase; font-weight: 500;
+  /* ---------- numbers strip ---------- */
+  .stats {
+    margin-top: 3.4mm; padding: 2mm 0 2.2mm; border-top: .5pt solid var(--rule); border-bottom: .5pt solid var(--rule);
+    display: flex; gap: 6mm;
   }
-  .flow .arrow { color: var(--accent); font-family: "DejaVu Sans"; letter-spacing: 0; }
-  .flow .out { color: var(--accent); font-weight: 600; }
+  .stat { flex: 1; }
+  .stat b {
+    display: block; font-family: "Fraunces Display"; font-weight: 300; font-size: 17pt; line-height: 1;
+    letter-spacing: -.015em; color: var(--accent); margin-bottom: 1mm;
+  }
+  .stat span { display: block; font-size: 6.9pt; line-height: 1.35; }
+  .stat small { color: var(--muted); font-size: 6.1pt; }
 
   /* ---------- grid ---------- */
-  .row { display: flex; gap: 7mm; margin-top: 4.8mm; }
+  .row { display: flex; gap: 7mm; margin-top: 3.6mm; }
   .col { flex: 1; }
   .col.wide { flex: 2.14; }
+  /* table cells instead of flex: WeasyPrint leaves empty height under this flex row */
+  .row.split { display: table; width: 100%; table-layout: fixed; }
+  .row.split > .col { display: table-cell; vertical-align: top; }
+  .row.split > .col.wide { width: 126mm; padding-right: 7mm; }
 
   h2 {
-    font-family: "Fraunces Text"; font-weight: 600; font-size: 11.2pt; line-height: 1.15;
-    letter-spacing: -.005em; margin-bottom: 2.2mm;
+    font-family: "Fraunces Text"; font-weight: 600; font-size: 10.6pt; line-height: 1.15;
+    letter-spacing: -.005em; margin-bottom: 1.8mm;
   }
   h2 .no {
-    font-family: "Inter"; font-weight: 600; font-size: 6.4pt; letter-spacing: .14em; color: var(--accent);
+    font-family: "Inter"; font-weight: 600; font-size: 6.2pt; letter-spacing: .14em; color: var(--accent);
     position: relative; top: -.15em; margin-right: 2.2mm;
   }
-  p + p { margin-top: 1.8mm; }
+  p + p { margin-top: 1.5mm; }
   p { text-align: left; hyphens: manual; orphans: 2; widows: 2; }
   strong { font-weight: 600; }
   em { font-style: italic; }
 
-  .gestures { margin-top: 2.4mm; border-top: .5pt solid var(--rule); }
-  .gestures div {
+  .pairs { margin-top: 2mm; border-top: .5pt solid var(--rule); }
+  .pairs div {
     display: flex; justify-content: space-between; gap: 3mm;
-    padding: .9mm 0; border-bottom: .5pt solid var(--rule); font-size: 7.4pt;
+    padding: .7mm 0; border-bottom: .5pt solid var(--rule); font-size: 7pt;
   }
-  .gestures span:first-child { font-weight: 500; }
-  .gestures span:last-child { color: var(--muted); text-align: right; }
+  .pairs span:first-child { font-weight: 500; }
+  .pairs span:last-child { color: var(--muted); text-align: right; }
 
-  .steps { margin-top: 2.2mm; counter-reset: s; }
+  .steps { margin-top: 1.8mm; counter-reset: s; }
   .steps li {
-    list-style: none; display: flex; gap: 2.4mm; padding: .75mm 0; border-top: .5pt solid var(--rule);
+    list-style: none; display: flex; gap: 2.4mm; padding: .6mm 0; border-top: .5pt solid var(--rule);
   }
   .steps li::before {
     counter-increment: s; content: counter(s);
@@ -108,45 +116,57 @@
   }
   .steps li span { flex: 1; min-width: 0; }
 
+
   /* ---------- pull quote ---------- */
   .quote {
-    margin-top: 4.8mm; padding: 3.2mm 0 3.2mm; border-top: 1.2pt solid var(--ink); border-bottom: .5pt solid var(--ink);
+    margin-top: 3.6mm; padding: 2.2mm 0; border-top: 1.2pt solid var(--ink); border-bottom: .5pt solid var(--ink);
     display: table; width: 100%; table-layout: fixed;
   }
   .quote .q {
-    font-family: "Fraunces Display"; font-weight: 300; font-size: 18pt; line-height: 1.12;
+    font-family: "Fraunces Display"; font-weight: 300; font-size: 15pt; line-height: 1.12;
     letter-spacing: -.012em; display: table-cell; vertical-align: top; padding-right: 7mm;
   }
   .quote .q em { color: var(--accent); }
   .quote .q span { display: block; }
   .quote small {
-    display: table-cell; vertical-align: top; width: 56mm;
-    font-size: 7.2pt; color: var(--muted); line-height: 1.45; padding-top: 1.4mm;
+    display: table-cell; vertical-align: top; width: 62mm;
+    font-size: 6.9pt; color: var(--muted); line-height: 1.42; padding-top: 1mm;
   }
 
-  /* ---------- challenges ---------- */
-  .band { margin-top: 4.6mm; }
+  /* ---------- market comparison ---------- */
+  .market { font-size: 7pt; }
+  .market div { display: flex; gap: 2.5mm; padding: .8mm 0; border-top: .5pt solid var(--rule); }
+  .market span:first-child { flex: 0 0 31mm; font-weight: 500; }
+  .market span:last-child { flex: 1; min-width: 0; color: var(--muted); }
+  .market .ours { border-top: 1pt solid var(--accent); border-bottom: 1pt solid var(--accent); color: var(--accent); }
+  .market .ours span:first-child { font-weight: 600; }
+  .market .ours span:last-child { color: var(--accent); }
+
+  /* ---------- cells ---------- */
+  .band { margin-top: 3.4mm; }
   .cells { display: flex; flex-wrap: wrap; column-gap: 7mm; }
-  .cell { width: 55.9mm; padding: 1.6mm 0 1.9mm; border-top: .5pt solid var(--rule); }
+  .cell { width: 55.9mm; padding: 1.3mm 0 1.6mm; border-top: .5pt solid var(--rule); }
+  .cells.four { column-gap: 5mm; flex-wrap: nowrap; }
+  .cells.four .cell { width: auto; flex: 1; }
   .cell h3 {
-    font-family: "Fraunces Text"; font-style: italic; font-weight: 400; font-size: 9.2pt; line-height: 1.2;
-    margin-bottom: .8mm;
+    font-family: "Fraunces Text"; font-style: italic; font-weight: 400; font-size: 8.8pt; line-height: 1.2;
+    margin-bottom: .6mm;
   }
-
 
   /* ---------- footer ---------- */
   footer {
-    position: absolute; left: 14mm; right: 14mm; bottom: 10mm;
-    border-top: .5pt solid var(--ink); padding-top: 2.8mm;
-    display: flex; gap: 7mm; font-size: 6.9pt; line-height: 1.5;
+    position: absolute; left: 14mm; right: 14mm; bottom: 7mm;
+    border-top: .5pt solid var(--ink); padding-top: 2.2mm;
+    display: flex; gap: 7mm; font-size: 6.6pt; line-height: 1.45;
   }
   footer .label {
-    display: block; font-size: 5.9pt; letter-spacing: .16em; text-transform: uppercase; color: var(--muted);
-    font-weight: 500; margin-bottom: .7mm;
+    display: block; font-size: 5.7pt; letter-spacing: .16em; text-transform: uppercase; color: var(--muted);
+    font-weight: 500; margin-bottom: .6mm;
   }
   footer .team { flex: 1; }
-  footer .works { flex: 2.14; font-family: "Fraunces Text"; font-style: italic; font-size: 7.6pt; }
+  footer .works { flex: 2.14; font-family: "Fraunces Text"; font-style: italic; font-size: 7.2pt; }
   footer .works .label { font-family: "Inter"; font-style: normal; }
+  footer .sources { margin-top: 1mm; font-family: "Inter"; font-style: normal; font-size: 6pt; color: var(--muted); }
 </style>
 </head>
 <body>
@@ -164,19 +184,31 @@
       <div class="braille-note">to samo, alfabetem Braille’a</div>
     </div>
     <p class="lead">
-      Aplikacja, dzięki której osoba niewidoma ogląda obraz palcem. Przesuwasz go po ekranie
-      telefonu i&nbsp;słyszysz to, czego dotykasz: w&nbsp;„Czwórce” Chełmońskiego tętent koni,
-      w&nbsp;„Wielkiej fali” Hokusaia szum wody. Na krawędziach obiektów telefon wibruje,
-      a&nbsp;po dwukrotnym stuknięciu głos podaje nazwę i&nbsp;opis.
+      Osoba niewidoma zna obrazy z&nbsp;muzeum zwykle tylko z&nbsp;cudzego opisu. W&nbsp;naszej
+      aplikacji ogląda je sama, palcem: przesuwa go po ekranie telefonu i&nbsp;słyszy to, czego
+      dotyka. W&nbsp;„Czwórce” Chełmońskiego jest to tętent koni, w&nbsp;„Wielkiej fali” Hokusaia
+      szum wody. Na krawędziach obiektów telefon wibruje, a&nbsp;po dwukrotnym stuknięciu głos
+      podaje nazwę i&nbsp;opis.
     </p>
   </header>
 
-  <div class="flow">
-    <span>palec na ekranie</span><span class="arrow">→</span>
-    <span>piksel obrazu</span><span class="arrow">→</span>
-    <span class="out">dźwięk obiektu</span><span>·</span>
-    <span class="out">wibracja konturu</span><span>·</span>
-    <span class="out">głos na życzenie</span>
+  <div class="stats">
+    <div class="stat">
+      <b>1,65 mln</b>
+      <span>osób w&nbsp;Polsce ma niepełnosprawność wzroku <small>(GUS, 2014)</small></span>
+    </div>
+    <div class="stat">
+      <b>43 mln</b>
+      <span>osób na świecie jest niewidomych <small>(Lancet Global Health, 2020)</small></span>
+    </div>
+    <div class="stat">
+      <b>994</b>
+      <span>muzea w&nbsp;Polsce; 71% to muzea publiczne, objęte ustawą o&nbsp;dostępności <small>(GUS, 2025)</small></span>
+    </div>
+    <div class="stat">
+      <b>25 mln zł</b>
+      <span>dostały na dostępność 164 instytucje kultury w&nbsp;programie „Kultura bez barier” <small>(2021–2023)</small></span>
+    </div>
   </div>
 
   <div class="row">
@@ -184,12 +216,13 @@
       <h2><span class="no">01</span>Problem</h2>
       <p>
         W&nbsp;muzeum osoba niewidoma dostaje zwykle audiodeskrypcję: lektor opisuje obraz
-        w&nbsp;ustalonej kolejności. Nie da się wrócić do fragmentu ani samemu sprawdzić, co jest w&nbsp;rogu płótna.
+        w&nbsp;ustalonej kolejności. Nie da się wrócić do fragmentu ani samemu sprawdzić, co jest
+        w&nbsp;rogu płótna.
       </p>
       <p>
-        Jest jeszcze tyflografika, czyli wypukła kopia dzieła. Robi się ją ręcznie i&nbsp;drogo,
-        więc powstaje tylko dla pojedynczych obrazów. Od 2019&nbsp;roku ustawa
-        wymaga dostępności od publicznych instytucji kultury.
+        Tyflografikę, czyli wypukłą kopię dzieła, robi się ręcznie i&nbsp;drogo, więc muzea
+        zamawiają ją dla pojedynczych obrazów. Tymczasem od 2019&nbsp;roku ustawa o&nbsp;dostępności
+        obowiązuje każdą publiczną instytucję kultury.
       </p>
     </section>
 
@@ -199,8 +232,9 @@
         Każdy obiekt ma swój zapętlony dźwięk, np. w&nbsp;„Mleczarce” słychać lejące się
         mleko. Gdy nikt nie dotyka ekranu, grają wszystkie naraz, bliższe głośniej.
       </p>
-      <div class="gestures">
+      <div class="pairs">
         <div><span>Ruch palcem</span><span>dźwięk tego, co pod nim</span></div>
+        <div><span>Wnętrze obiektu</span><span>faktura, np. ziarnista</span></div>
         <div><span>Granica obiektu</span><span>sygnał i&nbsp;wibracja</span></div>
         <div><span>Wodzenie po konturze</span><span>pulsująca wibracja</span></div>
         <div><span>Dwa stuknięcia</span><span>nazwa i&nbsp;opis</span></div>
@@ -209,17 +243,19 @@
     </section>
 
     <section class="col">
-      <h2><span class="no">03</span>Skąd się biorą obrazy</h2>
+      <h2><span class="no">03</span>Co już działa</h2>
       <p>
-        Żeby nie rysować masek ręcznie, zbudowaliśmy pipeline, który z&nbsp;reprodukcji
-        robi „pakiet zmysłowy”:
+        Wystarczy zwykły telefon i&nbsp;słuchawki. Obrazy są zapisane w&nbsp;aplikacji, więc
+        można je oglądać także w&nbsp;domu, przed wizytą w&nbsp;muzeum albo po niej.
       </p>
-      <ol class="steps">
-        <li><span>Depth Anything V2 ocenia, co jest blisko, a&nbsp;co daleko.</span></li>
-        <li><span>SAM 2.1 wycina sylwetki, na przykład koni czy łodzi.</span></li>
-        <li><span>Claude może zaproponować obiekty, opisy i&nbsp;dźwięki.</span></li>
-        <li><span>Kurator poprawia błędne opisy i&nbsp;obrysy.</span></li>
-      </ol>
+      <div class="pairs">
+        <div><span>Obrazy</span><span>7 dzieł, 35 obiektów</span></div>
+        <div><span>Obiekt</span><span>dźwięk, kontur, faktura, opis</span></div>
+        <div><span>Dźwięki</span><span>25 pętli z&nbsp;wolnych nagrań i&nbsp;syntezy</span></div>
+        <div><span>Trening</span><span>20&nbsp;s na prostych kształtach</span></div>
+        <div><span>Tryb testu</span><span>mierzy czas szukania obiektu</span></div>
+        <div><span>Języki</span><span>polski i&nbsp;angielski</span></div>
+      </div>
     </section>
   </div>
 
@@ -232,61 +268,78 @@
     </small>
   </div>
 
+  <div class="row split">
+    <section class="col wide">
+      <h2><span class="no">04</span>Co już jest na rynku</h2>
+      <div class="market">
+        <div><span>Audiodeskrypcja</span><span>lektor opisuje obraz w&nbsp;stałej kolejności, nie da się go badać samemu</span></div>
+        <div><span>Tyflografika</span><span>wypukła kopia robiona ręcznie, więc powstaje dla pojedynczych dzieł</span></div>
+        <div><span>Seeing AI (Microsoft)</span><span>palec na zdjęciu, aplikacja nazywa głosem rozpoznane obiekty</span></div>
+        <div><span>Touching Masterpieces</span><span>rękawice haptyczne VR, pokaz w&nbsp;Galerii Narodowej w&nbsp;Pradze (2018)</span></div>
+        <div class="ours"><span>Dotknij obrazu</span><span>dźwięk i&nbsp;kontur pod palcem, opisy sprawdza człowiek, własny telefon</span></div>
+      </div>
+    </section>
+
+    <section class="col">
+      <h2><span class="no">05</span>Skąd się biorą obrazy</h2>
+      <p>Z&nbsp;reprodukcji robimy „pakiet zmysłowy”:</p>
+      <ol class="steps">
+        <li><span>Depth Anything V2: co blisko, co daleko</span></li>
+        <li><span>SAM 2.1: sylwetki koni, łodzi, ludzi</span></li>
+        <li><span>Claude: obiekty, dźwięki, opisy</span></li>
+        <li><span>Człowiek: poprawki opisów i&nbsp;obrysów</span></li>
+      </ol>
+    </section>
+  </div>
+
   <section class="band">
-    <h2><span class="no">04</span>Z czym się zmierzyliśmy</h2>
-    <div class="cells">
+    <h2><span class="no">06</span>Z czym się zmierzyliśmy</h2>
+    <div class="cells four">
       <div class="cell">
-        <h3>Czytnik ekranu przechwytuje dotyk</h3>
-        <p>Przy włączonym TalkBacku lub VoiceOverze ekran nie dostaje ruchów palca. Użytkownik
-          wstrzymuje czytnik, a&nbsp;opisy czyta aplikacja.</p>
-        </div>
+        <h3>Czytnik ekranu zabiera dotyk</h3>
+        <p>TalkBack i&nbsp;VoiceOver przejmują ruchy palca. Użytkownik wstrzymuje
+          czytnik, a&nbsp;opisy czyta aplikacja.</p>
+      </div>
       <div class="cell">
-        <h3>Telefon nie reguluje siły wibracji</h3>
-        <p>Siłę udajemy rytmem: na brzegu linii są rzadkie impulsy, na środku ciągłe brzęczenie.
-          Zsunięcie się z&nbsp;konturu czuć od razu, więc da się obrysować konia.</p>
-        </div>
+        <h3>Wibracja ma jedną siłę</h3>
+        <p>Siłę udajemy rytmem: na brzegu linii rzadkie impulsy, na środku ciągłe brzęczenie.
+          Da się obrysować konia.</p>
+      </div>
       <div class="cell">
         <h3>Opóźnienie dźwięku</h3>
-        <p>Dźwięk włączany dotykiem się spóźniał. Teraz pętle grają stale po cichu,
-          a&nbsp;dotyk podgłaśnia je w&nbsp;ok.&nbsp;140&nbsp;ms. Bluetooth też opóźnia
-          dźwięk, więc polecamy słuchawki przewodowe.</p>
-        </div>
+        <p>Pętle grają stale po cichu, a&nbsp;dotyk podgłaśnia je w&nbsp;ok.&nbsp;140&nbsp;ms.
+          Bluetooth dokłada swoje opóźnienie, więc zalecamy słuchawki przewodowe.</p>
+      </div>
       <div class="cell">
         <h3>Brak canvasu w&nbsp;React Native</h3>
-        <p>W&nbsp;React Native nie da się odczytać piksela z&nbsp;PNG, więc mapy obiektów, głębi
-          i&nbsp;konturów zapisujemy jako surowe bajty.</p>
-        </div>
-      <div class="cell">
-        <h3>Niedokładne maski</h3>
-        <p>Niebo łatwiej obrysować niż posegmentować. Kurator rysuje przybliżony
-          wielokąt, a&nbsp;SAM szuka w&nbsp;nim sylwetek, np. każdego konia z&nbsp;zaprzęgu.</p>
-        </div>
-      <div class="cell">
-        <h3>Cisza w&nbsp;pętlach</h3>
-        <p>Gdy pętla milknie na ponad pół sekundy, palec trafia na ciszę i&nbsp;nie wiadomo,
-          czego dotyka. Nagrania tniemy
-          więc na fragmenty bez przerw.</p>
-        </div>
+        <p>Nie da się odczytać piksela z&nbsp;PNG, więc mapy obiektów, głębi i&nbsp;konturów
+          zapisujemy jako surowe bajty.</p>
+      </div>
     </div>
   </section>
 
   <section class="band">
-    <h2><span class="no">05</span>Dla kogo i co dalej</h2>
-    <div class="cells">
+    <h2><span class="no">07</span>Model biznesowy i&nbsp;rozwój</h2>
+    <div class="cells four">
       <div class="cell">
-        <h3>Dla muzeów i&nbsp;galerii</h3>
-        <p>Dodanie obrazu to jedno uruchomienie pipeline’u i&nbsp;poprawki kuratora,
-          bez zamawiania wypukłej kopii.</p>
+        <h3>Kto płaci</h3>
+        <p>Muzea i&nbsp;galerie, z&nbsp;budżetów i&nbsp;grantów na dostępność. Zwiedzający
+          nie płaci, a&nbsp;muzeum nie kupuje sprzętu.</p>
       </div>
       <div class="cell">
-        <h3>Dla zwiedzających</h3>
-        <p>Wystarczy własny telefon i&nbsp;20&nbsp;sekund treningu na prostych
-          kształtach. Działa offline, po polsku i&nbsp;angielsku.</p>
+        <h3>Za co</h3>
+        <p>Roczny abonament za kolekcję w&nbsp;aplikacji. Obrazy dodaje pipeline, więc muzeum
+          może pokazać w&nbsp;niej całą galerię.</p>
+      </div>
+      <div class="cell">
+        <h3>Skala</h3>
+        <p>The Met daje ponad 400&nbsp;tys. zdjęć dzieł na CC0, importer już mamy.
+          Ten sam format pasuje do ilustracji w&nbsp;podręcznikach.</p>
       </div>
       <div class="cell">
         <h3>Co dalej</h3>
-        <p>Najpierw testy z&nbsp;osobami niewidomymi. W&nbsp;wersji natywnej:
-          głębia jako filtr dźwięku i&nbsp;VoiceOver bez wyłączania.</p>
+        <p>Testy z&nbsp;osobami niewidomymi, pilot w&nbsp;jednym muzeum, wersja natywna
+          z&nbsp;VoiceOverem bez wyłączania.</p>
       </div>
     </div>
   </section>
@@ -301,6 +354,7 @@
       <span class="label">Obrazy do dotknięcia · domena publiczna i CC0</span>
       Czwórka, Chełmoński · Wilki napadające sanie, Wierusz-Kowalski · Mleczarka, Vermeer ·
       Straż nocna, Rembrandt · Myśliwi na śniegu i Żniwiarze, Bruegel · Wielka fala w&nbsp;Kanagawie, Hokusai
+      <div class="sources">Źródła: GUS (stan zdrowia 2014, muzea 2025) · Lancet Global Health 2020 · gov.pl, „Kultura bez barier”</div>
     </div>
   </footer>
 
