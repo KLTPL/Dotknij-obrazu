@@ -4,3 +4,6 @@ packages:
 
 # Expo/Metro resolves dependencies most reliably from a flat node_modules
 nodeLinker: hoisted
+
+allowBuilds:
+  unrs-resolver: true
