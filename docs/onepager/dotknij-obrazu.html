@@ -76,8 +76,15 @@
   .stat span { display: block; font-size: 6.9pt; line-height: 1.35; }
   .stat small { color: var(--muted); font-size: 6.1pt; }
 
+  /* ---------- accessibility strip ---------- */
+  .access { margin-top: 3mm; padding-top: 2mm; border-top: .5pt solid var(--rule); }
+  .access b {
+    font-size: 6.4pt; font-weight: 600; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--accent); margin-right: 2mm;
+  }
+
   /* ---------- grid ---------- */
-  .row { display: flex; gap: 7mm; margin-top: 3.6mm; }
+  .row { display: flex; gap: 7mm; margin-top: 3.2mm; }
   .col { flex: 1; }
   .col.wide { flex: 2.14; }
   /* table cells instead of flex: WeasyPrint leaves empty height under this flex row */
@@ -119,7 +126,7 @@
 
   /* ---------- pull quote ---------- */
   .quote {
-    margin-top: 3.6mm; padding: 2.2mm 0; border-top: 1.2pt solid var(--ink); border-bottom: .5pt solid var(--ink);
+    margin-top: 3.2mm; padding: 2.2mm 0; border-top: 1.2pt solid var(--ink); border-bottom: .5pt solid var(--ink);
     display: table; width: 100%; table-layout: fixed;
   }
   .quote .q {
@@ -129,7 +136,7 @@
   .quote .q em { color: var(--accent); }
   .quote .q span { display: block; }
   .quote small {
-    display: table-cell; vertical-align: top; width: 62mm;
+    display: table-cell; vertical-align: top; width: 74mm;
     font-size: 6.9pt; color: var(--muted); line-height: 1.42; padding-top: 1mm;
   }
 
@@ -141,9 +148,11 @@
   .market .ours { border-top: 1pt solid var(--accent); border-bottom: 1pt solid var(--accent); color: var(--accent); }
   .market .ours span:first-child { font-weight: 600; }
   .market .ours span:last-child { color: var(--accent); }
+  /* what the solution lacks, darker than what it is */
+  .market em { font-style: normal; color: var(--ink); }
 
   /* ---------- cells ---------- */
-  .band { margin-top: 3.4mm; }
+  .band { margin-top: 2.9mm; }
   .cells { display: flex; flex-wrap: wrap; column-gap: 7mm; }
   .cell { width: 55.9mm; padding: 1.3mm 0 1.6mm; border-top: .5pt solid var(--rule); }
   .cells.four { column-gap: 5mm; flex-wrap: nowrap; }
@@ -221,8 +230,11 @@
       </p>
       <p>
         Tyflografikę, czyli wypukłą kopię dzieła, robi się ręcznie i&nbsp;drogo, więc muzea
-        zamawiają ją dla pojedynczych obrazów. Tymczasem od 2019&nbsp;roku ustawa o&nbsp;dostępności
-        obowiązuje każdą publiczną instytucję kultury.
+        zamawiają ją dla pojedynczych obrazów.
+      </p>
+      <p>
+        Tymczasem od 2019&nbsp;roku ustawa o&nbsp;dostępności obowiązuje każde publiczne muzeum:
+        ma usuwać bariery i&nbsp;co cztery lata raportować, jak to robi.
       </p>
     </section>
 
@@ -259,6 +271,13 @@
     </section>
   </div>
 
+  <p class="access">
+    <b>Dostępność</b>
+    Aplikacja współpracuje z&nbsp;TalkBackiem: nie zagłusza czytnika, a&nbsp;opis obrazu, historię
+    i&nbsp;listę obiektów czyta sam czytnik, głosem użytkownika. Ekran Info ma wszystkie opisy jako
+    tekst. Dla słabowidzących: kontrast min. 4,5:1 (WCAG&nbsp;AA) i&nbsp;przyciski od 48&nbsp;dp.
+  </p>
+
   <div class="quote">
     <div class="q"><span>Dźwięk mówi, <em>co</em> jest pod palcem.</span><span>Gdzie jest palec, wiesz z&nbsp;dotyku.</span></div>
     <small>
@@ -270,13 +289,13 @@
 
   <div class="row split">
     <section class="col wide">
-      <h2><span class="no">04</span>Co już jest na rynku</h2>
+      <h2><span class="no">04</span>Czym się różnimy</h2>
       <div class="market">
-        <div><span>Audiodeskrypcja</span><span>lektor opisuje obraz w&nbsp;stałej kolejności, nie da się go badać samemu</span></div>
-        <div><span>Tyflografika</span><span>wypukła kopia robiona ręcznie, więc powstaje dla pojedynczych dzieł</span></div>
-        <div><span>Seeing AI (Microsoft)</span><span>palec na zdjęciu, aplikacja nazywa głosem rozpoznane obiekty</span></div>
-        <div><span>Touching Masterpieces</span><span>rękawice haptyczne VR, pokaz w&nbsp;Galerii Narodowej w&nbsp;Pradze (2018)</span></div>
-        <div class="ours"><span>Dotknij obrazu</span><span>dźwięk i&nbsp;kontur pod palcem, opisy sprawdza człowiek, własny telefon</span></div>
+        <div><span>Audiodeskrypcja</span><span>lektor czyta opis w&nbsp;stałej kolejności; <em>nie zbadasz obrazu sam</em></span></div>
+        <div><span>Tyflografika</span><span>wypukła kopia robiona ręcznie; <em>drogo, więc tylko pojedyncze dzieła</em></span></div>
+        <div><span>Seeing AI (Microsoft)</span><span>mówi, co jest pod palcem na zdjęciu; <em>opisy są automatyczne</em></span></div>
+        <div><span>Touching Masterpieces</span><span>rękawice haptyczne VR w&nbsp;Pradze (2018); <em>specjalny sprzęt na miejscu</em></span></div>
+        <div class="ours"><span>Dotknij obrazu</span><span>dźwięk i&nbsp;kontur pod palcem, opisy sprawdza człowiek, wystarczy telefon</span></div>
       </div>
     </section>
 
@@ -297,8 +316,8 @@
     <div class="cells four">
       <div class="cell">
         <h3>Czytnik ekranu zabiera dotyk</h3>
-        <p>TalkBack i&nbsp;VoiceOver przejmują ruchy palca. Użytkownik wstrzymuje
-          czytnik, a&nbsp;opisy czyta aplikacja.</p>
+        <p>TalkBack zamienia ruch palca w&nbsp;hover i&nbsp;plansza go obsługuje.
+          Gdy czytnik jest wstrzymany, mówi aplikacja.</p>
       </div>
       <div class="cell">
         <h3>Wibracja ma jedną siłę</h3>
@@ -307,8 +326,8 @@
       </div>
       <div class="cell">
         <h3>Opóźnienie dźwięku</h3>
-        <p>Pętle grają stale po cichu, a&nbsp;dotyk podgłaśnia je w&nbsp;ok.&nbsp;140&nbsp;ms.
-          Bluetooth dokłada swoje opóźnienie, więc zalecamy słuchawki przewodowe.</p>
+        <p>Pętle grają stale po cichu, dotyk podgłaśnia je w&nbsp;140&nbsp;ms. Bluetooth
+          opóźnia dźwięk, więc zalecamy słuchawki przewodowe.</p>
       </div>
       <div class="cell">
         <h3>Brak canvasu w&nbsp;React Native</h3>
