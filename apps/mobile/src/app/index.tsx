@@ -1,5 +1,5 @@
 import { Link } from 'expo-router';
-import { FlatList, Image, Pressable, StyleSheet, Text, View } from 'react-native';
+import { FlatList, Image, Linking, Pressable, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import type { ArtworkEntry } from '@/artworks/artwork';
@@ -35,6 +35,11 @@ function ArtworkCard({ entry }: { entry: ArtworkEntry }) {
   );
 }
 
+// The voice belongs to the phone's speech engine; phone makers hide this screen in different menus
+function openVoiceSettings() {
+  Linking.sendIntent('com.android.settings.TTS_SETTINGS').catch(() => Linking.openSettings());
+}
+
 function Header() {
   return (
     <View style={styles.header}>
@@ -53,6 +58,15 @@ function Header() {
           <Text style={styles.trainingText}>20 sekund ćwiczenia na prostych kształtach, zanim otworzysz obraz</Text>
         </Pressable>
       </Link>
+      <Pressable
+        style={styles.voice}
+        onPress={openVoiceSettings}
+        accessibilityRole="button"
+        accessibilityLabel="Głos lektora"
+        accessibilityHint="Otwiera ustawienia mowy telefonu, gdzie można zmienić głos i tempo"
+      >
+        <Text style={styles.text}>Głos lektora i tempo mowy ›</Text>
+      </Pressable>
       <Text style={styles.section} accessibilityRole="header">
         Galeria
       </Text>
@@ -83,6 +97,7 @@ const styles = StyleSheet.create({
   training: { padding: 16, borderRadius: 14, backgroundColor: '#ffd60a' },
   trainingTitle: { color: '#000', fontSize: 20, fontWeight: '700' },
   trainingText: { color: '#000', fontSize: 15 },
+  voice: { padding: 14, borderRadius: 14, backgroundColor: '#1a1a1a' },
   card: { borderRadius: 14, overflow: 'hidden', backgroundColor: '#1a1a1a' },
   thumbnail: { width: '100%', height: 170 },
   cardText: { padding: 14, gap: 2 },
