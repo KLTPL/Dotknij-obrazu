@@ -1,0 +1,70 @@
+{
+  "id": "straz-nocna",
+  "title": "Straż nocna",
+  "author": "Rembrandt van Rijn",
+  "year": "1642",
+  "institution": "Rijksmuseum, Amsterdam",
+  "license": "Domena publiczna",
+  "source": "https://commons.wikimedia.org/wiki/File:The_Nightwatch_by_Rembrandt_-_Rijksmuseum.jpg",
+  "description": "Grupowy portret amsterdamskiej straży obywatelskiej, która rusza do wymarszu. Na pierwszym planie, w środku, idą ku widzowi dwaj oficerowie: kapitan w czarnym stroju z czerwoną szarfą i porucznik w jasnozłotym kaftanie. Wokół nich tłoczą się strzelcy z muszkietami i długimi pikami, po lewej jaśnieje mała dziewczynka, w głębi chorąży unosi chorągiew, a na prawym skraju bębniarz bije w bęben, pod którym szczeka pies. Tło jest ciemne, niemal czarne, a mocne światło pada z lewej strony na środek sceny i wydobywa złoto, czerwień i biel.",
+  "story": "Rembrandt namalował ten obraz w 1642 roku dla kompanii strzelców, czyli straży obywatelskiej Amsterdamu; zawisł w ich siedzibie. Jego właściwy tytuł brzmi: Kompania kapitana Fransa Banninck Cocqa i porucznika Willema van Ruytenburcha. Nazwę Straż nocna nadano mu znacznie później, gdy pociemniały werniks i brud sprawiły, że scena wyglądała na nocną, choć dzieje się za dnia. W 1715 roku płótno przycięto, żeby zmieściło się na ścianie amsterdamskiego ratusza, i z lewej strony zniknęło kilka postaci.",
+  "layers": {
+    "width": 512,
+    "height": 417
+  },
+  "objects": [
+    {
+      "id": 1,
+      "label": "kapitan",
+      "shortDescription": "Kapitan w czerni z czerwoną szarfą wydaje rozkaz.",
+      "longDescription": "W środku, na pierwszym planie, kroczy ku widzowi kapitan. Ma czarny strój, czarny kapelusz, szeroki biały kołnierz i czerwoną szarfę przez pierś. Lewą rękę wyciąga przed siebie, jakby właśnie wydawał rozkaz, i odwraca głowę do idącego obok porucznika.",
+      "story": "Frans Banninck Cocq był zamożnym amsterdamczykiem i dowódcą tej kompanii, a kilka lat później został burmistrzem Amsterdamu. Na obrazie wydaje porucznikowi rozkaz do wymarszu. Rembrandt dodał sprytny szczegół: cień wyciągniętej ręki kapitana pada na jasny kaftan porucznika.",
+      "sound": "steps",
+      "texture": "soft"
+    },
+    {
+      "id": 2,
+      "label": "porucznik",
+      "shortDescription": "Porucznik w złocistym stroju słucha rozkazu kapitana.",
+      "longDescription": "Po prawej ręce kapitana idzie porucznik, cały w jasnozłotym, haftowanym stroju z białą szarfą i w kapeluszu z białym piórem. Patrzy na kapitana i trzyma przed sobą ozdobną broń na drzewcu, zwaną partyzaną. Jest najjaśniej oświetloną postacią na obrazie.",
+      "story": "Willem van Ruytenburch był zastępcą kapitana. Na jego złocistym kaftanie wyhaftowano lwa z herbu Amsterdamu, znak, że straż strzeże miasta. Partyzana, którą trzyma, była oznaką jego stopnia, a nie bronią do walki.",
+      "sound": "knock",
+      "texture": "smooth"
+    },
+    {
+      "id": 3,
+      "label": "dziewczynka z kurą",
+      "shortDescription": "Jasno oświetlona dziewczynka z kurą u pasa.",
+      "longDescription": "Po lewej od kapitana, w tłumie strzelców, stoi mała dziewczynka w lśniącej, złotożółtej sukni. Świeci jaśniej niż wszystko wokół niej. U pasa ma przywiązaną martwą, jasną kurę, zwieszoną pazurami do góry.",
+      "story": "Nikt nie wie na pewno, kim jest ta dziewczynka. Najczęściej uważa się ją za żywy symbol kompanii: pazury kury przypominały o nazwie strzelców, których w Amsterdamie nazywano kloveniers, a szpon, po niderlandzku klauw, był ich godłem.",
+      "sound": "hen",
+      "texture": "smooth"
+    },
+    {
+      "id": 4,
+      "label": "chorąży z chorągwią",
+      "shortDescription": "Chorąży unosi wielką chorągiew kompanii.",
+      "longDescription": "W głębi, po lewej od środka, stoi chorąży w szerokim kapeluszu z piórem i błyszczącym, oliwkowym stroju. Uniesioną ręką podtrzymuje drzewce chorągwi, której ciężki, ciemnozłoty materiał opada wzdłuż lewego górnego rogu obrazu.",
+      "story": "Chorąży Jan Visscher Cornelisen niósł sztandar kompanii, jej najważniejszy znak. Chorągiew szła na czele oddziału, żeby wszyscy wiedzieli, za kim iść i gdzie się zbierać.",
+      "sound": "flag",
+      "texture": "grainy"
+    },
+    {
+      "id": 5,
+      "label": "bębniarz",
+      "shortDescription": "Bębniarz bije w wielki bęben.",
+      "longDescription": "Na prawym skraju obrazu stoi bębniarz, z którego widać tylko część postaci. Pałeczką uderza w duży, jasny bęben, przewieszony na wysokości bioder. Bęben jest złocisty, z napiętymi sznurami po bokach.",
+      "story": "Bęben był najważniejszym sygnałem straży i wojska: jego rytm zwoływał ludzi na zbiórkę i wyznaczał krok marszu. Rembrandt pokazał chwilę, w której ten sygnał właśnie zabrzmiał i cała kompania zaczyna się ruszać.",
+      "sound": "drum",
+      "texture": "grainy"
+    },
+    {
+      "id": 6,
+      "label": "pies",
+      "shortDescription": "Mały pies szczeka na bęben.",
+      "longDescription": "Na dole, po prawej, przy nogach strzelców, biegnie mały, jasnobeżowy pies. Zadziera głowę w stronę bębna i szczeka.",
+      "sound": "dogs",
+      "texture": "soft"
+    }
+  ]
+}

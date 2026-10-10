@@ -1,0 +1,59 @@
+{
+  "id": "napad-wilkow",
+  "title": "Wilki napadające sanie",
+  "author": "Alfred Wierusz-Kowalski",
+  "year": "1880",
+  "institution": "Muzeum Narodowe w Warszawie",
+  "license": "Domena publiczna",
+  "source": "https://commons.wikimedia.org/wiki/File:Alfred_Kowalski_Wierusz_-_Wolves_attacking_a_sleigh_-_MP_2692_-_National_Museum_in_Warsaw.jpg",
+  "description": "Zimowa scena pełna ruchu: przez zaśnieżoną równinę pędzą sanie, które atakują wilki. Po lewej dwa brązowe konie galopują z rozwianymi grzywami, w środku woźnica stoi i smaga je batem, a po prawej w saniach siedzi dwoje podróżnych, mężczyzna strzela z pistoletu do wilków. Na dole, przy płozach, skaczą dwa szare wilki, a w tle po prawej stoją oszronione zarośla. Obraz utrzymany jest w bieli śniegu, szarości nieba i ciemnych brązach koni i ubrań.",
+  "story": "Alfred Wierusz-Kowalski urodził się w 1849 roku w Suwałkach, a niemal całe dorosłe życie spędził w Monachium, gdzie należał do grupy polskich malarzy zwanej szkołą monachijską. Jego zimowe sceny z saniami i wilkami świetnie się sprzedawały w Niemczech i w Ameryce, więc malował je wiele razy. Ten obraz jest niewielki, ma około 20 na 31 centymetrów, i należy do Muzeum Narodowego w Warszawie.",
+  "layers": {
+    "width": 512,
+    "height": 320
+  },
+  "objects": [
+    {
+      "id": 1,
+      "label": "konie",
+      "shortDescription": "Dwa spłoszone konie galopują z rozwianymi grzywami.",
+      "longDescription": "Po lewej stronie dwa ciemnobrązowe konie pędzą w lewo. Mają rozwiane grzywy i ogony, a jeden odwraca głowę z otwartym pyskiem. Spod kopyt pryska śnieg, a uprząż napina się przy każdym skoku.",
+      "sound": "horse",
+      "texture": "grainy"
+    },
+    {
+      "id": 2,
+      "label": "woźnica",
+      "shortDescription": "Woźnica stoi w saniach i smaga konie batem.",
+      "longDescription": "W środku obrazu stoi woźnica w jasnym kożuchu i czapce z daszkiem. Jedną ręką trzyma lejce, a drugą unosi wysoko długi bat. Pochyla się do przodu, ponaglając konie.",
+      "story": "W XIX wieku zimą podróżowano saniami, bo po ubitym śniegu jechało się szybciej niż wozem po błocie. Woźnica odpowiadał za konie i za bezpieczeństwo podróżnych, a w czasie ucieczki przed wilkami wszystko zależało od jego szybkiej reakcji.",
+      "sound": "whip",
+      "texture": "soft"
+    },
+    {
+      "id": 3,
+      "label": "sanie z podróżnymi",
+      "shortDescription": "W saniach siedzą kobieta i mężczyzna strzelający do wilków.",
+      "longDescription": "Po prawej stronie, w drewnianych saniach wyścielonych słomą, siedzi dwoje podróżnych. Kobieta w czerwonej chuście odwraca się z przestrachem, a mężczyzna w ciemnym kożuchu i futrzanej czapce mierzy z pistoletu w wilki. Spod pistoletu bucha błysk i dym.",
+      "sound": "bells",
+      "texture": "rough"
+    },
+    {
+      "id": 4,
+      "label": "wilki",
+      "shortDescription": "Dwa szare wilki skaczą na sanie.",
+      "longDescription": "Na dole, w środku obrazu, dwa szare wilki rzucają się na sanie. Jeden przypada nisko do śniegu, drugi skacze w stronę płóz. Ich sierść jest szara i zmierzwiona.",
+      "story": "W XIX wieku wilki żyły w wielu lasach na ziemiach polskich, a zimą, głodne, podchodziły pod wsie i drogi. Napad wilków na sanie był jednym z ulubionych tematów Wierusza-Kowalskiego i powracał na wielu jego obrazach, za każdym razem w trochę innej odsłonie.",
+      "sound": "howl",
+      "texture": "grainy"
+    },
+    {
+      "id": 5,
+      "label": "oszronione zarośla",
+      "shortDescription": "Białe od szronu krzaki w tle.",
+      "longDescription": "W prawej górnej części obrazu, w tle, rosną gęste zarośla. Ich gałęzie są pokryte szronem i śniegiem, przez co wyglądają na białosrebrne na tle szarego nieba.",
+      "sound": "wind",
+      "texture": "grainy"
+    }
+  ]
+}

@@ -42,6 +42,33 @@ export const ARTWORKS: ArtworkEntry[] = [
     },
   },
   {
+    manifest: require('../../assets/artworks/napad-wilkow/manifest.json'),
+    image: require('../../assets/artworks/napad-wilkow/image.jpg'),
+    contours: require('../../assets/artworks/napad-wilkow/contours.png'),
+    loadLayers: () => require('../../assets/artworks/napad-wilkow/layers.json'),
+    highlights: {
+      1: require('../../assets/artworks/napad-wilkow/highlight-1.png'),
+      2: require('../../assets/artworks/napad-wilkow/highlight-2.png'),
+      3: require('../../assets/artworks/napad-wilkow/highlight-3.png'),
+      4: require('../../assets/artworks/napad-wilkow/highlight-4.png'),
+      5: require('../../assets/artworks/napad-wilkow/highlight-5.png'),
+    },
+  },
+  {
+    manifest: require('../../assets/artworks/straz-nocna/manifest.json'),
+    image: require('../../assets/artworks/straz-nocna/image.jpg'),
+    contours: require('../../assets/artworks/straz-nocna/contours.png'),
+    loadLayers: () => require('../../assets/artworks/straz-nocna/layers.json'),
+    highlights: {
+      1: require('../../assets/artworks/straz-nocna/highlight-1.png'),
+      2: require('../../assets/artworks/straz-nocna/highlight-2.png'),
+      3: require('../../assets/artworks/straz-nocna/highlight-3.png'),
+      4: require('../../assets/artworks/straz-nocna/highlight-4.png'),
+      5: require('../../assets/artworks/straz-nocna/highlight-5.png'),
+      6: require('../../assets/artworks/straz-nocna/highlight-6.png'),
+    },
+  },
+  {
     manifest: require('../../assets/artworks/wielka-fala/manifest.json'),
     image: require('../../assets/artworks/wielka-fala/image.jpg'),
     contours: require('../../assets/artworks/wielka-fala/contours.png'),
@@ -51,6 +78,19 @@ export const ARTWORKS: ArtworkEntry[] = [
       2: require('../../assets/artworks/wielka-fala/highlight-2.png'),
       3: require('../../assets/artworks/wielka-fala/highlight-3.png'),
       4: require('../../assets/artworks/wielka-fala/highlight-4.png'),
+    },
+  },
+  {
+    manifest: require('../../assets/artworks/zniwiarze/manifest.json'),
+    image: require('../../assets/artworks/zniwiarze/image.jpg'),
+    contours: require('../../assets/artworks/zniwiarze/contours.png'),
+    loadLayers: () => require('../../assets/artworks/zniwiarze/layers.json'),
+    highlights: {
+      1: require('../../assets/artworks/zniwiarze/highlight-1.png'),
+      2: require('../../assets/artworks/zniwiarze/highlight-2.png'),
+      3: require('../../assets/artworks/zniwiarze/highlight-3.png'),
+      4: require('../../assets/artworks/zniwiarze/highlight-4.png'),
+      5: require('../../assets/artworks/zniwiarze/highlight-5.png'),
     },
   },
 ];
