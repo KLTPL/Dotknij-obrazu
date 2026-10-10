@@ -35,7 +35,8 @@
         "story": "Frans Banninck Cocq was a wealthy citizen of Amsterdam and the commander of this company, and a few years later he became mayor of Amsterdam. In the picture he gives the lieutenant the order to march. Rembrandt added a clever detail: the shadow of the captain's outstretched hand falls on the lieutenant's pale coat."
       },
       "sound": "steps",
-      "texture": "soft"
+      "texture": "soft",
+      "role": "dynamic"
     },
     {
       "id": 2,
@@ -50,7 +51,8 @@
         "story": "Willem van Ruytenburch was the captain's deputy. The lion from Amsterdam's coat of arms is embroidered on his golden coat, a sign that the guard protects the city. The partisan he holds was a mark of his rank, not a weapon for fighting."
       },
       "sound": "knock",
-      "texture": "smooth"
+      "texture": "smooth",
+      "role": "dynamic"
     },
     {
       "id": 3,
@@ -65,7 +67,8 @@
         "story": "Nobody knows for certain who this girl is. She is most often seen as a living symbol of the company: the hen's claws recalled the name of the musketeers, who were called kloveniers in Amsterdam, and a claw, klauw in Dutch, was their emblem."
       },
       "sound": "hen",
-      "texture": "smooth"
+      "texture": "smooth",
+      "role": "dynamic"
     },
     {
       "id": 4,
@@ -80,7 +83,8 @@
         "story": "The ensign, Jan Visscher Cornelisen, carried the banner of the company, its most important sign. The banner went at the head of the unit, so that everyone knew whom to follow and where to gather."
       },
       "sound": "flag",
-      "texture": "grainy"
+      "texture": "grainy",
+      "role": "dynamic"
     },
     {
       "id": 5,
@@ -95,7 +99,8 @@
         "story": "The drum was the most important signal of the guard and the army: its rhythm called people to assemble and set the pace of the march. Rembrandt showed the moment when this signal has just sounded and the whole company begins to move."
       },
       "sound": "drum",
-      "texture": "grainy"
+      "texture": "grainy",
+      "role": "dynamic"
     },
     {
       "id": 6,
@@ -108,7 +113,8 @@
         "longDescription": "At the bottom, on the right, by the guardsmen's legs, runs a small, light beige dog. It lifts its head towards the drum and barks."
       },
       "sound": "dogs",
-      "texture": "soft"
+      "texture": "soft",
+      "role": "dynamic"
     }
   ]
 }

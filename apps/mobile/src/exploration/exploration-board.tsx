@@ -35,7 +35,8 @@ type Props<T extends { id: string | number }> = {
   onTouchStart?: () => void;
   /** Every finger left the board. */
   onTouchEnd?: () => void;
-  onMove?: (x: number, y: number) => void;
+  /** `distance` is how far the finger travelled since the previous move, in points. */
+  onMove?: (x: number, y: number, distance: number) => void;
   /** Fires on entering or leaving an object, and with null when the finger lifts. */
   onObjectChange: (object: T | null) => void;
   /** The finger rested in one place; the object is null on the background. */
@@ -116,13 +117,14 @@ export function ExplorationBoard<T extends { id: string | number }>(props: Props
 
   const track = (point: Point) => {
     const { x, y } = normalized(point);
+    const travelled = distance(point, lastPointRef.current);
     cursor.setValue(point);
-    onMove?.(x, y);
+    onMove?.(x, y, travelled);
 
     const object = objectAt(x, y);
     const id = object?.id ?? null;
     haptics.setContour(contourAt?.(x, y) ?? 0);
-    if (object && textureOf) haptics.travel(distance(point, lastPointRef.current), textureOf(object));
+    if (object && textureOf) haptics.travel(travelled, textureOf(object));
     lastPointRef.current = point;
 
     const inside = x >= 0 && x < 1 && y >= 0 && y < 1;

@@ -17,6 +17,7 @@
       "longDescription": "Fala wyrasta z lewej strony ryciny i wygina się łukiem w prawo, ponad łodziami. Jej wnętrze jest granatowe, w jaśniejsze, niebieskie pasy. Grzbiet kończy się białą pianą, która rozszczepia się na dziesiątki zakrzywionych wypustek podobnych do szponów. Z piany odrywają się drobne białe krople.",
       "sound": "waves",
       "texture": "rough",
+      "role": "dynamic",
       "polygons": [
         [
           [
@@ -96,6 +97,7 @@
       "longDescription": "Dolną część ryciny wypełnia wzburzone morze. Po prawej stronie podnosi się druga, mniejsza fala o łagodnym, zaokrąglonym kształcie. Woda jest niebieska, z ciemniejszymi granatowymi pasami, a jej brzegi obrysowuje biała piana.",
       "sound": "water",
       "texture": "soft",
+      "role": "static",
       "polygons": [
         [
           [
@@ -167,6 +169,7 @@
       "longDescription": "Między falami płyną trzy długie, wąskie łodzie z jasnego drewna. Jedna jest po lewej stronie, pod grzbietem wielkiej fali, dwie pozostałe pośrodku i u dołu. W każdej siedzą rzędem wioślarze w granatowych ubraniach. Pochylają się nisko nad burtami.",
       "sound": "oars",
       "texture": "grainy",
+      "role": "dynamic",
       "polygons": [
         [
           [
@@ -295,6 +298,7 @@
       "longDescription": "Pośrodku ryciny, daleko za falami, wznosi się góra Fudżi. Ma kształt regularnego stożka z białym, ośnieżonym szczytem i granatowym podnóżem. Jest niewielka, znacznie mniejsza od fal na pierwszym planie. Niebo nad nią jest ciemnoszare.",
       "sound": "wind",
       "texture": "smooth",
+      "role": "static",
       "polygons": [
         [
           [

@@ -20,6 +20,7 @@
       "story": "W XVI wieku zboże koszono kosą lub sierpem, a żniwa trwały tygodniami i angażowały całą wieś. Bruegel pokazuje kolejne etapy pracy jednocześnie: koszenie, wiązanie snopów i ich wynoszenie z pola. Dlatego obraz bywa czytany jak opowieść o jednym dniu żniw.",
       "sound": "scythe",
       "texture": "soft",
+      "role": "dynamic",
       "polygons": [
         [
           [
@@ -69,6 +70,7 @@
       "story": "",
       "sound": "wind",
       "texture": "grainy",
+      "role": "static",
       "polygons": [
         [
           [
@@ -158,6 +160,7 @@
       "story": "",
       "sound": "bird",
       "texture": "rough",
+      "role": "static",
       "en": {
         "label": "pear tree",
         "shortDescription": "A spreading pear tree with a thin trunk and a wide crown.",
@@ -179,6 +182,7 @@
       "story": "Śpiący żniwiarz to jedna z najsłynniejszych postaci Bruegla. Malarz lubił pokazywać zwykłych chłopów takimi, jacy są: zmęczonych, głodnych i nieskrępowanych. Dlatego nazywano go Chłopskim Brueglem, choć sam pracował dla bogatych mieszczan z Antwerpii i Brukseli.",
       "sound": "snore",
       "texture": "soft",
+      "role": "dynamic",
       "en": {
         "label": "sleeping harvester",
         "shortDescription": "A harvester sleeps under the pear tree with his legs sprawled.",
@@ -200,6 +204,7 @@
       "story": "Posiłek w polu był najważniejszą przerwą w długim dniu żniw. Bruegel namalował go z wielką dokładnością: widać łyżki, gliniane miski, bochen chleba i dzban. Historycy korzystają z jego obrazów, aby dowiedzieć się, jak jedli i ubierali się chłopi w XVI wieku.",
       "sound": "crunch",
       "texture": "grainy",
+      "role": "dynamic",
       "polygons": [
         [
           [

@@ -12,6 +12,24 @@
 /** How the surface of an object feels under a moving finger, from no vibration to strong, sparse bumps. */
 export type ArtworkTexture = 'smooth' | 'soft' | 'grainy' | 'rough';
 
+/**
+ * Whether an object acts in the scene. A dynamic object keeps sounding under a resting finger, so
+ * a sound that goes on after the finger stops always means action; a static one is heard only
+ * while the finger moves over it, like a real surface. The first rule that fits decides:
+ *
+ * 1. An object showing people or animals is dynamic, also when they rest or sleep and when they
+ *    come with their things (a cart with people, boats with rowers).
+ * 2. When one thing acts on another, the one acting is dynamic and the one acted upon is static:
+ *    a man knocking a stick on a road is dynamic, the road is static. A tool belongs to its user.
+ * 3. A place (trees, a pond, a field) is dynamic only when living beings are visible in it and
+ *    its sound is theirs: trees with crows cawing. A tree given birdsong with no bird in it is static.
+ * 4. Fire is dynamic. Water is dynamic as a single event (a breaking wave, a pouring stream) and
+ *    static as an expanse (sea, pond, river). Wind never makes anything dynamic.
+ * 5. Everything else is static: ground, sky, mountains, plants, buildings, furniture, food.
+ * 6. In doubt, static.
+ */
+export type ArtworkRole = 'dynamic' | 'static';
+
 /** Languages the app speaks. Polish is the base language of every package. */
 export type ArtworkLanguage = 'pl' | 'en';
 
@@ -36,6 +54,7 @@ export type ArtworkObject = ArtworkObjectTexts & {
   /** File name without extension from apps/mobile/assets/sounds. */
   sound: string;
   texture: ArtworkTexture;
+  role: ArtworkRole;
   /** The same texts in English; without them the app falls back to Polish. */
   en?: ArtworkObjectTexts;
 };

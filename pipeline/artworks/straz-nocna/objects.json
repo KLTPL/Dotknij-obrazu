@@ -20,6 +20,7 @@
       "story": "Frans Banninck Cocq był zamożnym amsterdamczykiem i dowódcą tej kompanii, a kilka lat później został burmistrzem Amsterdamu. Na obrazie wydaje porucznikowi rozkaz do wymarszu. Rembrandt dodał sprytny szczegół: cień wyciągniętej ręki kapitana pada na jasny kaftan porucznika.",
       "sound": "steps",
       "texture": "soft",
+      "role": "dynamic",
       "en": {
         "label": "captain",
         "shortDescription": "The captain in black with a red sash gives an order.",
@@ -41,6 +42,7 @@
       "story": "Willem van Ruytenburch był zastępcą kapitana. Na jego złocistym kaftanie wyhaftowano lwa z herbu Amsterdamu, znak, że straż strzeże miasta. Partyzana, którą trzyma, była oznaką jego stopnia, a nie bronią do walki.",
       "sound": "knock",
       "texture": "smooth",
+      "role": "dynamic",
       "en": {
         "label": "lieutenant",
         "shortDescription": "The lieutenant in golden clothes listens to the captain's order.",
@@ -62,6 +64,7 @@
       "story": "Nikt nie wie na pewno, kim jest ta dziewczynka. Najczęściej uważa się ją za żywy symbol kompanii: pazury kury przypominały o nazwie strzelców, których w Amsterdamie nazywano kloveniers, a szpon, po niderlandzku klauw, był ich godłem.",
       "sound": "hen",
       "texture": "smooth",
+      "role": "dynamic",
       "en": {
         "label": "girl with a hen",
         "shortDescription": "A brightly lit girl with a hen at her belt.",
@@ -83,6 +86,7 @@
       "story": "Chorąży Jan Visscher Cornelisen niósł sztandar kompanii, jej najważniejszy znak. Chorągiew szła na czele oddziału, żeby wszyscy wiedzieli, za kim iść i gdzie się zbierać.",
       "sound": "flag",
       "texture": "grainy",
+      "role": "dynamic",
       "polygons": [
         [
           [
@@ -170,6 +174,7 @@
       "story": "Bęben był najważniejszym sygnałem straży i wojska: jego rytm zwoływał ludzi na zbiórkę i wyznaczał krok marszu. Rembrandt pokazał chwilę, w której ten sygnał właśnie zabrzmiał i cała kompania zaczyna się ruszać.",
       "sound": "drum",
       "texture": "grainy",
+      "role": "dynamic",
       "polygons": [
         [
           [
@@ -235,6 +240,7 @@
       "story": "",
       "sound": "dogs",
       "texture": "soft",
+      "role": "dynamic",
       "polygons": [
         [
           [

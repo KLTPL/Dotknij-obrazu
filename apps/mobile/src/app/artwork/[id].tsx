@@ -1,4 +1,4 @@
-import type { ArtworkObject } from '@repo/shared';
+import type { ArtworkObject, ArtworkRole } from '@repo/shared';
 import { Redirect, useFocusEffect, useLocalSearchParams, useRouter } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
@@ -19,6 +19,9 @@ import { Button } from '@/ui/button';
 
 // The farthest point of the artwork still plays at this share of full loudness
 const FAR_GAIN = 0.55;
+// Share of full loudness under a resting finger: a dynamic object keeps sounding, so a sound that goes
+// on after the finger stops means action; a static one falls silent and is heard only when stroked
+const REST_LEVEL: Record<ArtworkRole, number> = { dynamic: 0.6, static: 0 };
 // Soundscape: every object plays at once, the farthest at the first level, the nearest at the second
 const SOUNDSCAPE_FAR = 0.3;
 const SOUNDSCAPE_NEAR = 0.65;
@@ -49,7 +52,11 @@ function ArtworkExplorer({ entry }: { entry: ArtworkEntry }) {
   const layers = useMemo(() => decodeLayers(entry), [entry]);
   const objectsById = useMemo(() => new Map(manifest.objects.map((object) => [object.id, object])), [manifest]);
   const objectSounds = useMemo(
-    () => manifest.objects.map((object) => ({ id: object.id, sound: SOUNDS[object.sound] })),
+    () => manifest.objects.map((object) => ({
+        id: object.id,
+        sound: SOUNDS[object.sound],
+        restLevel: REST_LEVEL[object.role],
+      })),
     [manifest],
   );
   const sounds = useObjectSounds(objectSounds);
@@ -172,7 +179,8 @@ function ArtworkExplorer({ entry }: { entry: ArtworkEntry }) {
             textureOf={(object) => object.texture}
             onTouchStart={stopSoundscape}
             onTouchEnd={resumeSoundscape}
-            onMove={(x, y) => {
+            onMove={(x, y, distance) => {
+              sounds.stroke(distance);
               const depth = layers.depth[pixelIndex(layers, x, y)] ?? 0;
               sounds.setGain(FAR_GAIN + (1 - FAR_GAIN) * (depth / 255));
             }}

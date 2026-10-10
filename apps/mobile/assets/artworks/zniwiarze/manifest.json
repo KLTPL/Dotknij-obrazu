@@ -35,7 +35,8 @@
         "story": "In the 16th century grain was cut with a scythe or a sickle, and the harvest lasted for weeks and involved the whole village. Bruegel shows the successive stages of the work at the same time: mowing, binding the sheaves and carrying them from the field. That is why the picture is sometimes read as the story of a single harvest day."
       },
       "sound": "scythe",
-      "texture": "soft"
+      "texture": "soft",
+      "role": "dynamic"
     },
     {
       "id": 2,
@@ -48,7 +49,8 @@
         "longDescription": "Across the middle of the picture runs a wide field of ripe, golden grain. The ears stand dense and even, reaching higher than the mowers' heads. A man carrying jugs comes out along a narrow path through the grain."
       },
       "sound": "wind",
-      "texture": "grainy"
+      "texture": "grainy",
+      "role": "static"
     },
     {
       "id": 3,
@@ -61,7 +63,8 @@
         "longDescription": "In the middle of the picture grows a tall pear tree with a thin, straight trunk. Its crown spreads wide in the upper part of the picture, as far as the right edge. Small fruits hang among the leaves, and the harvesters rest under the tree."
       },
       "sound": "bird",
-      "texture": "rough"
+      "texture": "rough",
+      "role": "static"
     },
     {
       "id": 4,
@@ -76,7 +79,8 @@
         "story": "The sleeping harvester is one of Bruegel's most famous figures. The painter liked to show ordinary peasants as they are: tired, hungry and unselfconscious. That is why he was called Peasant Bruegel, although he himself worked for rich townspeople of Antwerp and Brussels."
       },
       "sound": "snore",
-      "texture": "soft"
+      "texture": "soft",
+      "role": "dynamic"
     },
     {
       "id": 5,
@@ -91,7 +95,8 @@
         "story": "The meal in the field was the most important break in the long harvest day. Bruegel painted it with great precision: you can see the spoons, the earthenware bowls, the loaf of bread and the jug. Historians use his pictures to learn how peasants ate and dressed in the 16th century."
       },
       "sound": "crunch",
-      "texture": "grainy"
+      "texture": "grainy",
+      "role": "dynamic"
     }
   ]
 }

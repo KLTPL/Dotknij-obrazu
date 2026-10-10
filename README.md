@@ -57,7 +57,8 @@ Ready-made packages of the four artworks are in the repo, so the pipeline is not
 
 | Gesture                   | Action                                            |
 | ------------------------- | ------------------------------------------------- |
-| moving one finger         | sound of the object under the finger; the object's boundary is marked by a cue and a vibration |
+| moving one finger         | sound of the object under the finger, louder the faster the finger moves; the object's boundary is marked by a cue and a vibration |
+| resting the finger        | dynamic objects (people, animals, fire) keep sounding, more quietly; static ones (sky, ground, a table) fall silent |
 | tracing a contour         | pulsing vibration that gets denser in the middle of the line; contours of closer things are stronger |
 | moving a finger inside an object | texture: smooth, soft, grainy or rough     |
 | double tap                | name and description of the object                |
@@ -137,7 +138,8 @@ The input is `pipeline/artworks/<id>/source.json` (title, author, license, image
 1. downloads the image,
 2. **description** — Claude (`claude-opus-5-5`, structured outputs) picks 3–6 large objects
    and returns for each a Polish name, a bounding box, descriptions following audio description
-   guidelines, a texture and a sound from the list of files in `apps/mobile/assets/sounds`;
+   guidelines, a texture, a role (dynamic or static) and a sound from the list of files in
+   `apps/mobile/assets/sounds`;
    the result goes into `objects.json`,
 3. **depth** — Depth Anything V2 Small,
 4. **masks and contours** — SAM 2.1 with the object's bounding box produces the object id map;

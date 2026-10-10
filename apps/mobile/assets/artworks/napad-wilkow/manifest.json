@@ -33,7 +33,8 @@
         "longDescription": "On the left two dark brown horses race to the left. Their manes and tails are flying, and one turns its head with its mouth open. Snow sprays from under their hooves, and the harness tightens with every leap."
       },
       "sound": "horse",
-      "texture": "grainy"
+      "texture": "grainy",
+      "role": "dynamic"
     },
     {
       "id": 2,
@@ -48,7 +49,8 @@
         "story": "In the 19th century people travelled by sleigh in winter, because it was faster on packed snow than by cart through mud. The driver was responsible for the horses and for the safety of the travellers, and when fleeing from wolves everything depended on his quick reactions."
       },
       "sound": "whip",
-      "texture": "soft"
+      "texture": "soft",
+      "role": "dynamic"
     },
     {
       "id": 3,
@@ -61,7 +63,8 @@
         "longDescription": "On the right, in a wooden sleigh lined with straw, sit two travellers. A woman in a red headscarf turns round in fright, and a man in a dark sheepskin coat and a fur cap aims a pistol at the wolves. A flash and smoke burst from the pistol."
       },
       "sound": "bells",
-      "texture": "rough"
+      "texture": "rough",
+      "role": "dynamic"
     },
     {
       "id": 4,
@@ -76,7 +79,8 @@
         "story": "In the 19th century wolves lived in many forests of the Polish lands, and in winter, hungry, they came close to villages and roads. A wolf attack on a sleigh was one of Wierusz-Kowalski's favourite subjects and returned in many of his paintings, each time in a slightly different version."
       },
       "sound": "howl",
-      "texture": "grainy"
+      "texture": "grainy",
+      "role": "dynamic"
     },
     {
       "id": 5,
@@ -89,7 +93,8 @@
         "longDescription": "In the upper right part of the picture, in the background, grow dense bushes. Their branches are covered with frost and snow, so they look silvery white against the grey sky."
       },
       "sound": "wind",
-      "texture": "grainy"
+      "texture": "grainy",
+      "role": "static"
     }
   ]
 }

@@ -104,6 +104,12 @@ will block it — add the package to `allowBuilds` in `pnpm-workspace.yaml`.
   line proximity (0 a few pixels away from the contour, higher on the contour, the more so the
   closer to the viewer); it drives the vibration in `src/exploration/use-touch-haptics.ts`,
   which also holds the object textures.
+- Every object has a `role` in `objects.json`: a `dynamic` one (people, animals, fire) keeps
+  sounding under a resting finger, a `static` one (sky, ground, a table) is heard only while the
+  finger moves over it. The rules deciding which is which are listed at `ArtworkRole` in the
+  contract and, in Polish, in the prompt in `pipeline/describe.py` — keep the two in step.
+  Loudness follows the finger's speed in `src/exploration/use-object-sounds.ts`; the rest levels
+  are in `src/app/artwork/[id].tsx`.
 - New sound: an entry in `pipeline/sounds.json` (a CC0 recording from bigsoundbank.com, or a
   public domain file with `url` and `license` fields, e.g. from Wikimedia Commons; start and
   length of the fragment) → `pipeline/sounds.py`, then an entry in `apps/mobile/src/audio/sounds.ts`.

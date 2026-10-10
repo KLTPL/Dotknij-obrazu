@@ -66,6 +66,7 @@ def build_manifest(source: dict, described: dict, size: tuple[int, int]) -> dict
                 **english(object_texts(item["en"]) if "en" in item else None),
                 "sound": item["sound"],
                 "texture": item["texture"],
+                "role": item["role"],
             }
             for index, item in enumerate(described["objects"])
         ],

@@ -17,6 +17,7 @@
       "longDescription": "Kobieta stoi pośrodku obrazu, lekko pochylona, ze wzrokiem spuszczonym na dzbanek. Na głowie ma biały płócienny czepek. Nosi żółty kaftan z podwiniętymi zielonymi rękawami, niebieski fartuch i czerwoną spódnicę. Jej twarz i przedramiona oświetla światło z okna.",
       "sound": "hum",
       "texture": "soft",
+      "role": "dynamic",
       "en": {
         "label": "woman",
         "shortDescription": "A young maid in a yellow jacket and a blue apron.",
@@ -36,6 +37,7 @@
       "longDescription": "Kobieta trzyma oburącz przechylony, brązowy gliniany dzbanek. Z jego otworu spływa cienka, biała strużka mleka. Mleko wpada do szerokiej glinianej misy z dwoma uchami, która stoi na stole.",
       "sound": "pour",
       "texture": "smooth",
+      "role": "dynamic",
       "en": {
         "label": "milk jug",
         "shortDescription": "A thin trickle of milk pours from an earthenware jug.",
@@ -55,6 +57,7 @@
       "longDescription": "Na stole, w lewej dolnej części obrazu, stoi płaski wiklinowy kosz z dużym, okrągłym bochenkiem. Obok leżą mniejsze bułki i ułamane kawałki chleba. Skórka jest złocistobrązowa i chropowata, błyszczą na niej drobne punkty światła.",
       "sound": "crunch",
       "texture": "rough",
+      "role": "static",
       "en": {
         "label": "bread",
         "shortDescription": "A wicker basket with a loaf and pieces of bread on the table.",
@@ -74,6 +77,7 @@
       "longDescription": "W lewym górnym rogu obrazu znajduje się wysokie okno podzielone na małe, prostokątne szybki. Jedna z nich jest pęknięta. Przez okno wpada chłodne, dzienne światło, które oświetla całą kuchnię.",
       "sound": "bird",
       "texture": "smooth",
+      "role": "static",
       "en": {
         "label": "window",
         "shortDescription": "A tall window with small panes, the source of light.",
@@ -93,6 +97,7 @@
       "longDescription": "Lewy dolny róg obrazu zajmuje stół nakryty ciemnozielonym obrusem. Z jego krawędzi zwisa zmięta niebieska tkanina. Na stole stoją kosz z chlebem, misa oraz niebieski kamionkowy dzban z pokrywką.",
       "sound": "knock",
       "texture": "grainy",
+      "role": "static",
       "polygons": [
         [
           [

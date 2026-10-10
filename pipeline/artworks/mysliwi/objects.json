@@ -17,6 +17,7 @@
       "longDescription": "Trzech mężczyzn idzie od lewej strony w głąb obrazu, plecami do widza. Są przygarbieni, mają ciemne, grube ubrania i niosą na ramionach długie włócznie. Jeden z nich dźwiga na plecach upolowanego lisa. Ich stopy zapadają się w głębokim śniegu.",
       "sound": "steps",
       "texture": "soft",
+      "role": "dynamic",
       "polygons": [
         [
           [
@@ -105,6 +106,7 @@
       "longDescription": "W lewym dolnym rogu obrazu, za myśliwymi, idzie kilkanaście psów. Są chude, mają długie nogi i podkulone ogony. Ich sierść jest brązowa, ruda i szara. Idą ze spuszczonymi łbami, węsząc po śniegu.",
       "sound": "dogs",
       "texture": "grainy",
+      "role": "dynamic",
       "polygons": [
         [
           [
@@ -185,6 +187,7 @@
       "longDescription": "Po lewej stronie, przed ceglanym budynkiem gospody, płonie duże ognisko. Żółtopomarańczowe płomienie pochylają się na wietrze. Wokół ognia krząta się kilka osób w ciemnych ubraniach, jedna z nich dokłada do niego słomy.",
       "sound": "fire",
       "texture": "grainy",
+      "role": "dynamic",
       "polygons": [
         [
           [
@@ -237,6 +240,7 @@
       "longDescription": "Górną lewą część obrazu przecinają ciemne pnie i nagie gałęzie wysokich drzew, wyraźnie odcinające się od zielonkawego nieba. Na gałęziach siedzi kilka czarnych ptaków. Jeden ptak z rozłożonymi skrzydłami szybuje nad doliną.",
       "sound": "crow",
       "texture": "rough",
+      "role": "dynamic",
       "polygons": [
         [
           [
@@ -292,6 +296,7 @@
       "longDescription": "W dolinie, w prawej części obrazu, leżą dwa prostokątne zamarznięte stawy. Lód ma szarozielony kolor. Poruszają się po nim dziesiątki drobnych, ciemnych sylwetek: ludzie jeżdżą na łyżwach, ciągną sanki i grają kijami.",
       "sound": "skates",
       "texture": "smooth",
+      "role": "dynamic",
       "polygons": [
         [
           [
@@ -351,6 +356,7 @@
       "longDescription": "W prawym górnym rogu obrazu, daleko na horyzoncie, wznoszą się strome, poszarpane skały pokryte śniegiem. U ich stóp leży niewielka wioska. Nad górami rozciąga się gładkie, szarozielone niebo.",
       "sound": "wind",
       "texture": "rough",
+      "role": "static",
       "polygons": [
         [
           [

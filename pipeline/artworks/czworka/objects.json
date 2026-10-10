@@ -17,6 +17,7 @@
       "longDescription": "Niebo zajmuje całą górną połowę obrazu. Jest szare i jednolicie zachmurzone, bez słońca. Tuż nad horyzontem, po lewej stronie, biegnie wąski, jaśniejszy pas żółtawego światła.",
       "sound": "wind",
       "texture": "smooth",
+      "role": "static",
       "en": {
         "label": "sky",
         "shortDescription": "A grey, heavy sky above the flat steppe.",
@@ -36,6 +37,7 @@
       "longDescription": "Dolną połowę obrazu wypełnia szeroka, rozmokła droga. Błoto jest ciemnobrązowe i czarne, poprzecinane koleinami. W kałużach odbija się szare niebo, a spod końskich kopyt pryska woda.",
       "sound": "mud",
       "texture": "rough",
+      "role": "static",
       "en": {
         "label": "muddy road",
         "shortDescription": "A rutted road full of mud and puddles.",
@@ -55,6 +57,7 @@
       "longDescription": "Cztery gniade konie biegną obok siebie prosto na widza, rozciągnięte na całą szerokość środka obrazu. Mają rozwiane grzywy, rozdęte chrapy i otwarte pyski. Ich uprząż zdobią okrągłe, błyszczące mosiężne krążki. Kopyta rozbryzgują błoto.",
       "sound": "horse",
       "texture": "grainy",
+      "role": "dynamic",
       "polygons": [
         [
           [
@@ -155,6 +158,7 @@
       "longDescription": "Za końmi, pośrodku obrazu, jedzie drewniany wóz. Siedzi na nim dwóch mężczyzn. Woźnica w wysokiej futrzanej czapce i białym kożuchu pochyla się do przodu i trzyma lejce. Obok niego siedzi drugi mężczyzna w czerwonej kamizelce, z fajką w ustach.",
       "sound": "cart",
       "texture": "soft",
+      "role": "dynamic",
       "polygons": [
         [
           [
