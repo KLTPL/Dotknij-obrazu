@@ -5,8 +5,16 @@
   "year": "1565",
   "institution": "Kunsthistorisches Museum, Wiedeń",
   "license": "Domena publiczna",
-  "source": "https://commons.wikimedia.org/wiki/File:Pieter_Bruegel_the_Elder_-_Hunters_in_the_Snow_(Winter)_-_Google_Art_Project.jpg",
   "description": "Zimowy pejzaż oglądany z wysokiego wzgórza. Na pierwszym planie, po lewej stronie, trzej myśliwi z gromadą psów schodzą po śniegu w stronę doliny. W dolinie, po prawej, leżą zamarznięte stawy, na których bawią się drobne sylwetki ludzi, a w oddali wznoszą się skaliste góry. Obraz utrzymany jest w bieli śniegu, zgaszonej zieleni nieba i lodu oraz czerni drzew i postaci.",
+  "source": "https://commons.wikimedia.org/wiki/File:Pieter_Bruegel_the_Elder_-_Hunters_in_the_Snow_(Winter)_-_Google_Art_Project.jpg",
+  "en": {
+    "title": "The Hunters in the Snow",
+    "author": "Pieter Bruegel the Elder",
+    "year": "1565",
+    "institution": "Kunsthistorisches Museum, Vienna",
+    "license": "Public domain",
+    "description": "A winter landscape seen from a high hill. In the foreground, on the left, three hunters with a pack of dogs walk down through the snow towards the valley. In the valley, on the right, lie frozen ponds on which tiny figures of people are playing, and rocky mountains rise in the distance. The picture is painted in the white of snow, the muted green of the sky and ice, and the black of the trees and figures."
+  },
   "layers": {
     "width": 512,
     "height": 364
@@ -17,6 +25,11 @@
       "label": "myśliwi",
       "shortDescription": "Trzej myśliwi z włóczniami brną przez śnieg.",
       "longDescription": "Trzech mężczyzn idzie od lewej strony w głąb obrazu, plecami do widza. Są przygarbieni, mają ciemne, grube ubrania i niosą na ramionach długie włócznie. Jeden z nich dźwiga na plecach upolowanego lisa. Ich stopy zapadają się w głębokim śniegu.",
+      "en": {
+        "label": "hunters",
+        "shortDescription": "Three hunters with spears trudge through the snow.",
+        "longDescription": "Three men walk from the left into the depth of the picture, with their backs to the viewer. They are hunched, wear dark, thick clothes and carry long spears on their shoulders. One of them carries a hunted fox on his back. Their feet sink into the deep snow."
+      },
       "sound": "steps",
       "texture": "soft"
     },
@@ -25,6 +38,11 @@
       "label": "psy",
       "shortDescription": "Gromada chudych psów myśliwskich idzie za ludźmi.",
       "longDescription": "W lewym dolnym rogu obrazu, za myśliwymi, idzie kilkanaście psów. Są chude, mają długie nogi i podkulone ogony. Ich sierść jest brązowa, ruda i szara. Idą ze spuszczonymi łbami, węsząc po śniegu.",
+      "en": {
+        "label": "dogs",
+        "shortDescription": "A pack of thin hunting dogs follows the men.",
+        "longDescription": "In the lower left corner of the picture, behind the hunters, walk a dozen or so dogs. They are thin, with long legs and tails tucked under. Their coats are brown, ginger and grey. They walk with their heads down, sniffing the snow."
+      },
       "sound": "dogs",
       "texture": "grainy"
     },
@@ -33,6 +51,11 @@
       "label": "ognisko",
       "shortDescription": "Ludzie rozpalają ognisko przed gospodą.",
       "longDescription": "Po lewej stronie, przed ceglanym budynkiem gospody, płonie duże ognisko. Żółtopomarańczowe płomienie pochylają się na wietrze. Wokół ognia krząta się kilka osób w ciemnych ubraniach, jedna z nich dokłada do niego słomy.",
+      "en": {
+        "label": "bonfire",
+        "shortDescription": "People light a bonfire in front of an inn.",
+        "longDescription": "On the left, in front of the brick building of an inn, a large bonfire is burning. The yellow-orange flames lean in the wind. Several people in dark clothes bustle around the fire, and one of them adds straw to it."
+      },
       "sound": "fire",
       "texture": "grainy"
     },
@@ -41,6 +64,11 @@
       "label": "drzewa z ptakami",
       "shortDescription": "Wysokie, nagie drzewa, a na gałęziach czarne ptaki.",
       "longDescription": "Górną lewą część obrazu przecinają ciemne pnie i nagie gałęzie wysokich drzew, wyraźnie odcinające się od zielonkawego nieba. Na gałęziach siedzi kilka czarnych ptaków. Jeden ptak z rozłożonymi skrzydłami szybuje nad doliną.",
+      "en": {
+        "label": "trees with birds",
+        "shortDescription": "Tall, bare trees with black birds on the branches.",
+        "longDescription": "The upper left part of the picture is crossed by the dark trunks and bare branches of tall trees, standing out sharply against the greenish sky. A few black birds sit on the branches. One bird with outspread wings glides over the valley."
+      },
       "sound": "crow",
       "texture": "rough"
     },
@@ -49,6 +77,11 @@
       "label": "zamarznięte stawy",
       "shortDescription": "Na zielonkawym lodzie ludzie jeżdżą na łyżwach.",
       "longDescription": "W dolinie, w prawej części obrazu, leżą dwa prostokątne zamarznięte stawy. Lód ma szarozielony kolor. Poruszają się po nim dziesiątki drobnych, ciemnych sylwetek: ludzie jeżdżą na łyżwach, ciągną sanki i grają kijami.",
+      "en": {
+        "label": "frozen ponds",
+        "shortDescription": "People skate on the greenish ice.",
+        "longDescription": "In the valley, in the right part of the picture, lie two rectangular frozen ponds. The ice is grey-green. Dozens of tiny, dark figures move across it: people skate, pull sledges and play with sticks."
+      },
       "sound": "skates",
       "texture": "smooth"
     },
@@ -57,6 +90,11 @@
       "label": "góry",
       "shortDescription": "Ostre, ośnieżone szczyty na horyzoncie.",
       "longDescription": "W prawym górnym rogu obrazu, daleko na horyzoncie, wznoszą się strome, poszarpane skały pokryte śniegiem. U ich stóp leży niewielka wioska. Nad górami rozciąga się gładkie, szarozielone niebo.",
+      "en": {
+        "label": "mountains",
+        "shortDescription": "Sharp, snow-covered peaks on the horizon.",
+        "longDescription": "In the upper right corner of the picture, far away on the horizon, rise steep, jagged rocks covered with snow. A small village lies at their feet. Above the mountains stretches a smooth, grey-green sky."
+      },
       "sound": "wind",
       "texture": "rough"
     }

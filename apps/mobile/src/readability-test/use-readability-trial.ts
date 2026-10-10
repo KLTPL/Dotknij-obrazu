@@ -1,17 +1,18 @@
 import * as Haptics from 'expo-haptics';
 import { useRef, useState } from 'react';
 
+import type { Strings } from '@/i18n/strings';
+
 import { type PlacedObject, randomLayout } from './scene';
 
 export type TrialResult = { targetName: string; seconds: number; errors: number };
-
-export const formatSeconds = (seconds: number) => seconds.toFixed(1).replace('.', ',');
 
 /**
  * One trial: random layout, random target, the clock starts on the first touch
  * and stops when the tester double-taps the target.
  */
-export function useReadabilityTrial(speak: (text: string) => void) {
+export function useReadabilityTrial(speak: (text: string) => void, t: Strings) {
+  const names = t.training.objects;
   const [layout, setLayout] = useState(randomLayout);
   const [target, setTarget] = useState<PlacedObject | null>(null);
   const [results, setResults] = useState<TrialResult[]>([]);
@@ -25,7 +26,7 @@ export function useReadabilityTrial(speak: (text: string) => void) {
     setTarget(nextTarget);
     startedAtRef.current = null;
     errorsRef.current = 0;
-    speak(`Znajdź: ${nextTarget.name}. Kiedy znajdziesz, dotknij dwa razy.`);
+    speak(t.training.find(names[nextTarget.id]));
   };
 
   const cancel = () => {
@@ -43,16 +44,16 @@ export function useReadabilityTrial(speak: (text: string) => void) {
     if (object?.id !== target.id) {
       errorsRef.current += 1;
       void Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
-      speak(object ? `To nie jest ${target.name}.` : 'Tu nic nie ma.');
+      speak(object ? t.training.wrong(names[target.id]) : t.training.nothing);
       return;
     }
 
     const seconds = (Date.now() - startedAtRef.current) / 1000;
-    setResults((previous) => [...previous, { targetName: target.name, seconds, errors: errorsRef.current }]);
+    setResults((previous) => [...previous, { targetName: names[target.id], seconds, errors: errorsRef.current }]);
     setTarget(null);
     startedAtRef.current = null;
     void Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
-    speak(`Brawo! Czas: ${formatSeconds(seconds)} sekundy.`);
+    speak(t.training.bravo(t.seconds(seconds)));
   };
 
   return {

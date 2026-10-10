@@ -1,4 +1,4 @@
-import type { ArtworkLayers, ArtworkManifest } from '@repo/shared';
+import type { ArtworkLanguage, ArtworkLayers, ArtworkManifest } from '@repo/shared';
 
 import { decodeBase64 } from './base64';
 
@@ -22,6 +22,16 @@ export type DecodedLayers = {
   depth: Uint8Array;
   contours: Uint8Array;
 };
+
+/** The manifest with its texts in the given language; texts without a translation stay Polish. */
+export function localizeManifest(manifest: ArtworkManifest, language: ArtworkLanguage): ArtworkManifest {
+  if (language === 'pl') return manifest;
+  return {
+    ...manifest,
+    ...manifest.en,
+    objects: manifest.objects.map((object) => ({ ...object, ...object.en })),
+  };
+}
 
 export function decodeLayers(entry: ArtworkEntry): DecodedLayers {
   const { width, height } = entry.manifest.layers;

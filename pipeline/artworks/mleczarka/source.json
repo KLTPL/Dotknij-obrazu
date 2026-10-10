@@ -6,5 +6,12 @@
   "institution": "Rijksmuseum, Amsterdam",
   "license": "Domena publiczna",
   "source": "https://commons.wikimedia.org/wiki/File:Johannes_Vermeer_-_Het_melkmeisje_-_Google_Art_Project.jpg",
-  "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Johannes_Vermeer_-_Het_melkmeisje_-_Google_Art_Project.jpg/1920px-Johannes_Vermeer_-_Het_melkmeisje_-_Google_Art_Project.jpg"
+  "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Johannes_Vermeer_-_Het_melkmeisje_-_Google_Art_Project.jpg/1920px-Johannes_Vermeer_-_Het_melkmeisje_-_Google_Art_Project.jpg",
+  "en": {
+    "title": "The Milkmaid",
+    "author": "Johannes Vermeer",
+    "year": "c. 1660",
+    "institution": "Rijksmuseum, Amsterdam",
+    "license": "Public domain"
+  }
 }

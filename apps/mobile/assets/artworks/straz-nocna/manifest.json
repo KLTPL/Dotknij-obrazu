@@ -5,9 +5,18 @@
   "year": "1642",
   "institution": "Rijksmuseum, Amsterdam",
   "license": "Domena publiczna",
-  "source": "https://commons.wikimedia.org/wiki/File:The_Nightwatch_by_Rembrandt_-_Rijksmuseum.jpg",
   "description": "Grupowy portret amsterdamskiej straży obywatelskiej, która rusza do wymarszu. Na pierwszym planie, w środku, idą ku widzowi dwaj oficerowie: kapitan w czarnym stroju z czerwoną szarfą i porucznik w jasnozłotym kaftanie. Wokół nich tłoczą się strzelcy z muszkietami i długimi pikami, po lewej jaśnieje mała dziewczynka, w głębi chorąży unosi chorągiew, a na prawym skraju bębniarz bije w bęben, pod którym szczeka pies. Tło jest ciemne, niemal czarne, a mocne światło pada z lewej strony na środek sceny i wydobywa złoto, czerwień i biel.",
   "story": "Rembrandt namalował ten obraz w 1642 roku dla kompanii strzelców, czyli straży obywatelskiej Amsterdamu; zawisł w ich siedzibie. Jego właściwy tytuł brzmi: Kompania kapitana Fransa Banninck Cocqa i porucznika Willema van Ruytenburcha. Nazwę Straż nocna nadano mu znacznie później, gdy pociemniały werniks i brud sprawiły, że scena wyglądała na nocną, choć dzieje się za dnia. W 1715 roku płótno przycięto, żeby zmieściło się na ścianie amsterdamskiego ratusza, i z lewej strony zniknęło kilka postaci.",
+  "source": "https://commons.wikimedia.org/wiki/File:The_Nightwatch_by_Rembrandt_-_Rijksmuseum.jpg",
+  "en": {
+    "title": "The Night Watch",
+    "author": "Rembrandt van Rijn",
+    "year": "1642",
+    "institution": "Rijksmuseum, Amsterdam",
+    "license": "Public domain",
+    "description": "A group portrait of Amsterdam's civic guard setting out to march. In the foreground, in the middle, two officers walk towards the viewer: the captain in black with a red sash and the lieutenant in a pale gold coat. Around them crowd guardsmen with muskets and long pikes; on the left a little girl glows, further back the ensign raises a banner, and at the right edge a drummer beats a drum, under which a dog barks. The background is dark, almost black, and strong light falls from the left onto the middle of the scene, bringing out gold, red and white.",
+    "story": "Rembrandt painted this picture in 1642 for a company of musketeers, the civic guard of Amsterdam; it hung in their headquarters. Its proper title is The Company of Captain Frans Banninck Cocq and Lieutenant Willem van Ruytenburch. The name The Night Watch was given to it much later, when darkened varnish and dirt made the scene look as if it took place at night, although it happens by day. In 1715 the canvas was trimmed to fit a wall in Amsterdam's town hall, and several figures disappeared from the left side."
+  },
   "layers": {
     "width": 512,
     "height": 417
@@ -19,6 +28,12 @@
       "shortDescription": "Kapitan w czerni z czerwoną szarfą wydaje rozkaz.",
       "longDescription": "W środku, na pierwszym planie, kroczy ku widzowi kapitan. Ma czarny strój, czarny kapelusz, szeroki biały kołnierz i czerwoną szarfę przez pierś. Lewą rękę wyciąga przed siebie, jakby właśnie wydawał rozkaz, i odwraca głowę do idącego obok porucznika.",
       "story": "Frans Banninck Cocq był zamożnym amsterdamczykiem i dowódcą tej kompanii, a kilka lat później został burmistrzem Amsterdamu. Na obrazie wydaje porucznikowi rozkaz do wymarszu. Rembrandt dodał sprytny szczegół: cień wyciągniętej ręki kapitana pada na jasny kaftan porucznika.",
+      "en": {
+        "label": "captain",
+        "shortDescription": "The captain in black with a red sash gives an order.",
+        "longDescription": "In the middle, in the foreground, the captain strides towards the viewer. He wears black clothes, a black hat, a wide white collar and a red sash across his chest. He stretches his left hand forward, as if he were just giving an order, and turns his head to the lieutenant walking beside him.",
+        "story": "Frans Banninck Cocq was a wealthy citizen of Amsterdam and the commander of this company, and a few years later he became mayor of Amsterdam. In the picture he gives the lieutenant the order to march. Rembrandt added a clever detail: the shadow of the captain's outstretched hand falls on the lieutenant's pale coat."
+      },
       "sound": "steps",
       "texture": "soft"
     },
@@ -28,6 +43,12 @@
       "shortDescription": "Porucznik w złocistym stroju słucha rozkazu kapitana.",
       "longDescription": "Po prawej ręce kapitana idzie porucznik, cały w jasnozłotym, haftowanym stroju z białą szarfą i w kapeluszu z białym piórem. Patrzy na kapitana i trzyma przed sobą ozdobną broń na drzewcu, zwaną partyzaną. Jest najjaśniej oświetloną postacią na obrazie.",
       "story": "Willem van Ruytenburch był zastępcą kapitana. Na jego złocistym kaftanie wyhaftowano lwa z herbu Amsterdamu, znak, że straż strzeże miasta. Partyzana, którą trzyma, była oznaką jego stopnia, a nie bronią do walki.",
+      "en": {
+        "label": "lieutenant",
+        "shortDescription": "The lieutenant in golden clothes listens to the captain's order.",
+        "longDescription": "At the captain's right hand walks the lieutenant, dressed all in pale gold, embroidered clothes with a white sash and a hat with a white feather. He looks at the captain and holds in front of him an ornate weapon on a shaft, called a partisan. He is the most brightly lit figure in the picture.",
+        "story": "Willem van Ruytenburch was the captain's deputy. The lion from Amsterdam's coat of arms is embroidered on his golden coat, a sign that the guard protects the city. The partisan he holds was a mark of his rank, not a weapon for fighting."
+      },
       "sound": "knock",
       "texture": "smooth"
     },
@@ -37,6 +58,12 @@
       "shortDescription": "Jasno oświetlona dziewczynka z kurą u pasa.",
       "longDescription": "Po lewej od kapitana, w tłumie strzelców, stoi mała dziewczynka w lśniącej, złotożółtej sukni. Świeci jaśniej niż wszystko wokół niej. U pasa ma przywiązaną martwą, jasną kurę, zwieszoną pazurami do góry.",
       "story": "Nikt nie wie na pewno, kim jest ta dziewczynka. Najczęściej uważa się ją za żywy symbol kompanii: pazury kury przypominały o nazwie strzelców, których w Amsterdamie nazywano kloveniers, a szpon, po niderlandzku klauw, był ich godłem.",
+      "en": {
+        "label": "girl with a hen",
+        "shortDescription": "A brightly lit girl with a hen at her belt.",
+        "longDescription": "To the left of the captain, in the crowd of guardsmen, stands a little girl in a shining, golden-yellow dress. She glows brighter than everything around her. A dead, pale hen is tied to her belt, hanging with its claws up.",
+        "story": "Nobody knows for certain who this girl is. She is most often seen as a living symbol of the company: the hen's claws recalled the name of the musketeers, who were called kloveniers in Amsterdam, and a claw, klauw in Dutch, was their emblem."
+      },
       "sound": "hen",
       "texture": "smooth"
     },
@@ -46,6 +73,12 @@
       "shortDescription": "Chorąży unosi wielką chorągiew kompanii.",
       "longDescription": "W głębi, po lewej od środka, stoi chorąży w szerokim kapeluszu z piórem i błyszczącym, oliwkowym stroju. Uniesioną ręką podtrzymuje drzewce chorągwi, której ciężki, ciemnozłoty materiał opada wzdłuż lewego górnego rogu obrazu.",
       "story": "Chorąży Jan Visscher Cornelisen niósł sztandar kompanii, jej najważniejszy znak. Chorągiew szła na czele oddziału, żeby wszyscy wiedzieli, za kim iść i gdzie się zbierać.",
+      "en": {
+        "label": "ensign with the banner",
+        "shortDescription": "The ensign raises the great banner of the company.",
+        "longDescription": "Further back, to the left of the middle, stands the ensign in a wide hat with a feather and shiny, olive clothes. With his raised hand he holds the pole of the banner, whose heavy, dark gold fabric falls along the upper left corner of the picture.",
+        "story": "The ensign, Jan Visscher Cornelisen, carried the banner of the company, its most important sign. The banner went at the head of the unit, so that everyone knew whom to follow and where to gather."
+      },
       "sound": "flag",
       "texture": "grainy"
     },
@@ -55,6 +88,12 @@
       "shortDescription": "Bębniarz bije w wielki bęben.",
       "longDescription": "Na prawym skraju obrazu stoi bębniarz, z którego widać tylko część postaci. Pałeczką uderza w duży, jasny bęben, przewieszony na wysokości bioder. Bęben jest złocisty, z napiętymi sznurami po bokach.",
       "story": "Bęben był najważniejszym sygnałem straży i wojska: jego rytm zwoływał ludzi na zbiórkę i wyznaczał krok marszu. Rembrandt pokazał chwilę, w której ten sygnał właśnie zabrzmiał i cała kompania zaczyna się ruszać.",
+      "en": {
+        "label": "drummer",
+        "shortDescription": "The drummer beats a great drum.",
+        "longDescription": "At the right edge of the picture stands the drummer, of whom only a part can be seen. With a stick he strikes a large, pale drum hanging at hip height. The drum is golden, with taut cords along its sides.",
+        "story": "The drum was the most important signal of the guard and the army: its rhythm called people to assemble and set the pace of the march. Rembrandt showed the moment when this signal has just sounded and the whole company begins to move."
+      },
       "sound": "drum",
       "texture": "grainy"
     },
@@ -63,6 +102,11 @@
       "label": "pies",
       "shortDescription": "Mały pies szczeka na bęben.",
       "longDescription": "Na dole, po prawej, przy nogach strzelców, biegnie mały, jasnobeżowy pies. Zadziera głowę w stronę bębna i szczeka.",
+      "en": {
+        "label": "dog",
+        "shortDescription": "A small dog barks at the drum.",
+        "longDescription": "At the bottom, on the right, by the guardsmen's legs, runs a small, light beige dog. It lifts its head towards the drum and barks."
+      },
       "sound": "dogs",
       "texture": "soft"
     }

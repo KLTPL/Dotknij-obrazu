@@ -1,5 +1,8 @@
 {
   "description": "Zimowy pejzaż oglądany z wysokiego wzgórza. Na pierwszym planie, po lewej stronie, trzej myśliwi z gromadą psów schodzą po śniegu w stronę doliny. W dolinie, po prawej, leżą zamarznięte stawy, na których bawią się drobne sylwetki ludzi, a w oddali wznoszą się skaliste góry. Obraz utrzymany jest w bieli śniegu, zgaszonej zieleni nieba i lodu oraz czerni drzew i postaci.",
+  "en": {
+    "description": "A winter landscape seen from a high hill. In the foreground, on the left, three hunters with a pack of dogs walk down through the snow towards the valley. In the valley, on the right, lie frozen ponds on which tiny figures of people are playing, and rocky mountains rise in the distance. The picture is painted in the white of snow, the muted green of the sky and ice, and the black of the trees and figures."
+  },
   "objects": [
     {
       "label": "myśliwi",
@@ -82,7 +85,12 @@
           ]
         ]
       ],
-      "refine": true
+      "refine": true,
+      "en": {
+        "label": "hunters",
+        "shortDescription": "Three hunters with spears trudge through the snow.",
+        "longDescription": "Three men walk from the left into the depth of the picture, with their backs to the viewer. They are hunched, wear dark, thick clothes and carry long spears on their shoulders. One of them carries a hunted fox on his back. Their feet sink into the deep snow."
+      }
     },
     {
       "label": "psy",
@@ -157,7 +165,12 @@
           ]
         ]
       ],
-      "refine": true
+      "refine": true,
+      "en": {
+        "label": "dogs",
+        "shortDescription": "A pack of thin hunting dogs follows the men.",
+        "longDescription": "In the lower left corner of the picture, behind the hunters, walk a dozen or so dogs. They are thin, with long legs and tails tucked under. Their coats are brown, ginger and grey. They walk with their heads down, sniffing the snow."
+      }
     },
     {
       "label": "ognisko",
@@ -204,7 +217,12 @@
           ]
         ]
       ],
-      "refine": true
+      "refine": true,
+      "en": {
+        "label": "bonfire",
+        "shortDescription": "People light a bonfire in front of an inn.",
+        "longDescription": "On the left, in front of the brick building of an inn, a large bonfire is burning. The yellow-orange flames lean in the wind. Several people in dark clothes bustle around the fire, and one of them adds straw to it."
+      }
     },
     {
       "label": "drzewa z ptakami",
@@ -254,7 +272,12 @@
             0.28
           ]
         ]
-      ]
+      ],
+      "en": {
+        "label": "trees with birds",
+        "shortDescription": "Tall, bare trees with black birds on the branches.",
+        "longDescription": "The upper left part of the picture is crossed by the dark trunks and bare branches of tall trees, standing out sharply against the greenish sky. A few black birds sit on the branches. One bird with outspread wings glides over the valley."
+      }
     },
     {
       "label": "zamarznięte stawy",
@@ -308,7 +331,12 @@
             0.62
           ]
         ]
-      ]
+      ],
+      "en": {
+        "label": "frozen ponds",
+        "shortDescription": "People skate on the greenish ice.",
+        "longDescription": "In the valley, in the right part of the picture, lie two rectangular frozen ponds. The ice is grey-green. Dozens of tiny, dark figures move across it: people skate, pull sledges and play with sticks."
+      }
     },
     {
       "label": "góry",
@@ -362,7 +390,12 @@
             0.36
           ]
         ]
-      ]
+      ],
+      "en": {
+        "label": "mountains",
+        "shortDescription": "Sharp, snow-covered peaks on the horizon.",
+        "longDescription": "In the upper right corner of the picture, far away on the horizon, rise steep, jagged rocks covered with snow. A small village lies at their feet. Above the mountains stretches a smooth, grey-green sky."
+      }
     }
   ]
 }

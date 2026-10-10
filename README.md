@@ -75,6 +75,13 @@ Wide pictures rotate the screen to landscape so that objects are as large as pos
 shows the picture, white contour lines, a circle under the finger, a yellow highlight of the touched
 object and its caption — this is for an audience that cannot hear the headphones.
 
+### Languages
+
+The gallery has a Polish / English switch; the app starts in Polish on a phone set to Polish and
+in English on any other. The switch changes the screens, the spoken instructions, the speech
+engine's voice and the texts of the artworks. Each package carries its Polish texts and an
+optional `en` copy of them, so an artwork without a translation still works, in Polish.
+
 ### Training
 
 The "Trening" tile in the gallery is a board with three simple shapes (horse, bird, water).
@@ -122,6 +129,10 @@ there (e.g. each horse of a team), and whatever spills outside the polygon is di
 background. After each change it is enough to run `build.py` again and look at
 `pipeline/work/<id>/preview.jpg`. `--redo describe` generates the description from scratch
 and overwrites the corrections.
+
+English texts live next to the Polish ones, in `en` fields of `source.json` and `objects.json`.
+After editing only texts, `build.py --all --texts` rewrites the manifests in a second, without
+running any model.
 
 Current state: the descriptions and objects of the four artworks in the repo were prepared by
 hand in this mode (areas such as the sky are easier to outline than to segment; horses, dogs,

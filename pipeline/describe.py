@@ -46,7 +46,20 @@ story to osobna warstwa dla ciekawskich, czytana dopiero na życzenie: dla całe
 każdego obiektu 2-4 zdania historii i ciekawostek spoza obrazu - kim jest przedstawiona osoba, \
 jak i dlaczego dzieło powstało, co mówi o swojej epoce. Tylko pewne, powszechnie znane fakty; \
 gdy o obiekcie nie ma nic pewnego do powiedzenia, zostaw pusty tekst.
+
+en to wierne tłumaczenie tekstów na angielski, dla całego dzieła (description, story) i dla \
+każdego obiektu (label, shortDescription, longDescription, story), z tymi samymi zasadami.
 """
+
+
+def texts(*fields: str) -> dict:
+    """Schema of a group of required text fields, used for the English translations."""
+    return {
+        "type": "object",
+        "additionalProperties": False,
+        "required": list(fields),
+        "properties": {field: {"type": "string"} for field in fields},
+    }
 
 
 def output_schema(sounds: list[str]) -> dict:
@@ -54,10 +67,11 @@ def output_schema(sounds: list[str]) -> dict:
     return {
         "type": "object",
         "additionalProperties": False,
-        "required": ["description", "story", "objects"],
+        "required": ["description", "story", "en", "objects"],
         "properties": {
             "description": {"type": "string"},
             "story": {"type": "string"},
+            "en": texts("description", "story"),
             "objects": {
                 "type": "array",
                 "items": {
@@ -70,6 +84,7 @@ def output_schema(sounds: list[str]) -> dict:
                         "shortDescription",
                         "longDescription",
                         "story",
+                        "en",
                         "sound",
                         "texture",
                     ],
@@ -85,6 +100,7 @@ def output_schema(sounds: list[str]) -> dict:
                         "shortDescription": {"type": "string"},
                         "longDescription": {"type": "string"},
                         "story": {"type": "string"},
+                        "en": texts("label", "shortDescription", "longDescription", "story"),
                         "sound": {"type": "string", "enum": sounds},
                         "texture": {"type": "string", "enum": ["smooth", "soft", "grainy", "rough"]},
                     },

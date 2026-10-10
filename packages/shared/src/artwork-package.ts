@@ -12,10 +12,12 @@
 /** How the surface of an object feels under a moving finger, from no vibration to strong, sparse bumps. */
 export type ArtworkTexture = 'smooth' | 'soft' | 'grainy' | 'rough';
 
-export type ArtworkObject = {
-  /** Value of this object's pixels in the object-id layer: 1..255. 0 is the background. */
-  id: number;
-  /** Polish name, spoken when the finger rests on the object. */
+/** Languages the app speaks. Polish is the base language of every package. */
+export type ArtworkLanguage = 'pl' | 'en';
+
+/** Everything said or shown about one object. */
+export type ArtworkObjectTexts = {
+  /** Name, spoken on double tap before the description. */
   label: string;
   /** One sentence shown as a caption for the audience. */
   shortDescription: string;
@@ -26,25 +28,38 @@ export type ArtworkObject = {
    * Spoken on a second double tap on the same object.
    */
   story?: string;
+};
+
+export type ArtworkObject = ArtworkObjectTexts & {
+  /** Value of this object's pixels in the object-id layer: 1..255. 0 is the background. */
+  id: number;
   /** File name without extension from apps/mobile/assets/sounds. */
   sound: string;
   texture: ArtworkTexture;
+  /** The same texts in English; without them the app falls back to Polish. */
+  en?: ArtworkObjectTexts;
 };
 
-export type ArtworkManifest = {
-  id: string;
+/** Everything said or shown about the artwork as a whole. */
+export type ArtworkTexts = {
   title: string;
   author: string;
   year: string;
   /** Where the original is kept. */
   institution: string;
   license: string;
-  /** URL the image was downloaded from. */
-  source: string;
   /** Audio description of the whole artwork. */
   description: string;
   /** History of the artwork and curiosities about it, spoken on a second two-finger tap. */
   story?: string;
+};
+
+export type ArtworkManifest = ArtworkTexts & {
+  id: string;
+  /** URL the image was downloaded from. */
+  source: string;
+  /** The same texts in English; without them the app falls back to Polish. */
+  en?: ArtworkTexts;
   /** Size of every layer in pixels; the longer side is about 512. */
   layers: { width: number; height: number };
   objects: ArtworkObject[];

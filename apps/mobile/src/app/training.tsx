@@ -6,11 +6,10 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { ExplorationBoard } from '@/exploration/exploration-board';
 import { useObjectSounds } from '@/exploration/use-object-sounds';
 import { useSpeaker } from '@/exploration/use-speaker';
+import { useLanguage } from '@/i18n/language';
 import { ControlPanel, type Mode } from '@/readability-test/control-panel';
 import { objectAt, SCENE_OBJECTS } from '@/readability-test/scene';
 import { useReadabilityTrial } from '@/readability-test/use-readability-trial';
-
-const RULE = 'Dźwięk mówi, co jest pod palcem, a nie gdzie.';
 
 /**
  * Training on plain shapes before exploring an artwork. Its test mode measures whether
@@ -18,17 +17,19 @@ const RULE = 'Dźwięk mówi, co jest pod palcem, a nie gdzie.';
  */
 export default function TrainingScreen() {
   const router = useRouter();
+  const { t } = useLanguage();
+  const names = t.training.objects;
   const sounds = useObjectSounds(SCENE_OBJECTS);
   const speaker = useSpeaker(sounds.setDucked);
-  const trial = useReadabilityTrial(speaker.speak);
+  const trial = useReadabilityTrial(speaker.speak, t);
   const [mode, setMode] = useState<Mode>('training');
   const [showObjects, setShowObjects] = useState(true);
   const [namesOnHold, setNamesOnHold] = useState(true);
 
   useEffect(() => {
-    speaker.speak(`Trening. ${RULE} Wódź palcem po ekranie. Przytrzymaj palec, aby usłyszeć nazwę.`);
+    speaker.speak(t.training.intro);
     return speaker.stop;
-  }, [speaker]);
+  }, [speaker, t]);
 
   const changeMode = (next: Mode) => {
     speaker.stop();
@@ -44,26 +45,26 @@ export default function TrainingScreen() {
           onPress={() => router.back()}
           style={styles.back}
           accessibilityRole="button"
-          accessibilityLabel="Wróć do galerii"
+          accessibilityLabel={t.artwork.backLabel}
         >
-          <Text style={styles.backText}>‹ Galeria</Text>
+          <Text style={styles.backText}>{t.artwork.back}</Text>
         </Pressable>
-        <Text style={styles.rule}>{RULE}</Text>
+        <Text style={styles.rule}>{t.training.rule}</Text>
       </View>
       <ExplorationBoard
         style={styles.board}
-        accessibilityLabel="Plansza treningowa. Aby ćwiczyć, wstrzymaj czytnik ekranu."
+        accessibilityLabel={t.training.boardLabel}
         objectAt={(x, y) => objectAt(trial.layout, x, y)}
         onTouchStart={trial.markTouch}
         onObjectChange={(object) => sounds.setActive(object?.id ?? null)}
-        onHold={(object) => object && namesOnHold && speaker.speak(object.name)}
+        onHold={(object) => object && namesOnHold && speaker.speak(names[object.id])}
         onDoubleTap={(object) => {
           if (mode === 'test') trial.confirm(object);
-          else if (object) speaker.speak(object.name);
+          else if (object) speaker.speak(names[object.id]);
         }}
       >
         {showObjects &&
-          trial.layout.map(({ id, name, color, rect }) => (
+          trial.layout.map(({ id, color, rect }) => (
             <View
               key={id}
               style={[
@@ -77,7 +78,7 @@ export default function TrainingScreen() {
                 },
               ]}
             >
-              <Text style={styles.label}>{name}</Text>
+              <Text style={styles.label}>{names[id]}</Text>
             </View>
           ))}
       </ExplorationBoard>

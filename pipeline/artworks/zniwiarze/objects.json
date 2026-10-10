@@ -1,6 +1,10 @@
 {
   "description": "Letni pejzaż w czasie żniw, oglądany ze wzgórza. Na pierwszym planie, po lewej, chłopi koszą wysokie, złote zboże, a po prawej, w cieniu gruszy, odpoczywają i jedzą posiłek. Środek obrazu wypełnia ściana nieskoszonego zboża, za nią rozciąga się zielona dolina z wioską, kościołem i odległą zatoką. Obraz utrzymany jest w ciepłych żółciach i brązach zboża, zieleni drzew i jasnym, mglistym niebie.",
   "story": "Pieter Bruegel starszy namalował Żniwiarzy w 1565 roku dla antwerpskiego kupca Niclaesa Jongelincka, do jego domu. Obraz należał do cyklu pór roku; z tej samej serii pochodzą Myśliwi na śniegu, które też są w naszej galerii. Ze wszystkich obrazów cyklu przetrwało pięć, a Żniwiarze to jedyny, który trafił do Ameryki: od 1919 roku wisi w Metropolitan Museum w Nowym Jorku.",
+  "en": {
+    "description": "A summer landscape at harvest time, seen from a hill. In the foreground, on the left, peasants mow tall, golden grain, and on the right, in the shade of a pear tree, they rest and eat a meal. The middle of the picture is filled with a wall of uncut grain, and behind it stretches a green valley with a village, a church and a distant bay. The picture is painted in the warm yellows and browns of the grain, the green of the trees and a bright, hazy sky.",
+    "story": "Pieter Bruegel the Elder painted The Harvesters in 1565 for the Antwerp merchant Niclaes Jongelinck, for his house. The picture belonged to a cycle of the seasons; The Hunters in the Snow, which is also in our gallery, comes from the same series. Five pictures of the cycle have survived, and The Harvesters is the only one that reached America: since 1919 it has hung in the Metropolitan Museum in New York."
+  },
   "objects": [
     {
       "label": "kosiarze",
@@ -43,7 +47,13 @@
             0.93
           ]
         ]
-      ]
+      ],
+      "en": {
+        "label": "mowers",
+        "shortDescription": "Two peasants mow the grain with long scythes.",
+        "longDescription": "On the left, in the foreground, two men in white shirts mow the grain. They bend and with a sweeping movement draw long scythes close to the ground. Behind them lie even swathes of cut ears, and in front of them stands a wall of golden grain taller than a man.",
+        "story": "In the 16th century grain was cut with a scythe or a sickle, and the harvest lasted for weeks and involved the whole village. Bruegel shows the successive stages of the work at the same time: mowing, binding the sheaves and carrying them from the field. That is why the picture is sometimes read as the story of a single harvest day."
+      }
     },
     {
       "label": "pole zboża",
@@ -126,7 +136,13 @@
             1.0
           ]
         ]
-      ]
+      ],
+      "en": {
+        "label": "field of grain",
+        "shortDescription": "A tall wall of golden, uncut grain.",
+        "longDescription": "Across the middle of the picture runs a wide field of ripe, golden grain. The ears stand dense and even, reaching higher than the mowers' heads. A man carrying jugs comes out along a narrow path through the grain.",
+        "story": ""
+      }
     },
     {
       "label": "grusza",
@@ -141,7 +157,13 @@
       "longDescription": "Na środku obrazu rośnie wysoka grusza o cienkim, prostym pniu. Jej korona rozkłada się szeroko w górnej części obrazu, aż po prawą krawędź. Wśród liści wiszą drobne owoce, a pod drzewem odpoczywają żniwiarze.",
       "story": "",
       "sound": "bird",
-      "texture": "rough"
+      "texture": "rough",
+      "en": {
+        "label": "pear tree",
+        "shortDescription": "A spreading pear tree with a thin trunk and a wide crown.",
+        "longDescription": "In the middle of the picture grows a tall pear tree with a thin, straight trunk. Its crown spreads wide in the upper part of the picture, as far as the right edge. Small fruits hang among the leaves, and the harvesters rest under the tree.",
+        "story": ""
+      }
     },
     {
       "label": "śpiący żniwiarz",
@@ -156,7 +178,13 @@
       "longDescription": "Pod drzewem, na pierwszym planie, leży na plecach mężczyzna w białej koszuli i szarych spodniach. Śpi z otwartymi ustami, z rozrzuconymi nogami i jedną ręką założoną za głowę. Głowę opiera o pień gruszy, a obok, o drzewo, oparte są widły.",
       "story": "Śpiący żniwiarz to jedna z najsłynniejszych postaci Bruegla. Malarz lubił pokazywać zwykłych chłopów takimi, jacy są: zmęczonych, głodnych i nieskrępowanych. Dlatego nazywano go Chłopskim Brueglem, choć sam pracował dla bogatych mieszczan z Antwerpii i Brukseli.",
       "sound": "snore",
-      "texture": "soft"
+      "texture": "soft",
+      "en": {
+        "label": "sleeping harvester",
+        "shortDescription": "A harvester sleeps under the pear tree with his legs sprawled.",
+        "longDescription": "Under the tree, in the foreground, a man in a white shirt and grey trousers lies on his back. He sleeps with his mouth open, his legs sprawled and one arm behind his head. His head rests against the trunk of the pear tree, and next to him a pitchfork leans against the tree.",
+        "story": "The sleeping harvester is one of Bruegel's most famous figures. The painter liked to show ordinary peasants as they are: tired, hungry and unselfconscious. That is why he was called Peasant Bruegel, although he himself worked for rich townspeople of Antwerp and Brussels."
+      }
     },
     {
       "label": "posiłek żniwiarzy",
@@ -212,7 +240,13 @@
           ]
         ]
       ],
-      "refine": true
+      "refine": true,
+      "en": {
+        "label": "harvesters' meal",
+        "shortDescription": "A group of harvesters eats a meal in the shade of the tree.",
+        "longDescription": "On the right, in the foreground, several men and women sit in a circle under the pear tree, on sheaves of grain. They eat with spoons from earthenware bowls, one woman bites a piece of bread, and a man in a red jacket drinks from a large jug. In the middle a peasant cuts a loaf in a wicker basket with a knife, and pears lie on a white cloth.",
+        "story": "The meal in the field was the most important break in the long harvest day. Bruegel painted it with great precision: you can see the spoons, the earthenware bowls, the loaf of bread and the jug. Historians use his pictures to learn how peasants ate and dressed in the 16th century."
+      }
     }
   ]
 }

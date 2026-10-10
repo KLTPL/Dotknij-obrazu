@@ -1,5 +1,8 @@
 {
   "description": "W skromnej kuchni młoda kobieta nalewa mleko z glinianego dzbanka do misy. Stoi pośrodku obrazu, zwrócona w lewo, przy stole zastawionym chlebem. Po lewej stronie, u góry, znajduje się okno, przez które wpada dzienne światło, a prawą stronę zajmuje pusta, jasna ściana. Dominują żółć kaftana, błękit fartucha i chłodna biel ściany.",
+  "en": {
+    "description": "In a modest kitchen a young woman pours milk from an earthenware jug into a bowl. She stands in the middle of the picture, turned to the left, at a table laid with bread. On the left, at the top, is a window that lets in daylight, and the right side is taken up by a bare, bright wall. The yellow of her jacket, the blue of her apron and the cool white of the wall dominate."
+  },
   "objects": [
     {
       "label": "kobieta",
@@ -13,7 +16,12 @@
       "shortDescription": "Młoda służąca w żółtym kaftanie i niebieskim fartuchu.",
       "longDescription": "Kobieta stoi pośrodku obrazu, lekko pochylona, ze wzrokiem spuszczonym na dzbanek. Na głowie ma biały płócienny czepek. Nosi żółty kaftan z podwiniętymi zielonymi rękawami, niebieski fartuch i czerwoną spódnicę. Jej twarz i przedramiona oświetla światło z okna.",
       "sound": "hum",
-      "texture": "soft"
+      "texture": "soft",
+      "en": {
+        "label": "woman",
+        "shortDescription": "A young maid in a yellow jacket and a blue apron.",
+        "longDescription": "The woman stands in the middle of the picture, leaning slightly, her eyes lowered to the jug. She wears a white linen cap on her head. She has a yellow jacket with rolled-up green sleeves, a blue apron and a red skirt. Light from the window falls on her face and forearms."
+      }
     },
     {
       "label": "dzbanek z mlekiem",
@@ -27,7 +35,12 @@
       "shortDescription": "Z glinianego dzbanka leje się cienka strużka mleka.",
       "longDescription": "Kobieta trzyma oburącz przechylony, brązowy gliniany dzbanek. Z jego otworu spływa cienka, biała strużka mleka. Mleko wpada do szerokiej glinianej misy z dwoma uchami, która stoi na stole.",
       "sound": "pour",
-      "texture": "smooth"
+      "texture": "smooth",
+      "en": {
+        "label": "milk jug",
+        "shortDescription": "A thin trickle of milk pours from an earthenware jug.",
+        "longDescription": "The woman holds a tilted, brown earthenware jug in both hands. A thin, white trickle of milk flows from its mouth. The milk falls into a wide earthenware bowl with two handles, which stands on the table."
+      }
     },
     {
       "label": "chleb",
@@ -41,7 +54,12 @@
       "shortDescription": "Wiklinowy kosz z bochenkiem i kawałki chleba na stole.",
       "longDescription": "Na stole, w lewej dolnej części obrazu, stoi płaski wiklinowy kosz z dużym, okrągłym bochenkiem. Obok leżą mniejsze bułki i ułamane kawałki chleba. Skórka jest złocistobrązowa i chropowata, błyszczą na niej drobne punkty światła.",
       "sound": "crunch",
-      "texture": "rough"
+      "texture": "rough",
+      "en": {
+        "label": "bread",
+        "shortDescription": "A wicker basket with a loaf and pieces of bread on the table.",
+        "longDescription": "On the table, in the lower left part of the picture, stands a flat wicker basket with a large, round loaf. Next to it lie smaller rolls and broken pieces of bread. The crust is golden brown and rough, and tiny points of light glitter on it."
+      }
     },
     {
       "label": "okno",
@@ -55,7 +73,12 @@
       "shortDescription": "Wysokie okno z małymi szybkami, źródło światła.",
       "longDescription": "W lewym górnym rogu obrazu znajduje się wysokie okno podzielone na małe, prostokątne szybki. Jedna z nich jest pęknięta. Przez okno wpada chłodne, dzienne światło, które oświetla całą kuchnię.",
       "sound": "bird",
-      "texture": "smooth"
+      "texture": "smooth",
+      "en": {
+        "label": "window",
+        "shortDescription": "A tall window with small panes, the source of light.",
+        "longDescription": "In the upper left corner of the picture is a tall window divided into small, rectangular panes. One of them is cracked. Cool daylight comes in through the window and lights the whole kitchen."
+      }
     },
     {
       "label": "stół",
@@ -101,7 +124,12 @@
             1.0
           ]
         ]
-      ]
+      ],
+      "en": {
+        "label": "table",
+        "shortDescription": "A table covered with a dark green cloth.",
+        "longDescription": "The lower left corner of the picture is taken up by a table covered with a dark green cloth. A crumpled blue fabric hangs from its edge. On the table stand the bread basket, the bowl and a blue stoneware jug with a lid."
+      }
     }
   ]
 }

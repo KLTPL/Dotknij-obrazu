@@ -3,6 +3,7 @@
     python build.py czworka            # build one artwork
     python build.py --all              # build every artwork in pipeline/artworks
     python build.py czworka --redo describe depth
+    python build.py --all --texts      # only rewrite the texts, after editing descriptions
 
 Inputs live in pipeline/artworks/<id>/:
     source.json   title, author, licence and the image URL (written by hand or by import_met.py)
@@ -24,7 +25,7 @@ from PIL import Image
 
 from depth import estimate_depth
 from describe import describe_artwork
-from pack import write_package, write_preview, write_registry
+from pack import build_manifest, write_manifest, write_package, write_preview, write_registry
 from segment import clean_mask, contour_layer, merge_masks, polygon_mask, sam_masks, things_inside
 
 PIPELINE_DIR = Path(__file__).parent
@@ -117,11 +118,25 @@ def build(artwork_id: str, redo: set[str]) -> None:
     print(f"  zapisano {PACKAGES_DIR / artwork_id}, podgląd masek: {work_dir / 'preview.jpg'}")
 
 
+def rebuild_texts(artwork_id: str) -> None:
+    """Rewrites manifest.json from the curator's files and leaves the layers as they are."""
+    artwork_dir = ARTWORKS_DIR / artwork_id
+    manifest_file = PACKAGES_DIR / artwork_id / "manifest.json"
+    if not manifest_file.exists():
+        raise SystemExit(f"Dzieło „{artwork_id}” nie ma jeszcze paczki. Zbuduj je najpierw bez --texts.")
+    source = json.loads((artwork_dir / "source.json").read_text())
+    described = json.loads((artwork_dir / "objects.json").read_text())
+    layers = json.loads(manifest_file.read_text())["layers"]
+    write_manifest(manifest_file.parent, build_manifest(source, described, (layers["width"], layers["height"])))
+    print(f"[{artwork_id}] zapisano teksty")
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("artworks", nargs="*", help="ids of folders in pipeline/artworks")
     parser.add_argument("--all", action="store_true", help="build every artwork")
     parser.add_argument("--redo", nargs="+", default=[], choices=["describe", "depth"], help="ignore cached steps")
+    parser.add_argument("--texts", action="store_true", help="only rewrite the texts, keep the layers")
     args = parser.parse_args()
 
     load_dotenv(PIPELINE_DIR / ".env")
@@ -129,7 +144,10 @@ def main() -> None:
     if not ids:
         parser.error("podaj id dzieła albo --all")
     for artwork_id in ids:
-        build(artwork_id, set(args.redo))
+        if args.texts:
+            rebuild_texts(artwork_id)
+        else:
+            build(artwork_id, set(args.redo))
     write_registry(PACKAGES_DIR, REGISTRY_FILE)
     print(f"zaktualizowano {REGISTRY_FILE.relative_to(PIPELINE_DIR.parent)}")
 

@@ -1,5 +1,8 @@
 {
   "description": "Czterokonny zaprzęg pędzi po rozmokłej, błotnistej drodze przez płaski step, prosto w stronę widza. Konie zajmują środek obrazu, za nimi widać drewniany wóz z dwoma mężczyznami. Górną połowę wypełnia szare, zachmurzone niebo, dolną ciemne błoto z kałużami, a obie części rozdziela niska linia horyzontu. Kolory są stonowane: szarości, brązy i czerń, rozjaśnione bielą ubrania woźnicy i żółtym blaskiem mosiężnych ozdób uprzęży.",
+  "en": {
+    "description": "A team of four horses races along a soggy, muddy road across a flat steppe, straight towards the viewer. The horses fill the middle of the picture, and behind them is a wooden cart with two men. The upper half is filled with a grey, overcast sky and the lower half with dark mud and puddles; a low horizon line divides the two. The colours are muted: greys, browns and black, brightened by the white of the driver's coat and the yellow gleam of the brass ornaments on the harness."
+  },
   "objects": [
     {
       "label": "niebo",
@@ -13,7 +16,12 @@
       "shortDescription": "Szare, ciężkie niebo nad płaskim stepem.",
       "longDescription": "Niebo zajmuje całą górną połowę obrazu. Jest szare i jednolicie zachmurzone, bez słońca. Tuż nad horyzontem, po lewej stronie, biegnie wąski, jaśniejszy pas żółtawego światła.",
       "sound": "wind",
-      "texture": "smooth"
+      "texture": "smooth",
+      "en": {
+        "label": "sky",
+        "shortDescription": "A grey, heavy sky above the flat steppe.",
+        "longDescription": "The sky takes up the whole upper half of the picture. It is grey and evenly overcast, with no sun. Just above the horizon, on the left, runs a narrow, brighter band of yellowish light."
+      }
     },
     {
       "label": "błotnista droga",
@@ -27,7 +35,12 @@
       "shortDescription": "Rozjeżdżona droga pełna błota i kałuż.",
       "longDescription": "Dolną połowę obrazu wypełnia szeroka, rozmokła droga. Błoto jest ciemnobrązowe i czarne, poprzecinane koleinami. W kałużach odbija się szare niebo, a spod końskich kopyt pryska woda.",
       "sound": "mud",
-      "texture": "rough"
+      "texture": "rough",
+      "en": {
+        "label": "muddy road",
+        "shortDescription": "A rutted road full of mud and puddles.",
+        "longDescription": "The lower half of the picture is filled with a wide, soggy road. The mud is dark brown and black, cut by wheel ruts. The grey sky is reflected in the puddles, and water splashes from under the horses' hooves."
+      }
     },
     {
       "label": "konie",
@@ -122,7 +135,12 @@
           ]
         ]
       ],
-      "refine": true
+      "refine": true,
+      "en": {
+        "label": "horses",
+        "shortDescription": "Four bay horses at full gallop.",
+        "longDescription": "Four bay horses run side by side straight at the viewer, stretched across the whole width of the middle of the picture. Their manes are flying, their nostrils flared and their mouths open. Their harness is decorated with round, shiny brass discs. Their hooves splash the mud."
+      }
     },
     {
       "label": "wóz z ludźmi",
@@ -205,7 +223,12 @@
           ]
         ]
       ],
-      "refine": true
+      "refine": true,
+      "en": {
+        "label": "cart with people",
+        "shortDescription": "Two men on a wooden cart behind the horses.",
+        "longDescription": "Behind the horses, in the middle of the picture, rides a wooden cart. Two men sit on it. The driver, in a tall fur cap and a white sheepskin coat, leans forward and holds the reins. Next to him sits a second man in a red waistcoat, with a pipe in his mouth."
+      }
     }
   ]
 }

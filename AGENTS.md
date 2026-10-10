@@ -62,6 +62,7 @@ apps/mobile/
   src/artworks/           package reader (layer decoding), registry.ts (generated)
   src/exploration/        ExplorationBoard + sound, speech and orientation hooks — shared
                           by artwork exploration and training
+  src/i18n/               chosen language and the texts of the screens in Polish and English
   src/readability-test/   training board and time measurement
 packages/shared/          package contract: src/artwork-package.ts
 pipeline/
@@ -80,6 +81,7 @@ pnpm dev              # Expo dev server — scan the QR code in Expo Go on a pho
 pnpm lint | typecheck
 pipeline/.venv/bin/python pipeline/sounds.py           # after changing sounds.json
 pipeline/.venv/bin/python pipeline/build.py --all      # after changing objects.json or the pipeline
+pipeline/.venv/bin/python pipeline/build.py --all --texts   # after changing only texts (no models run)
 ```
 
 Checking the bundle without a phone: `npx expo export --platform android --output-dir <temp dir>`
@@ -107,12 +109,15 @@ will block it — add the package to `allowBuilds` in `pnpm-workspace.yaml`.
   replaces the SAM mask, and with `"refine": true` SAM looks for exact silhouettes inside the
   polygon) → `build.py` → preview in `pipeline/work/<id>/preview.jpg`.
   Public domain / CC0 only, no religious or political scenes.
+- Texts: Polish is the base language; `en` fields in `source.json` and `objects.json` hold the
+  English translation and end up as `en` in the manifest. Add both when adding an artwork.
 - An object must be at least the size of a fingertip on the phone screen.
 
 ## Conventions
 
 - TypeScript strict, no `any` where it can be avoided.
-- Code, names and commits in English; UI texts in Polish.
+- Code, names and commits in English; UI texts in Polish and English, all of them in
+  `apps/mobile/src/i18n/strings.ts` (never inline in a screen).
 - After changes run `pnpm typecheck` and `pnpm lint`.
 - Small commits, messages in the style `feat: ...`, `fix: ...`.
 - The app must work in Expo Go (nobody on the team needs the Android SDK), so no native modules

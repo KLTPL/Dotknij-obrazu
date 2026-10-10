@@ -1,5 +1,8 @@
 {
   "description": "Barwny drzeworyt przedstawia wzburzone morze. Z lewej strony wznosi się ogromna fala, która zajmuje ponad połowę wysokości ryciny i załamuje się nad trzema długimi łodziami. W oddali, pośrodku, nisko nad horyzontem, widać mały, ośnieżony stożek góry Fudżi. Kolorystyka jest oszczędna: granat i błękit wody, biel piany oraz beż i szarość nieba.",
+  "en": {
+    "description": "A colour woodblock print showing a rough sea. From the left rises a huge wave, which takes up more than half the height of the print and breaks over three long boats. In the distance, in the middle, low above the horizon, the small, snow-covered cone of Mount Fuji can be seen. The colours are sparing: the navy and blue of the water, the white of the foam, and the beige and grey of the sky."
+  },
   "objects": [
     {
       "label": "wielka fala",
@@ -73,7 +76,12 @@
             0.72
           ]
         ]
-      ]
+      ],
+      "en": {
+        "label": "great wave",
+        "shortDescription": "A huge navy-blue wave with white, ragged foam.",
+        "longDescription": "The wave grows out of the left side of the print and curves in an arc to the right, above the boats. Its inside is navy blue with lighter blue stripes. Its crest ends in white foam, which splits into dozens of curved tips resembling claws. Tiny white drops break away from the foam."
+      }
     },
     {
       "label": "morze",
@@ -139,7 +147,12 @@
             1
           ]
         ]
-      ]
+      ],
+      "en": {
+        "label": "sea",
+        "shortDescription": "Rough water and smaller waves in the lower part of the print.",
+        "longDescription": "The lower part of the print is filled with a rough sea. On the right a second, smaller wave rises, with a gentle, rounded shape. The water is blue with darker navy stripes, and its edges are outlined with white foam."
+      }
     },
     {
       "label": "łodzie",
@@ -262,7 +275,12 @@
           ]
         ]
       ],
-      "refine": true
+      "refine": true,
+      "en": {
+        "label": "boats",
+        "shortDescription": "Three narrow boats with rowers among the waves.",
+        "longDescription": "Between the waves sail three long, narrow boats of pale wood. One is on the left, under the crest of the great wave, the other two in the middle and at the bottom. In each one rowers in navy-blue clothes sit in a row. They bend low over the sides."
+      }
     },
     {
       "label": "góra Fudżi",
@@ -296,7 +314,12 @@
             0.715
           ]
         ]
-      ]
+      ],
+      "en": {
+        "label": "Mount Fuji",
+        "shortDescription": "A small, snow-covered cone of a mountain far on the horizon.",
+        "longDescription": "In the middle of the print, far beyond the waves, rises Mount Fuji. It has the shape of a regular cone with a white, snow-covered peak and a navy-blue base. It is small, much smaller than the waves in the foreground. The sky above it is dark grey."
+      }
     }
   ]
 }

@@ -1,6 +1,8 @@
 import { Pressable, StyleSheet, Switch, Text, View } from 'react-native';
 
-import { formatSeconds, type TrialResult } from './use-readability-trial';
+import { useLanguage } from '@/i18n/language';
+
+import type { TrialResult } from './use-readability-trial';
 
 export type Mode = 'training' | 'test';
 
@@ -26,8 +28,9 @@ function median(values: number[]) {
 }
 
 function Summary({ results }: { results: readonly TrialResult[] }) {
+  const { t } = useLanguage();
   if (results.length === 0) {
-    return <Text style={styles.muted}>Cel: znalezienie obiektu w mniej niż {TARGET_SECONDS} s</Text>;
+    return <Text style={styles.muted}>{t.training.goal(TARGET_SECONDS)}</Text>;
   }
   const times = results.map((result) => result.seconds);
   const fast = times.filter((time) => time < TARGET_SECONDS).length;
@@ -35,12 +38,11 @@ function Summary({ results }: { results: readonly TrialResult[] }) {
   return (
     <View>
       <Text style={styles.text}>
-        Próby: {results.length} · mediana {formatSeconds(median(times))} s · poniżej {TARGET_SECONDS} s: {fast}/
-        {results.length}
+        {t.training.summary(results.length, t.seconds(median(times)), TARGET_SECONDS, fast)}
       </Text>
       <Text style={styles.muted}>
         {last
-          .map((result) => `${result.targetName} ${formatSeconds(result.seconds)} s (błędy: ${result.errors})`)
+          .map((result) => t.training.result(result.targetName, t.seconds(result.seconds), result.errors))
           .join('  ·  ')}
       </Text>
     </View>
@@ -49,6 +51,7 @@ function Summary({ results }: { results: readonly TrialResult[] }) {
 
 export function ControlPanel(props: Props) {
   const { mode, trialRunning } = props;
+  const { t } = useLanguage();
   return (
     <View style={styles.panel}>
       <View style={styles.row}>
@@ -58,7 +61,7 @@ export function ControlPanel(props: Props) {
             onPress={() => props.onModeChange(value)}
             style={[styles.segment, mode === value && styles.segmentActive]}
           >
-            <Text style={styles.text}>{value === 'training' ? 'Trening' : 'Test'}</Text>
+            <Text style={styles.text}>{value === 'training' ? t.training.modeTraining : t.training.modeTest}</Text>
           </Pressable>
         ))}
         <Pressable
@@ -66,14 +69,14 @@ export function ControlPanel(props: Props) {
           style={[styles.button, trialRunning && styles.buttonBusy]}
         >
           <Text style={styles.buttonText}>
-            {mode === 'training' ? 'Losuj układ' : trialRunning ? 'Próba trwa…' : 'Nowa próba'}
+            {mode === 'training' ? t.training.shuffle : trialRunning ? t.training.running : t.training.newTrial}
           </Text>
         </Pressable>
       </View>
       <View style={styles.row}>
-        <Text style={styles.text}>Pokaż obiekty</Text>
+        <Text style={styles.text}>{t.training.showObjects}</Text>
         <Switch value={props.showObjects} onValueChange={props.onShowObjectsChange} />
-        <Text style={styles.text}>Nazwy po przytrzymaniu</Text>
+        <Text style={styles.text}>{t.training.namesOnHold}</Text>
         <Switch value={props.namesOnHold} onValueChange={props.onNamesOnHoldChange} />
       </View>
       {mode === 'test' && <Summary results={props.results} />}

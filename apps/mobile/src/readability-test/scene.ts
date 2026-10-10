@@ -4,7 +4,6 @@ export type ObjectId = 'horse' | 'bird' | 'water';
 
 export type SceneObject = {
   id: ObjectId;
-  name: string;
   color: string;
   sound: AudioSource;
 };
@@ -15,9 +14,9 @@ export type Rect = { x: number; y: number; width: number; height: number };
 export type PlacedObject = SceneObject & { rect: Rect };
 
 export const SCENE_OBJECTS: readonly SceneObject[] = [
-  { id: 'horse', name: 'koń', color: '#b5793a', sound: require('../../assets/sounds/horse.wav') },
-  { id: 'bird', name: 'ptak', color: '#3a8fb5', sound: require('../../assets/sounds/bird.wav') },
-  { id: 'water', name: 'woda', color: '#3ab58a', sound: require('../../assets/sounds/water.wav') },
+  { id: 'horse', color: '#b5793a', sound: require('../../assets/sounds/horse.wav') },
+  { id: 'bird', color: '#3a8fb5', sound: require('../../assets/sounds/bird.wav') },
+  { id: 'water', color: '#3ab58a', sound: require('../../assets/sounds/water.wav') },
 ];
 
 // Objects land in random cells of a 2x3 grid, so each one is large enough

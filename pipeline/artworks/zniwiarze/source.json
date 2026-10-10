@@ -6,5 +6,12 @@
   "institution": "The Metropolitan Museum of Art, Nowy Jork",
   "license": "CC0 (The Met Open Access)",
   "source": "https://www.metmuseum.org/art/collection/search/435809",
-  "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DP119115.jpg"
+  "imageUrl": "https://images.metmuseum.org/CRDImages/ep/original/DP119115.jpg",
+  "en": {
+    "title": "The Harvesters",
+    "author": "Pieter Bruegel the Elder",
+    "year": "1565",
+    "institution": "The Metropolitan Museum of Art, New York",
+    "license": "CC0 (The Met Open Access)"
+  }
 }

@@ -1,6 +1,10 @@
 {
   "description": "Zimowa scena pełna ruchu: przez zaśnieżoną równinę pędzą sanie, które atakują wilki. Po lewej dwa brązowe konie galopują z rozwianymi grzywami, w środku woźnica stoi i smaga je batem, a po prawej w saniach siedzi dwoje podróżnych, mężczyzna strzela z pistoletu do wilków. Na dole, przy płozach, skaczą dwa szare wilki, a w tle po prawej stoją oszronione zarośla. Obraz utrzymany jest w bieli śniegu, szarości nieba i ciemnych brązach koni i ubrań.",
   "story": "Alfred Wierusz-Kowalski urodził się w 1849 roku w Suwałkach, a niemal całe dorosłe życie spędził w Monachium, gdzie należał do grupy polskich malarzy zwanej szkołą monachijską. Jego zimowe sceny z saniami i wilkami świetnie się sprzedawały w Niemczech i w Ameryce, więc malował je wiele razy. Ten obraz jest niewielki, ma około 20 na 31 centymetrów, i należy do Muzeum Narodowego w Warszawie.",
+  "en": {
+    "description": "A winter scene full of movement: a sleigh attacked by wolves races across a snowy plain. On the left two brown horses gallop with flying manes, in the middle the driver stands and lashes them with a whip, and on the right two travellers sit in the sleigh; the man fires a pistol at the wolves. At the bottom, by the runners, two grey wolves leap, and in the background on the right stand frost-covered bushes. The picture is painted in the white of snow, the grey of the sky and the dark browns of the horses and clothes.",
+    "story": "Alfred Wierusz-Kowalski was born in 1849 in Suwałki and spent almost all of his adult life in Munich, where he belonged to a group of Polish painters known as the Munich school. His winter scenes with sleighs and wolves sold very well in Germany and in America, so he painted them many times. This picture is small, about 20 by 31 centimetres, and belongs to the National Museum in Warsaw."
+  },
   "objects": [
     {
       "label": "konie",
@@ -15,7 +19,13 @@
       "longDescription": "Po lewej stronie dwa ciemnobrązowe konie pędzą w lewo. Mają rozwiane grzywy i ogony, a jeden odwraca głowę z otwartym pyskiem. Spod kopyt pryska śnieg, a uprząż napina się przy każdym skoku.",
       "story": "",
       "sound": "horse",
-      "texture": "grainy"
+      "texture": "grainy",
+      "en": {
+        "label": "horses",
+        "shortDescription": "Two frightened horses gallop with flying manes.",
+        "longDescription": "On the left two dark brown horses race to the left. Their manes and tails are flying, and one turns its head with its mouth open. Snow sprays from under their hooves, and the harness tightens with every leap.",
+        "story": ""
+      }
     },
     {
       "label": "woźnica",
@@ -30,7 +40,13 @@
       "longDescription": "W środku obrazu stoi woźnica w jasnym kożuchu i czapce z daszkiem. Jedną ręką trzyma lejce, a drugą unosi wysoko długi bat. Pochyla się do przodu, ponaglając konie.",
       "story": "W XIX wieku zimą podróżowano saniami, bo po ubitym śniegu jechało się szybciej niż wozem po błocie. Woźnica odpowiadał za konie i za bezpieczeństwo podróżnych, a w czasie ucieczki przed wilkami wszystko zależało od jego szybkiej reakcji.",
       "sound": "whip",
-      "texture": "soft"
+      "texture": "soft",
+      "en": {
+        "label": "driver",
+        "shortDescription": "The driver stands in the sleigh and lashes the horses with a whip.",
+        "longDescription": "In the middle of the picture stands the driver in a light sheepskin coat and a peaked cap. He holds the reins in one hand and raises a long whip high with the other. He leans forward, urging the horses on.",
+        "story": "In the 19th century people travelled by sleigh in winter, because it was faster on packed snow than by cart through mud. The driver was responsible for the horses and for the safety of the travellers, and when fleeing from wolves everything depended on his quick reactions."
+      }
     },
     {
       "label": "sanie z podróżnymi",
@@ -109,7 +125,13 @@
             0.62
           ]
         ]
-      ]
+      ],
+      "en": {
+        "label": "sleigh with travellers",
+        "shortDescription": "A woman and a man shooting at the wolves sit in the sleigh.",
+        "longDescription": "On the right, in a wooden sleigh lined with straw, sit two travellers. A woman in a red headscarf turns round in fright, and a man in a dark sheepskin coat and a fur cap aims a pistol at the wolves. A flash and smoke burst from the pistol.",
+        "story": ""
+      }
     },
     {
       "label": "wilki",
@@ -124,7 +146,13 @@
       "longDescription": "Na dole, w środku obrazu, dwa szare wilki rzucają się na sanie. Jeden przypada nisko do śniegu, drugi skacze w stronę płóz. Ich sierść jest szara i zmierzwiona.",
       "story": "W XIX wieku wilki żyły w wielu lasach na ziemiach polskich, a zimą, głodne, podchodziły pod wsie i drogi. Napad wilków na sanie był jednym z ulubionych tematów Wierusza-Kowalskiego i powracał na wielu jego obrazach, za każdym razem w trochę innej odsłonie.",
       "sound": "howl",
-      "texture": "grainy"
+      "texture": "grainy",
+      "en": {
+        "label": "wolves",
+        "shortDescription": "Two grey wolves leap at the sleigh.",
+        "longDescription": "At the bottom, in the middle of the picture, two grey wolves throw themselves at the sleigh. One crouches low to the snow, the other leaps towards the runners. Their fur is grey and matted.",
+        "story": "In the 19th century wolves lived in many forests of the Polish lands, and in winter, hungry, they came close to villages and roads. A wolf attack on a sleigh was one of Wierusz-Kowalski's favourite subjects and returned in many of his paintings, each time in a slightly different version."
+      }
     },
     {
       "label": "oszronione zarośla",
@@ -139,7 +167,13 @@
       "longDescription": "W prawej górnej części obrazu, w tle, rosną gęste zarośla. Ich gałęzie są pokryte szronem i śniegiem, przez co wyglądają na białosrebrne na tle szarego nieba.",
       "story": "",
       "sound": "wind",
-      "texture": "grainy"
+      "texture": "grainy",
+      "en": {
+        "label": "frosted bushes",
+        "shortDescription": "Bushes white with frost in the background.",
+        "longDescription": "In the upper right part of the picture, in the background, grow dense bushes. Their branches are covered with frost and snow, so they look silvery white against the grey sky.",
+        "story": ""
+      }
     }
   ]
 }

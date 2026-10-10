@@ -6,5 +6,12 @@
   "institution": "Rijksmuseum, Amsterdam",
   "license": "Domena publiczna",
   "source": "https://commons.wikimedia.org/wiki/File:The_Nightwatch_by_Rembrandt_-_Rijksmuseum.jpg",
-  "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/The_Nightwatch_by_Rembrandt_-_Rijksmuseum.jpg/1920px-The_Nightwatch_by_Rembrandt_-_Rijksmuseum.jpg"
+  "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/The_Nightwatch_by_Rembrandt_-_Rijksmuseum.jpg/1920px-The_Nightwatch_by_Rembrandt_-_Rijksmuseum.jpg",
+  "en": {
+    "title": "The Night Watch",
+    "author": "Rembrandt van Rijn",
+    "year": "1642",
+    "institution": "Rijksmuseum, Amsterdam",
+    "license": "Public domain"
+  }
 }

@@ -23,6 +23,59 @@ def story_of(described: dict) -> dict:
     return {"story": described["story"]} if described.get("story") else {}
 
 
+def artwork_texts(source: dict, described: dict) -> dict:
+    return {
+        "title": source["title"],
+        "author": source["author"],
+        "year": source["year"],
+        "institution": source["institution"],
+        "license": source["license"],
+        "description": described["description"],
+        **story_of(described),
+    }
+
+
+def object_texts(item: dict) -> dict:
+    return {
+        "label": item["label"],
+        "shortDescription": item["shortDescription"],
+        "longDescription": item["longDescription"],
+        **story_of(item),
+    }
+
+
+def english(texts: dict | None) -> dict:
+    """The optional "en" field: the same texts in English, when the curator has translated them."""
+    return {"en": texts} if texts else {}
+
+
+def build_manifest(source: dict, described: dict, size: tuple[int, int]) -> dict:
+    """Everything the app says and shows about an artwork; needs no model, only the curator's files."""
+    width, height = size
+    translated = "en" in source and "en" in described
+    return {
+        "id": source["id"],
+        **artwork_texts(source, described),
+        "source": source["source"],
+        **english(artwork_texts(source["en"], described["en"]) if translated else None),
+        "layers": {"width": width, "height": height},
+        "objects": [
+            {
+                "id": index + 1,
+                **object_texts(item),
+                **english(object_texts(item["en"]) if "en" in item else None),
+                "sound": item["sound"],
+                "texture": item["texture"],
+            }
+            for index, item in enumerate(described["objects"])
+        ],
+    }
+
+
+def write_manifest(out_dir: Path, manifest: dict) -> None:
+    (out_dir / "manifest.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n")
+
+
 def highlight_image(mask: np.ndarray) -> Image.Image:
     """Translucent fill with a solid outline, laid over the artwork while the object is touched."""
     outline = mask & ~ndimage.binary_erosion(mask, iterations=3)
@@ -46,31 +99,8 @@ def write_package(
         stale.unlink()
 
     height, width = object_ids.shape
-    manifest = {
-        "id": source["id"],
-        "title": source["title"],
-        "author": source["author"],
-        "year": source["year"],
-        "institution": source["institution"],
-        "license": source["license"],
-        "source": source["source"],
-        "description": described["description"],
-        **story_of(described),
-        "layers": {"width": width, "height": height},
-        "objects": [
-            {
-                "id": index + 1,
-                "label": item["label"],
-                "shortDescription": item["shortDescription"],
-                "longDescription": item["longDescription"],
-                **story_of(item),
-                "sound": item["sound"],
-                "texture": item["texture"],
-            }
-            for index, item in enumerate(described["objects"])
-        ],
-    }
-    (out_dir / "manifest.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n")
+    manifest = build_manifest(source, described, (width, height))
+    write_manifest(out_dir, manifest)
 
     layers = {"objectIds": encode_layer(object_ids), "depth": encode_layer(depth), "contours": encode_layer(contours)}
     (out_dir / "layers.json").write_text(json.dumps(layers) + "\n")

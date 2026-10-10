@@ -5,8 +5,16 @@
   "year": "ok. 1830–1832",
   "institution": "The Metropolitan Museum of Art, Nowy Jork",
   "license": "CC0 (The Met Open Access)",
-  "source": "https://www.metmuseum.org/art/collection/search/45434",
   "description": "Barwny drzeworyt przedstawia wzburzone morze. Z lewej strony wznosi się ogromna fala, która zajmuje ponad połowę wysokości ryciny i załamuje się nad trzema długimi łodziami. W oddali, pośrodku, nisko nad horyzontem, widać mały, ośnieżony stożek góry Fudżi. Kolorystyka jest oszczędna: granat i błękit wody, biel piany oraz beż i szarość nieba.",
+  "source": "https://www.metmuseum.org/art/collection/search/45434",
+  "en": {
+    "title": "The Great Wave off Kanagawa",
+    "author": "Katsushika Hokusai",
+    "year": "c. 1830–1832",
+    "institution": "The Metropolitan Museum of Art, New York",
+    "license": "CC0 (The Met Open Access)",
+    "description": "A colour woodblock print showing a rough sea. From the left rises a huge wave, which takes up more than half the height of the print and breaks over three long boats. In the distance, in the middle, low above the horizon, the small, snow-covered cone of Mount Fuji can be seen. The colours are sparing: the navy and blue of the water, the white of the foam, and the beige and grey of the sky."
+  },
   "layers": {
     "width": 512,
     "height": 344
@@ -17,6 +25,11 @@
       "label": "wielka fala",
       "shortDescription": "Ogromna granatowa fala z białą, postrzępioną pianą.",
       "longDescription": "Fala wyrasta z lewej strony ryciny i wygina się łukiem w prawo, ponad łodziami. Jej wnętrze jest granatowe, w jaśniejsze, niebieskie pasy. Grzbiet kończy się białą pianą, która rozszczepia się na dziesiątki zakrzywionych wypustek podobnych do szponów. Z piany odrywają się drobne białe krople.",
+      "en": {
+        "label": "great wave",
+        "shortDescription": "A huge navy-blue wave with white, ragged foam.",
+        "longDescription": "The wave grows out of the left side of the print and curves in an arc to the right, above the boats. Its inside is navy blue with lighter blue stripes. Its crest ends in white foam, which splits into dozens of curved tips resembling claws. Tiny white drops break away from the foam."
+      },
       "sound": "waves",
       "texture": "rough"
     },
@@ -25,6 +38,11 @@
       "label": "morze",
       "shortDescription": "Wzburzona woda i mniejsze fale w dolnej części ryciny.",
       "longDescription": "Dolną część ryciny wypełnia wzburzone morze. Po prawej stronie podnosi się druga, mniejsza fala o łagodnym, zaokrąglonym kształcie. Woda jest niebieska, z ciemniejszymi granatowymi pasami, a jej brzegi obrysowuje biała piana.",
+      "en": {
+        "label": "sea",
+        "shortDescription": "Rough water and smaller waves in the lower part of the print.",
+        "longDescription": "The lower part of the print is filled with a rough sea. On the right a second, smaller wave rises, with a gentle, rounded shape. The water is blue with darker navy stripes, and its edges are outlined with white foam."
+      },
       "sound": "water",
       "texture": "soft"
     },
@@ -33,6 +51,11 @@
       "label": "łodzie",
       "shortDescription": "Trzy wąskie łodzie z wioślarzami wśród fal.",
       "longDescription": "Między falami płyną trzy długie, wąskie łodzie z jasnego drewna. Jedna jest po lewej stronie, pod grzbietem wielkiej fali, dwie pozostałe pośrodku i u dołu. W każdej siedzą rzędem wioślarze w granatowych ubraniach. Pochylają się nisko nad burtami.",
+      "en": {
+        "label": "boats",
+        "shortDescription": "Three narrow boats with rowers among the waves.",
+        "longDescription": "Between the waves sail three long, narrow boats of pale wood. One is on the left, under the crest of the great wave, the other two in the middle and at the bottom. In each one rowers in navy-blue clothes sit in a row. They bend low over the sides."
+      },
       "sound": "oars",
       "texture": "grainy"
     },
@@ -41,6 +64,11 @@
       "label": "góra Fudżi",
       "shortDescription": "Mały, ośnieżony stożek góry daleko na horyzoncie.",
       "longDescription": "Pośrodku ryciny, daleko za falami, wznosi się góra Fudżi. Ma kształt regularnego stożka z białym, ośnieżonym szczytem i granatowym podnóżem. Jest niewielka, znacznie mniejsza od fal na pierwszym planie. Niebo nad nią jest ciemnoszare.",
+      "en": {
+        "label": "Mount Fuji",
+        "shortDescription": "A small, snow-covered cone of a mountain far on the horizon.",
+        "longDescription": "In the middle of the print, far beyond the waves, rises Mount Fuji. It has the shape of a regular cone with a white, snow-covered peak and a navy-blue base. It is small, much smaller than the waves in the foreground. The sky above it is dark grey."
+      },
       "sound": "wind",
       "texture": "smooth"
     }

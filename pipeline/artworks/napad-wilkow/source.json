@@ -6,5 +6,12 @@
   "institution": "Muzeum Narodowe w Warszawie",
   "license": "Domena publiczna",
   "source": "https://commons.wikimedia.org/wiki/File:Alfred_Kowalski_Wierusz_-_Wolves_attacking_a_sleigh_-_MP_2692_-_National_Museum_in_Warsaw.jpg",
-  "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Alfred_Kowalski_Wierusz_-_Wolves_attacking_a_sleigh_-_MP_2692_-_National_Museum_in_Warsaw.jpg/1920px-Alfred_Kowalski_Wierusz_-_Wolves_attacking_a_sleigh_-_MP_2692_-_National_Museum_in_Warsaw.jpg"
+  "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Alfred_Kowalski_Wierusz_-_Wolves_attacking_a_sleigh_-_MP_2692_-_National_Museum_in_Warsaw.jpg/1920px-Alfred_Kowalski_Wierusz_-_Wolves_attacking_a_sleigh_-_MP_2692_-_National_Museum_in_Warsaw.jpg",
+  "en": {
+    "title": "Wolves Attacking a Sleigh",
+    "author": "Alfred Wierusz-Kowalski",
+    "year": "1880",
+    "institution": "National Museum in Warsaw",
+    "license": "Public domain"
+  }
 }

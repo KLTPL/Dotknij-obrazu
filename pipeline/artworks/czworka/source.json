@@ -6,5 +6,12 @@
   "institution": "Muzeum Narodowe w Warszawie",
   "license": "Domena publiczna",
   "source": "https://commons.wikimedia.org/wiki/File:J%C3%B3zef_Che%C5%82mo%C5%84ski_-_Four-in-hand_-_MP_1927_-_National_Museum_in_Warsaw.jpg",
-  "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/J%C3%B3zef_Che%C5%82mo%C5%84ski_-_Four-in-hand_-_MP_1927_-_National_Museum_in_Warsaw.jpg/1920px-J%C3%B3zef_Che%C5%82mo%C5%84ski_-_Four-in-hand_-_MP_1927_-_National_Museum_in_Warsaw.jpg"
+  "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/J%C3%B3zef_Che%C5%82mo%C5%84ski_-_Four-in-hand_-_MP_1927_-_National_Museum_in_Warsaw.jpg/1920px-J%C3%B3zef_Che%C5%82mo%C5%84ski_-_Four-in-hand_-_MP_1927_-_National_Museum_in_Warsaw.jpg",
+  "en": {
+    "title": "Four-in-Hand",
+    "author": "Józef Chełmoński",
+    "year": "1880",
+    "institution": "National Museum in Warsaw",
+    "license": "Public domain"
+  }
 }

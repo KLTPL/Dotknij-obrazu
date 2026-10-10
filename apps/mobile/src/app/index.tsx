@@ -2,22 +2,24 @@ import { Link } from 'expo-router';
 import { FlatList, Image, Linking, Pressable, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import type { ArtworkEntry } from '@/artworks/artwork';
+import type { ArtworkLanguage } from '@repo/shared';
+
+import { type ArtworkEntry, localizeManifest } from '@/artworks/artwork';
 import { ARTWORKS } from '@/artworks/registry';
+import { useLanguage } from '@/i18n/language';
+import { LANGUAGE_NAMES } from '@/i18n/strings';
 
 function ArtworkCard({ entry }: { entry: ArtworkEntry }) {
-  const { id, title, author, year, institution, license, objects, layers } = entry.manifest;
+  const { language, t } = useLanguage();
+  const { id, title, author, year, institution, license, objects, layers } = localizeManifest(entry.manifest, language);
   const landscape = layers.width > layers.height;
   return (
     <Link href={{ pathname: '/artwork/[id]', params: { id } }} asChild>
       <Pressable
         style={styles.card}
         accessibilityRole="button"
-        accessibilityLabel={
-          `${title}. ${author}, ${year}. Obiektów do odkrycia: ${objects.length}. ` +
-          (landscape ? 'Obraz poziomy, telefon trzeba będzie obrócić poziomo.' : 'Obraz pionowy.')
-        }
-        accessibilityHint="Otwiera obraz do poznawania dotykiem"
+        accessibilityLabel={t.gallery.cardLabel(title, author, year, objects.length, landscape)}
+        accessibilityHint={t.gallery.cardHint}
       >
         <Image source={entry.image} style={styles.thumbnail} resizeMode="cover" />
         <View style={styles.cardText}>
@@ -25,7 +27,7 @@ function ArtworkCard({ entry }: { entry: ArtworkEntry }) {
           <Text style={styles.text}>
             {author}, {year}
           </Text>
-          <Text style={styles.orientation}>{landscape ? '↻ Telefon poziomo' : 'Telefon pionowo'}</Text>
+          <Text style={styles.orientation}>{landscape ? t.gallery.landscape : t.gallery.portrait}</Text>
           <Text style={styles.muted}>
             {institution} · {license}
           </Text>
@@ -40,35 +42,57 @@ function openVoiceSettings() {
   Linking.sendIntent('com.android.settings.TTS_SETTINGS').catch(() => Linking.openSettings());
 }
 
+function LanguageSwitch() {
+  const { language, setLanguage, t } = useLanguage();
+  return (
+    <View style={styles.languages} accessibilityRole="radiogroup" accessibilityLabel={t.gallery.language}>
+      {(Object.keys(LANGUAGE_NAMES) as ArtworkLanguage[]).map((value) => (
+        <Pressable
+          key={value}
+          onPress={() => setLanguage(value)}
+          style={[styles.language, language === value && styles.languageActive]}
+          accessibilityRole="radio"
+          accessibilityState={{ checked: language === value }}
+          accessibilityLabel={LANGUAGE_NAMES[value]}
+        >
+          <Text style={[styles.text, language === value && styles.languageActiveText]}>{LANGUAGE_NAMES[value]}</Text>
+        </Pressable>
+      ))}
+    </View>
+  );
+}
+
 function Header() {
+  const { t } = useLanguage();
   return (
     <View style={styles.header}>
       <Text style={styles.appName} accessibilityRole="header">
         Dotknij obrazu
       </Text>
-      <Text style={styles.text}>Poznaj obraz, wodząc po nim palcem. Dźwięk mówi, co jest pod palcem.</Text>
+      <Text style={styles.text}>{t.gallery.tagline}</Text>
+      <LanguageSwitch />
       <Link href="/training" asChild>
         <Pressable
           style={styles.training}
           accessibilityRole="button"
-          accessibilityLabel="Trening"
-          accessibilityHint="Krótkie ćwiczenie przed poznawaniem obrazów"
+          accessibilityLabel={t.gallery.training}
+          accessibilityHint={t.gallery.trainingHint}
         >
-          <Text style={styles.trainingTitle}>Trening</Text>
-          <Text style={styles.trainingText}>20 sekund ćwiczenia na prostych kształtach, zanim otworzysz obraz</Text>
+          <Text style={styles.trainingTitle}>{t.gallery.training}</Text>
+          <Text style={styles.trainingText}>{t.gallery.trainingText}</Text>
         </Pressable>
       </Link>
       <Pressable
         style={styles.voice}
         onPress={openVoiceSettings}
         accessibilityRole="button"
-        accessibilityLabel="Głos lektora"
-        accessibilityHint="Otwiera ustawienia mowy telefonu, gdzie można zmienić głos i tempo"
+        accessibilityLabel={t.gallery.voiceLabel}
+        accessibilityHint={t.gallery.voiceHint}
       >
-        <Text style={styles.text}>Głos lektora i tempo mowy ›</Text>
+        <Text style={styles.text}>{t.gallery.voice}</Text>
       </Pressable>
       <Text style={styles.section} accessibilityRole="header">
-        Galeria
+        {t.gallery.heading}
       </Text>
     </View>
   );
@@ -98,6 +122,10 @@ const styles = StyleSheet.create({
   trainingTitle: { color: '#000', fontSize: 20, fontWeight: '700' },
   trainingText: { color: '#000', fontSize: 15 },
   voice: { padding: 14, borderRadius: 14, backgroundColor: '#1a1a1a' },
+  languages: { flexDirection: 'row', gap: 8 },
+  language: { flex: 1, padding: 12, borderRadius: 12, alignItems: 'center', backgroundColor: '#1a1a1a' },
+  languageActive: { backgroundColor: '#ffd60a' },
+  languageActiveText: { color: '#000', fontWeight: '700' },
   card: { borderRadius: 14, overflow: 'hidden', backgroundColor: '#1a1a1a' },
   thumbnail: { width: '100%', height: 170 },
   cardText: { padding: 14, gap: 2 },
