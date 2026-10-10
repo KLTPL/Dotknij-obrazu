@@ -41,6 +41,11 @@ Zasady audiodeskrypcji dla wszystkich opisów:
 
 description to opis całego dzieła: 3-5 zdań, najpierw co to za scena, potem układ kompozycji \
 (co jest gdzie), na końcu kolorystyka i światło.
+
+story to osobna warstwa dla ciekawskich, czytana dopiero na życzenie: dla całego dzieła i dla \
+każdego obiektu 2-4 zdania historii i ciekawostek spoza obrazu - kim jest przedstawiona osoba, \
+jak i dlaczego dzieło powstało, co mówi o swojej epoce. Tylko pewne, powszechnie znane fakty; \
+gdy o obiekcie nie ma nic pewnego do powiedzenia, zostaw pusty tekst.
 """
 
 
@@ -49,9 +54,10 @@ def output_schema(sounds: list[str]) -> dict:
     return {
         "type": "object",
         "additionalProperties": False,
-        "required": ["description", "objects"],
+        "required": ["description", "story", "objects"],
         "properties": {
             "description": {"type": "string"},
+            "story": {"type": "string"},
             "objects": {
                 "type": "array",
                 "items": {
@@ -63,6 +69,7 @@ def output_schema(sounds: list[str]) -> dict:
                         "box",
                         "shortDescription",
                         "longDescription",
+                        "story",
                         "sound",
                         "texture",
                     ],
@@ -77,6 +84,7 @@ def output_schema(sounds: list[str]) -> dict:
                         },
                         "shortDescription": {"type": "string"},
                         "longDescription": {"type": "string"},
+                        "story": {"type": "string"},
                         "sound": {"type": "string", "enum": sounds},
                         "texture": {"type": "string", "enum": ["smooth", "soft", "grainy", "rough"]},
                     },
@@ -95,7 +103,7 @@ def encode_image(image: Image.Image) -> str:
 
 
 def describe_artwork(image: Image.Image, source: dict, sounds: list[str]) -> dict:
-    """Returns {"description": str, "objects": [...]} as defined by output_schema()."""
+    """Returns {"description": str, "story": str, "objects": [...]} as defined by output_schema()."""
     import anthropic  # imported here so the other steps work without the SDK configured
 
     if not os.environ.get("ANTHROPIC_API_KEY"):

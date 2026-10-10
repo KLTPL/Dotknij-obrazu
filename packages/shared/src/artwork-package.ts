@@ -21,6 +21,11 @@ export type ArtworkObject = {
   shortDescription: string;
   /** A few sentences following audio description rules, spoken on double tap. */
   longDescription: string;
+  /**
+   * Who or what this is beyond what can be seen: the person's name, history, curiosities.
+   * Spoken on a second double tap on the same object.
+   */
+  story?: string;
   /** File name without extension from apps/mobile/assets/sounds. */
   sound: string;
   texture: ArtworkTexture;
@@ -38,6 +43,8 @@ export type ArtworkManifest = {
   source: string;
   /** Audio description of the whole artwork. */
   description: string;
+  /** History of the artwork and curiosities about it, spoken on a second two-finger tap. */
+  story?: string;
   /** Size of every layer in pixels; the longer side is about 512. */
   layers: { width: number; height: number };
   objects: ArtworkObject[];

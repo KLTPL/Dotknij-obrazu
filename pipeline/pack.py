@@ -18,6 +18,11 @@ def encode_layer(layer: np.ndarray) -> str:
     return base64.b64encode(layer.astype(np.uint8).tobytes()).decode()
 
 
+def story_of(described: dict) -> dict:
+    """The optional "story" field, left out of the manifest when the curator has not written one."""
+    return {"story": described["story"]} if described.get("story") else {}
+
+
 def highlight_image(mask: np.ndarray) -> Image.Image:
     """Translucent fill with a solid outline, laid over the artwork while the object is touched."""
     outline = mask & ~ndimage.binary_erosion(mask, iterations=3)
@@ -50,6 +55,7 @@ def write_package(
         "license": source["license"],
         "source": source["source"],
         "description": described["description"],
+        **story_of(described),
         "layers": {"width": width, "height": height},
         "objects": [
             {
@@ -57,6 +63,7 @@ def write_package(
                 "label": item["label"],
                 "shortDescription": item["shortDescription"],
                 "longDescription": item["longDescription"],
+                **story_of(item),
                 "sound": item["sound"],
                 "texture": item["texture"],
             }

@@ -23,6 +23,11 @@ const SOUNDSCAPE_RETURN_MS = 1200;
 const GESTURES = 'Stuknij 2 razy: nazwa i opis obiektu · dwa palce: opis obrazu';
 const HOLD_LANDSCAPE = '↻ Trzymaj telefon poziomo';
 const HOLD_PORTRAIT = 'Trzymaj telefon pionowo';
+const STORY_HINT_OBJECT = 'Stuknij dwa razy jeszcze raz, aby usłyszeć historię.';
+const STORY_HINT_ARTWORK = 'Stuknij dwoma palcami jeszcze raz, aby usłyszeć historię obrazu.';
+
+/** What was spoken last: the artwork (id 0) or an object, and whether its description or story. */
+type Spoken = { id: number; part: 'description' | 'story' };
 
 export default function ArtworkScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -57,6 +62,18 @@ function ArtworkExplorer({ entry }: { entry: ArtworkEntry }) {
     sounds.setAmbient(null);
   }, [sounds]);
   const speaker = useSpeaker(sounds.setDucked);
+  const lastSpokenRef = useRef<Spoken | null>(null);
+  // The description comes first; the story only when asked for right after it, so it never surprises
+  const tell = (id: number, description: string, story: string | undefined, hint: string) => {
+    const last = lastSpokenRef.current;
+    if (story && last?.id === id && last.part === 'description') {
+      lastSpokenRef.current = { id, part: 'story' };
+      speaker.speak(story);
+    } else {
+      lastSpokenRef.current = { id, part: 'description' };
+      speaker.speak(story ? `${description} ${hint}` : description);
+    }
+  };
   const [active, setActive] = useState<ArtworkObject | null>(null);
   const [area, setArea] = useState({ width: 0, height: 0 });
 
@@ -131,10 +148,19 @@ function ArtworkExplorer({ entry }: { entry: ArtworkEntry }) {
               sounds.setActive(object?.id ?? null);
               setActive(object);
             }}
-            onDoubleTap={(object) =>
-              speaker.speak(object ? `${object.label}. ${object.longDescription}` : 'Tutaj nie ma opisanego obiektu.')
+            onDoubleTap={(object) => {
+              if (!object) {
+                lastSpokenRef.current = null;
+                speaker.speak('Tutaj nie ma opisanego obiektu.');
+                return;
+              }
+              tell(object.id, `${object.label}. ${object.longDescription}`, object.story, STORY_HINT_OBJECT);
+            }}
+            onTwoFingerTap={() =>
+              speaker.isSpeaking()
+                ? speaker.stop()
+                : tell(0, manifest.description, manifest.story, STORY_HINT_ARTWORK)
             }
-            onTwoFingerTap={() => (speaker.isSpeaking() ? speaker.stop() : speaker.speak(manifest.description))}
           >
             <Image source={entry.image} style={styles.layer} resizeMode="stretch" />
             {/* Faint lines show the audience which contours the finger can feel */}
