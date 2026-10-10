@@ -23,6 +23,21 @@ pnpm dev          # zeskanuj kod QR w Expo Go
 
 Do testu potrzebne są **słuchawki przewodowe** — Bluetooth opóźnia dźwięk względem palca.
 
+## Test czytelności
+
+Ekran startowy sprawdza, czy osoba z zawiązanymi oczami znajdzie obiekt po samym dźwięku.
+Osoba testowana dotyka tylko planszy, panel pod nią obsługuje ktoś z zespołu.
+
+1. **Trening** (~20 s, oczy otwarte): wodzenie palcem po kolorowych prostokątach.
+   Pod palcem gra dźwięk obiektu (koń: tętent, ptak: ćwierkanie, woda: szum),
+   na krawędzi telefon wibruje, przytrzymanie palca odczytuje nazwę.
+2. **Test**: zawiązujemy oczy, „Nowa próba” losuje układ i cel, telefon mówi, czego szukać.
+   Czas liczy się od pierwszego dotknięcia, podwójne stuknięcie potwierdza wybór.
+3. Kryterium: obiekt znaleziony w mniej niż 20 s. Przełącznik „Nazwy po przytrzymaniu”
+   pozwala sprawdzić, czy wystarczą same dźwięki.
+
+Dźwięki są syntezowane przez `pnpm --filter @repo/mobile sounds`.
+
 ## Przydatne komendy
 
 | Komenda          | Opis                      |

@@ -12,7 +12,7 @@ export default function RootLayout() {
           contentStyle: { backgroundColor: '#000' },
         }}
       >
-        <Stack.Screen name="index" options={{ title: 'Dotknij obrazu' }} />
+        <Stack.Screen name="index" options={{ headerShown: false }} />
       </Stack>
     </>
   );
