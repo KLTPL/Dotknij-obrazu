@@ -26,7 +26,16 @@ from PIL import Image
 from depth import estimate_depth
 from describe import describe_artwork
 from pack import build_manifest, write_manifest, write_package, write_preview, write_registry
-from segment import clean_mask, contour_layer, merge_masks, polygon_mask, sam_masks, things_inside
+from segment import (
+    DETAIL_RADIUS_PX,
+    clean_mask,
+    contour_layer,
+    merge_masks,
+    polygon_mask,
+    sam_masks,
+    smooth_mask,
+    things_inside,
+)
 
 PIPELINE_DIR = Path(__file__).parent
 ARTWORKS_DIR = PIPELINE_DIR / "artworks"
@@ -59,6 +68,7 @@ def object_masks(image: Image.Image, objects: list[dict], size: tuple[int, int])
     """Curator polygons win; every other object is segmented by SAM inside its box.
 
     A polygon marked "refine" only says where to look: SAM finds the exact things inside it.
+    Every mask is then smoothed, because a fingertip cannot follow a jagged edge.
     """
     automatic = [item for item in objects if not item.get("polygons")]
     segmented = iter(sam_masks(image, [item["box"] for item in automatic], size) if automatic else [])
@@ -70,8 +80,10 @@ def object_masks(image: Image.Image, objects: list[dict], size: tuple[int, int])
             mask = polygon_mask(item["polygons"], size)
             if item.get("refine"):
                 mask = things_inside(image, mask, size)
+        mask, radius = smooth_mask(mask)
         masks.append(mask)
-        print(f"  {item['label']}: {mask.mean():.1%} obrazu")
+        gentler = f", słabiej wygładzone ({radius} px), by nie stracić kształtu" if radius < DETAIL_RADIUS_PX else ""
+        print(f"  {item['label']}: {mask.mean():.1%} obrazu{gentler}")
     return masks
 
 

@@ -12,6 +12,8 @@ GRID_STEP = 0.035  # spacing of the points probing a curator polygon, as a share
 MIN_INSIDE_SHARE = 0.85  # a probed thing counts if this much of it lies inside the polygon
 MIN_THINGS_SHARE = 0.25  # below this share of the polygon the probing failed and the polygon stays
 FINGER_MARGIN_PX = 3  # thin parts such as legs are widened, so a fingertip can stay on them
+DETAIL_RADIUS_PX = 5  # parts thinner than a disk this big (about 3 mm across on a phone) are smoothed away
+MAX_SMOOTHING_LOSS = 0.1  # smoothing may take at most this share of an object, otherwise the disk shrinks
 DEPTH_STEP = 4  # change of depth per pixel (on the 0-255 scale) that counts as a silhouette
 MIN_CONTOUR_PX = 40  # shorter silhouette fragments are noise
 CONTOUR_RADIUS_PX = 9  # the vibration fades out this far from a contour, about 3 mm on a phone
@@ -102,6 +104,55 @@ def clean_mask(mask: np.ndarray) -> np.ndarray:
     return np.isin(labels, keep)
 
 
+def disk(radius: int) -> np.ndarray:
+    y, x = np.ogrid[-radius : radius + 1, -radius : radius + 1]
+    return x * x + y * y <= radius * radius
+
+
+def reach_edges(mask: np.ndarray) -> np.ndarray:
+    """Extends an object that stops just short of the picture edge right up to it.
+
+    Scans often keep a thin strip of the frame, which SAM leaves out; the outline of the
+    object would then run along the edge of the picture and buzz all around it.
+    """
+    gap = DETAIL_RADIUS_PX
+    mask = mask.copy()
+    mask[:gap] |= mask[gap]
+    mask[-gap:] |= mask[-gap - 1]
+    mask[:, :gap] |= mask[:, gap : gap + 1]
+    mask[:, -gap:] |= mask[:, -gap - 1 : -gap]
+    return mask
+
+
+def smooth_mask(mask: np.ndarray) -> tuple[np.ndarray, int]:
+    """Rounds an outline to what a fingertip can follow; returns the mask and the disk radius used.
+
+    Opening cuts off parts thinner than the disk (legs, splashes of mud), closing fills bays
+    narrower than it (gaps between legs). A thin object, such as a lying figure, would lose
+    too much of itself, so the disk shrinks until it keeps its shape; radius 0 leaves the outline as it was.
+    """
+    mask = reach_edges(mask)
+    for radius in range(DETAIL_RADIUS_PX, 0, -1):
+        footprint = disk(radius)
+        # The picture goes on past its edge, so an object touching the edge is not eaten from that side
+        padded = np.pad(mask, radius, mode="edge")
+        smooth = ndimage.binary_closing(ndimage.binary_opening(padded, footprint), footprint)
+        smooth = smooth[radius:-radius, radius:-radius]
+        if (mask & ~smooth).sum() <= MAX_SMOOTHING_LOSS * mask.sum():
+            return smooth, radius
+    return mask, 0
+
+
+def smooth_depth(depth: np.ndarray) -> np.ndarray:
+    """Removes details of the depth map too thin to feel, such as each leg of a galloping horse.
+
+    Grey opening and closing do to depth values what their mask versions do to an outline:
+    a wide step in depth (a horse against the road) stays sharp, a thin one disappears.
+    """
+    footprint = disk(DETAIL_RADIUS_PX)
+    return ndimage.grey_closing(ndimage.grey_opening(depth, footprint=footprint), footprint=footprint)
+
+
 def merge_masks(masks: list[np.ndarray]) -> np.ndarray:
     """Builds the object-id layer: mask i becomes id i + 1, 0 stays background."""
     object_ids = np.zeros(masks[0].shape, dtype=np.uint8)
@@ -112,7 +163,8 @@ def merge_masks(masks: list[np.ndarray]) -> np.ndarray:
 
 
 def mask_outline(mask: np.ndarray) -> np.ndarray:
-    return mask & ~ndimage.binary_erosion(mask)
+    # The edge of the picture is no outline: the app has its own signal for sliding off it
+    return mask & ~ndimage.binary_erosion(mask, border_value=1)
 
 
 def contour_layer(depth: np.ndarray, precise_masks: list[np.ndarray]) -> np.ndarray:
@@ -122,6 +174,7 @@ def contour_layer(depth: np.ndarray, precise_masks: list[np.ndarray]) -> np.ndar
     and outlines of the masks found by SAM. Plain hand-drawn polygons are too rough to trace.
     The value on a contour grows with depth, so the outline of a near thing feels stronger.
     """
+    depth = smooth_depth(depth)
     smooth = ndimage.gaussian_filter(depth.astype(float), 1.0)
     slope = np.hypot(ndimage.sobel(smooth, axis=0), ndimage.sobel(smooth, axis=1)) / 8
     silhouettes = slope > DEPTH_STEP
