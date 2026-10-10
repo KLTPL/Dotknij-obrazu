@@ -1,0 +1,11 @@
+# Python 3.10-3.12 (PyTorch has no wheels for newer Python on Intel Macs)
+torch>=2.2
+torchvision>=0.17
+transformers>=4.56,<5
+# torch 2.2 (the last Intel Mac build) is compiled against numpy 1.x
+numpy<2; sys_platform == "darwin" and platform_machine == "x86_64"
+numpy; sys_platform != "darwin" or platform_machine != "x86_64"
+scipy
+pillow
+anthropic
+python-dotenv

@@ -1,0 +1,102 @@
+{
+  "description": "W skromnej kuchni młoda kobieta nalewa mleko z glinianego dzbanka do misy. Stoi pośrodku obrazu, zwrócona w lewo, przy stole zastawionym chlebem. Po lewej stronie, u góry, znajduje się okno, przez które wpada dzienne światło, a prawą stronę zajmuje pusta, jasna ściana. Dominują żółć kaftana, błękit fartucha i chłodna biel ściany.",
+  "objects": [
+    {
+      "label": "kobieta",
+      "segmentationPrompt": "woman in a yellow bodice and blue apron",
+      "box": {
+        "x0": 0.36,
+        "y0": 0.15,
+        "x1": 0.75,
+        "y1": 1.0
+      },
+      "shortDescription": "Młoda służąca w żółtym kaftanie i niebieskim fartuchu.",
+      "longDescription": "Kobieta stoi pośrodku obrazu, lekko pochylona, ze wzrokiem spuszczonym na dzbanek. Na głowie ma biały płócienny czepek. Nosi żółty kaftan z podwiniętymi zielonymi rękawami, niebieski fartuch i czerwoną spódnicę. Jej twarz i przedramiona oświetla światło z okna.",
+      "sound": "hum"
+    },
+    {
+      "label": "dzbanek z mlekiem",
+      "segmentationPrompt": "clay jug pouring milk into a bowl",
+      "box": {
+        "x0": 0.26,
+        "y0": 0.47,
+        "x1": 0.45,
+        "y1": 0.68
+      },
+      "shortDescription": "Z glinianego dzbanka leje się cienka strużka mleka.",
+      "longDescription": "Kobieta trzyma oburącz przechylony, brązowy gliniany dzbanek. Z jego otworu spływa cienka, biała strużka mleka. Mleko wpada do szerokiej glinianej misy z dwoma uchami, która stoi na stole.",
+      "sound": "pour"
+    },
+    {
+      "label": "chleb",
+      "segmentationPrompt": "bread loaves in a wicker basket on a table",
+      "box": {
+        "x0": 0.05,
+        "y0": 0.62,
+        "x1": 0.52,
+        "y1": 0.78
+      },
+      "shortDescription": "Wiklinowy kosz z bochenkiem i kawałki chleba na stole.",
+      "longDescription": "Na stole, w lewej dolnej części obrazu, stoi płaski wiklinowy kosz z dużym, okrągłym bochenkiem. Obok leżą mniejsze bułki i ułamane kawałki chleba. Skórka jest złocistobrązowa i chropowata, błyszczą na niej drobne punkty światła.",
+      "sound": "crunch"
+    },
+    {
+      "label": "okno",
+      "segmentationPrompt": "window with small panes",
+      "box": {
+        "x0": 0.0,
+        "y0": 0.0,
+        "x1": 0.11,
+        "y1": 0.41
+      },
+      "shortDescription": "Wysokie okno z małymi szybkami, źródło światła.",
+      "longDescription": "W lewym górnym rogu obrazu znajduje się wysokie okno podzielone na małe, prostokątne szybki. Jedna z nich jest pęknięta. Przez okno wpada chłodne, dzienne światło, które oświetla całą kuchnię.",
+      "sound": "bird"
+    },
+    {
+      "label": "stół",
+      "segmentationPrompt": "table covered with a green cloth",
+      "box": {
+        "x0": 0.0,
+        "y0": 0.68,
+        "x1": 0.58,
+        "y1": 1.0
+      },
+      "polygons": [
+        [
+          [
+            0,
+            0.74
+          ],
+          [
+            0.08,
+            0.77
+          ],
+          [
+            0.3,
+            0.76
+          ],
+          [
+            0.51,
+            0.7
+          ],
+          [
+            0.56,
+            0.86
+          ],
+          [
+            0.58,
+            1.0
+          ],
+          [
+            0,
+            1.0
+          ]
+        ]
+      ],
+      "shortDescription": "Stół nakryty ciemnozielonym obrusem.",
+      "longDescription": "Lewy dolny róg obrazu zajmuje stół nakryty ciemnozielonym obrusem. Z jego krawędzi zwisa zmięta niebieska tkanina. Na stole stoją kosz z chlebem, misa oraz niebieski kamionkowy dzban z pokrywką.",
+      "sound": "knock"
+    }
+  ]
+}

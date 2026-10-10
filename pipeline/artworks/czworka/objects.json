@@ -1,0 +1,205 @@
+{
+  "description": "Czterokonny zaprzęg pędzi po rozmokłej, błotnistej drodze przez płaski step, prosto w stronę widza. Konie zajmują środek obrazu, za nimi widać drewniany wóz z dwoma mężczyznami. Górną połowę wypełnia szare, zachmurzone niebo, dolną ciemne błoto z kałużami, a obie części rozdziela niska linia horyzontu. Kolory są stonowane: szarości, brązy i czerń, rozjaśnione bielą ubrania woźnicy i żółtym blaskiem mosiężnych ozdób uprzęży.",
+  "objects": [
+    {
+      "label": "niebo",
+      "segmentationPrompt": "overcast sky",
+      "box": {
+        "x0": 0.0,
+        "y0": 0.0,
+        "x1": 1.0,
+        "y1": 0.48
+      },
+      "shortDescription": "Szare, ciężkie niebo nad płaskim stepem.",
+      "longDescription": "Niebo zajmuje całą górną połowę obrazu. Jest szare i jednolicie zachmurzone, bez słońca. Tuż nad horyzontem, po lewej stronie, biegnie wąski, jaśniejszy pas żółtawego światła.",
+      "sound": "wind"
+    },
+    {
+      "label": "błotnista droga",
+      "segmentationPrompt": "muddy road with puddles",
+      "box": {
+        "x0": 0.0,
+        "y0": 0.47,
+        "x1": 1.0,
+        "y1": 1.0
+      },
+      "shortDescription": "Rozjeżdżona droga pełna błota i kałuż.",
+      "longDescription": "Dolną połowę obrazu wypełnia szeroka, rozmokła droga. Błoto jest ciemnobrązowe i czarne, poprzecinane koleinami. W kałużach odbija się szare niebo, a spod końskich kopyt pryska woda.",
+      "sound": "mud"
+    },
+    {
+      "label": "konie",
+      "segmentationPrompt": "four galloping horses",
+      "box": {
+        "x0": 0.23,
+        "y0": 0.43,
+        "x1": 0.81,
+        "y1": 0.78
+      },
+      "shortDescription": "Cztery gniade konie w pełnym galopie.",
+      "longDescription": "Cztery gniade konie biegną obok siebie prosto na widza, rozciągnięte na całą szerokość środka obrazu. Mają rozwiane grzywy, rozdęte chrapy i otwarte pyski. Ich uprząż zdobią okrągłe, błyszczące mosiężne krążki. Kopyta rozbryzgują błoto.",
+      "sound": "horse",
+      "polygons": [
+        [
+          [
+            0.235,
+            0.6
+          ],
+          [
+            0.27,
+            0.5
+          ],
+          [
+            0.3,
+            0.455
+          ],
+          [
+            0.4,
+            0.44
+          ],
+          [
+            0.47,
+            0.45
+          ],
+          [
+            0.52,
+            0.5
+          ],
+          [
+            0.6,
+            0.47
+          ],
+          [
+            0.64,
+            0.44
+          ],
+          [
+            0.72,
+            0.45
+          ],
+          [
+            0.78,
+            0.48
+          ],
+          [
+            0.8,
+            0.58
+          ],
+          [
+            0.79,
+            0.64
+          ],
+          [
+            0.8,
+            0.75
+          ],
+          [
+            0.7,
+            0.77
+          ],
+          [
+            0.6,
+            0.74
+          ],
+          [
+            0.47,
+            0.79
+          ],
+          [
+            0.4,
+            0.72
+          ],
+          [
+            0.26,
+            0.74
+          ],
+          [
+            0.24,
+            0.66
+          ]
+        ]
+      ]
+    },
+    {
+      "label": "wóz z ludźmi",
+      "segmentationPrompt": "two men sitting on a wooden cart",
+      "box": {
+        "x0": 0.44,
+        "y0": 0.31,
+        "x1": 0.6,
+        "y1": 0.52
+      },
+      "shortDescription": "Dwaj mężczyźni na drewnianym wozie za końmi.",
+      "longDescription": "Za końmi, pośrodku obrazu, jedzie drewniany wóz. Siedzi na nim dwóch mężczyzn. Woźnica w wysokiej futrzanej czapce i białym kożuchu pochyla się do przodu i trzyma lejce. Obok niego siedzi drugi mężczyzna w czerwonej kamizelce, z fajką w ustach.",
+      "sound": "cart",
+      "polygons": [
+        [
+          [
+            0.385,
+            0.43
+          ],
+          [
+            0.42,
+            0.4
+          ],
+          [
+            0.47,
+            0.37
+          ],
+          [
+            0.475,
+            0.32
+          ],
+          [
+            0.51,
+            0.31
+          ],
+          [
+            0.53,
+            0.36
+          ],
+          [
+            0.57,
+            0.36
+          ],
+          [
+            0.6,
+            0.42
+          ],
+          [
+            0.62,
+            0.46
+          ],
+          [
+            0.6,
+            0.5
+          ],
+          [
+            0.56,
+            0.52
+          ],
+          [
+            0.56,
+            0.6
+          ],
+          [
+            0.5,
+            0.6
+          ],
+          [
+            0.5,
+            0.52
+          ],
+          [
+            0.44,
+            0.5
+          ],
+          [
+            0.4,
+            0.47
+          ]
+        ]
+      ]
+    }
+  ]
+}

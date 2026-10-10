@@ -25,3 +25,8 @@ logs
 expo-env.d.ts
 android
 ios
+
+# Python pipeline
+pipeline/.venv
+pipeline/work
+__pycache__
