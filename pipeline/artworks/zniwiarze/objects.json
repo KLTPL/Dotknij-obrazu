@@ -1,0 +1,218 @@
+{
+  "description": "Letni pejzaż w czasie żniw, oglądany ze wzgórza. Na pierwszym planie, po lewej, chłopi koszą wysokie, złote zboże, a po prawej, w cieniu gruszy, odpoczywają i jedzą posiłek. Środek obrazu wypełnia ściana nieskoszonego zboża, za nią rozciąga się zielona dolina z wioską, kościołem i odległą zatoką. Obraz utrzymany jest w ciepłych żółciach i brązach zboża, zieleni drzew i jasnym, mglistym niebie.",
+  "story": "Pieter Bruegel starszy namalował Żniwiarzy w 1565 roku dla antwerpskiego kupca Niclaesa Jongelincka, do jego domu. Obraz należał do cyklu pór roku; z tej samej serii pochodzą Myśliwi na śniegu, które też są w naszej galerii. Ze wszystkich obrazów cyklu przetrwało pięć, a Żniwiarze to jedyny, który trafił do Ameryki: od 1919 roku wisi w Metropolitan Museum w Nowym Jorku.",
+  "objects": [
+    {
+      "label": "kosiarze",
+      "segmentationPrompt": "two peasants mowing wheat with scythes",
+      "box": {
+        "x0": 0.14,
+        "y0": 0.66,
+        "x1": 0.29,
+        "y1": 0.93
+      },
+      "shortDescription": "Dwaj chłopi koszą zboże długimi kosami.",
+      "longDescription": "Po lewej stronie, na pierwszym planie, dwaj mężczyźni w białych koszulach koszą zboże. Pochylają się i zamaszystym ruchem prowadzą długie kosy tuż przy ziemi. Za nimi leżą równe pokosy ściętych kłosów, a przed nimi stoi ściana złotego zboża wyższa od człowieka.",
+      "story": "W XVI wieku zboże koszono kosą lub sierpem, a żniwa trwały tygodniami i angażowały całą wieś. Bruegel pokazuje kolejne etapy pracy jednocześnie: koszenie, wiązanie snopów i ich wynoszenie z pola. Dlatego obraz bywa czytany jak opowieść o jednym dniu żniw.",
+      "sound": "scythe",
+      "texture": "soft",
+      "polygons": [
+        [
+          [
+            0.14,
+            0.68
+          ],
+          [
+            0.21,
+            0.66
+          ],
+          [
+            0.28,
+            0.67
+          ],
+          [
+            0.29,
+            0.82
+          ],
+          [
+            0.22,
+            0.93
+          ],
+          [
+            0.14,
+            0.93
+          ]
+        ]
+      ]
+    },
+    {
+      "label": "pole zboża",
+      "segmentationPrompt": "tall golden wheat field",
+      "box": {
+        "x0": 0.0,
+        "y0": 0.48,
+        "x1": 0.71,
+        "y1": 0.78
+      },
+      "shortDescription": "Wysoka ściana złotego, nieskoszonego zboża.",
+      "longDescription": "Przez środek obrazu ciągnie się szeroki łan dojrzałego zboża w kolorze złota. Kłosy stoją gęsto i równo, sięgają wyżej niż głowy kosiarzy. Wąską ścieżką przez zboże wychodzi mężczyzna niosący dzbany.",
+      "story": "",
+      "sound": "wind",
+      "texture": "grainy",
+      "polygons": [
+        [
+          [
+            0.0,
+            0.6
+          ],
+          [
+            0.1,
+            0.58
+          ],
+          [
+            0.2,
+            0.6
+          ],
+          [
+            0.31,
+            0.55
+          ],
+          [
+            0.45,
+            0.52
+          ],
+          [
+            0.62,
+            0.47
+          ],
+          [
+            0.71,
+            0.48
+          ],
+          [
+            0.7,
+            0.62
+          ],
+          [
+            0.65,
+            0.72
+          ],
+          [
+            0.5,
+            0.73
+          ],
+          [
+            0.38,
+            0.76
+          ],
+          [
+            0.3,
+            0.78
+          ],
+          [
+            0.22,
+            0.8
+          ],
+          [
+            0.13,
+            0.85
+          ],
+          [
+            0.12,
+            1.0
+          ],
+          [
+            0.0,
+            1.0
+          ]
+        ]
+      ]
+    },
+    {
+      "label": "grusza",
+      "segmentationPrompt": "large pear tree",
+      "box": {
+        "x0": 0.35,
+        "y0": 0.0,
+        "x1": 1.0,
+        "y1": 0.86
+      },
+      "shortDescription": "Rozłożysta grusza z cienkim pniem i szeroką koroną.",
+      "longDescription": "Na środku obrazu rośnie wysoka grusza o cienkim, prostym pniu. Jej korona rozkłada się szeroko w górnej części obrazu, aż po prawą krawędź. Wśród liści wiszą drobne owoce, a pod drzewem odpoczywają żniwiarze.",
+      "story": "",
+      "sound": "bird",
+      "texture": "rough"
+    },
+    {
+      "label": "śpiący żniwiarz",
+      "segmentationPrompt": "man sleeping under the tree",
+      "box": {
+        "x0": 0.45,
+        "y0": 0.77,
+        "x1": 0.64,
+        "y1": 0.98
+      },
+      "shortDescription": "Żniwiarz śpi pod gruszą z rozrzuconymi nogami.",
+      "longDescription": "Pod drzewem, na pierwszym planie, leży na plecach mężczyzna w białej koszuli i szarych spodniach. Śpi z otwartymi ustami, z rozrzuconymi nogami i jedną ręką założoną za głowę. Głowę opiera o pień gruszy, a obok, o drzewo, oparte są widły.",
+      "story": "Śpiący żniwiarz to jedna z najsłynniejszych postaci Bruegla. Malarz lubił pokazywać zwykłych chłopów takimi, jacy są: zmęczonych, głodnych i nieskrępowanych. Dlatego nazywano go Chłopskim Brueglem, choć sam pracował dla bogatych mieszczan z Antwerpii i Brukseli.",
+      "sound": "snore",
+      "texture": "soft"
+    },
+    {
+      "label": "posiłek żniwiarzy",
+      "segmentationPrompt": "group of peasants eating lunch",
+      "box": {
+        "x0": 0.64,
+        "y0": 0.69,
+        "x1": 0.93,
+        "y1": 0.97
+      },
+      "shortDescription": "Grupa żniwiarzy je posiłek w cieniu drzewa.",
+      "longDescription": "Po prawej stronie, na pierwszym planie, kilkoro mężczyzn i kobiet siedzi w kręgu pod gruszą, na snopach zboża. Jedzą łyżkami z glinianych misek, jedna kobieta gryzie kawałek chleba, a mężczyzna w czerwonym kaftanie pije z dużego dzbana. W środku chłop kroi nożem bochen w wiklinowym koszu, a na białym płótnie leżą gruszki.",
+      "story": "Posiłek w polu był najważniejszą przerwą w długim dniu żniw. Bruegel namalował go z wielką dokładnością: widać łyżki, gliniane miski, bochen chleba i dzban. Historycy korzystają z jego obrazów, aby dowiedzieć się, jak jedli i ubierali się chłopi w XVI wieku.",
+      "sound": "crunch",
+      "texture": "grainy",
+      "polygons": [
+        [
+          [
+            0.64,
+            0.71
+          ],
+          [
+            0.7,
+            0.69
+          ],
+          [
+            0.8,
+            0.7
+          ],
+          [
+            0.88,
+            0.74
+          ],
+          [
+            0.93,
+            0.8
+          ],
+          [
+            0.92,
+            0.92
+          ],
+          [
+            0.86,
+            0.97
+          ],
+          [
+            0.72,
+            0.97
+          ],
+          [
+            0.64,
+            0.9
+          ]
+        ]
+      ],
+      "refine": true
+    }
+  ]
+}

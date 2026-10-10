@@ -1,0 +1,60 @@
+{
+  "id": "zniwiarze",
+  "title": "Żniwiarze",
+  "author": "Pieter Bruegel starszy",
+  "year": "1565",
+  "institution": "The Metropolitan Museum of Art, Nowy Jork",
+  "license": "CC0 (The Met Open Access)",
+  "source": "https://www.metmuseum.org/art/collection/search/435809",
+  "description": "Letni pejzaż w czasie żniw, oglądany ze wzgórza. Na pierwszym planie, po lewej, chłopi koszą wysokie, złote zboże, a po prawej, w cieniu gruszy, odpoczywają i jedzą posiłek. Środek obrazu wypełnia ściana nieskoszonego zboża, za nią rozciąga się zielona dolina z wioską, kościołem i odległą zatoką. Obraz utrzymany jest w ciepłych żółciach i brązach zboża, zieleni drzew i jasnym, mglistym niebie.",
+  "story": "Pieter Bruegel starszy namalował Żniwiarzy w 1565 roku dla antwerpskiego kupca Niclaesa Jongelincka, do jego domu. Obraz należał do cyklu pór roku; z tej samej serii pochodzą Myśliwi na śniegu, które też są w naszej galerii. Ze wszystkich obrazów cyklu przetrwało pięć, a Żniwiarze to jedyny, który trafił do Ameryki: od 1919 roku wisi w Metropolitan Museum w Nowym Jorku.",
+  "layers": {
+    "width": 512,
+    "height": 377
+  },
+  "objects": [
+    {
+      "id": 1,
+      "label": "kosiarze",
+      "shortDescription": "Dwaj chłopi koszą zboże długimi kosami.",
+      "longDescription": "Po lewej stronie, na pierwszym planie, dwaj mężczyźni w białych koszulach koszą zboże. Pochylają się i zamaszystym ruchem prowadzą długie kosy tuż przy ziemi. Za nimi leżą równe pokosy ściętych kłosów, a przed nimi stoi ściana złotego zboża wyższa od człowieka.",
+      "story": "W XVI wieku zboże koszono kosą lub sierpem, a żniwa trwały tygodniami i angażowały całą wieś. Bruegel pokazuje kolejne etapy pracy jednocześnie: koszenie, wiązanie snopów i ich wynoszenie z pola. Dlatego obraz bywa czytany jak opowieść o jednym dniu żniw.",
+      "sound": "scythe",
+      "texture": "soft"
+    },
+    {
+      "id": 2,
+      "label": "pole zboża",
+      "shortDescription": "Wysoka ściana złotego, nieskoszonego zboża.",
+      "longDescription": "Przez środek obrazu ciągnie się szeroki łan dojrzałego zboża w kolorze złota. Kłosy stoją gęsto i równo, sięgają wyżej niż głowy kosiarzy. Wąską ścieżką przez zboże wychodzi mężczyzna niosący dzbany.",
+      "sound": "wind",
+      "texture": "grainy"
+    },
+    {
+      "id": 3,
+      "label": "grusza",
+      "shortDescription": "Rozłożysta grusza z cienkim pniem i szeroką koroną.",
+      "longDescription": "Na środku obrazu rośnie wysoka grusza o cienkim, prostym pniu. Jej korona rozkłada się szeroko w górnej części obrazu, aż po prawą krawędź. Wśród liści wiszą drobne owoce, a pod drzewem odpoczywają żniwiarze.",
+      "sound": "bird",
+      "texture": "rough"
+    },
+    {
+      "id": 4,
+      "label": "śpiący żniwiarz",
+      "shortDescription": "Żniwiarz śpi pod gruszą z rozrzuconymi nogami.",
+      "longDescription": "Pod drzewem, na pierwszym planie, leży na plecach mężczyzna w białej koszuli i szarych spodniach. Śpi z otwartymi ustami, z rozrzuconymi nogami i jedną ręką założoną za głowę. Głowę opiera o pień gruszy, a obok, o drzewo, oparte są widły.",
+      "story": "Śpiący żniwiarz to jedna z najsłynniejszych postaci Bruegla. Malarz lubił pokazywać zwykłych chłopów takimi, jacy są: zmęczonych, głodnych i nieskrępowanych. Dlatego nazywano go Chłopskim Brueglem, choć sam pracował dla bogatych mieszczan z Antwerpii i Brukseli.",
+      "sound": "snore",
+      "texture": "soft"
+    },
+    {
+      "id": 5,
+      "label": "posiłek żniwiarzy",
+      "shortDescription": "Grupa żniwiarzy je posiłek w cieniu drzewa.",
+      "longDescription": "Po prawej stronie, na pierwszym planie, kilkoro mężczyzn i kobiet siedzi w kręgu pod gruszą, na snopach zboża. Jedzą łyżkami z glinianych misek, jedna kobieta gryzie kawałek chleba, a mężczyzna w czerwonym kaftanie pije z dużego dzbana. W środku chłop kroi nożem bochen w wiklinowym koszu, a na białym płótnie leżą gruszki.",
+      "story": "Posiłek w polu był najważniejszą przerwą w długim dniu żniw. Bruegel namalował go z wielką dokładnością: widać łyżki, gliniane miski, bochen chleba i dzban. Historycy korzystają z jego obrazów, aby dowiedzieć się, jak jedli i ubierali się chłopi w XVI wieku.",
+      "sound": "crunch",
+      "texture": "grainy"
+    }
+  ]
+}
