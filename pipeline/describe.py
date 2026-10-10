@@ -31,7 +31,23 @@ obrazu, punkt (0, 0) to lewy górny róg,
 - sound: jeden z dostępnych dźwięków, najlepiej pasujący do obiektu; każdy obiekt inny dźwięk,
 - texture: fakturę powierzchni wyczuwaną wibracją pod palcem: smooth (gładka: szkło, lód, niebo), \
 soft (miękka: tkanina, spokojna woda), grainy (drobnoziarnista: sierść, drewno), rough (szorstka: \
-skała, błoto, kora); sąsiadujące obiekty powinny mieć różne faktury.
+skała, błoto, kora); sąsiadujące obiekty powinny mieć różne faktury,
+- role: dynamic albo static. Dźwięk obiektu dynamicznego gra także pod nieruchomym palcem, więc \
+dźwięk, który trwa po zatrzymaniu palca, zawsze oznacza akcję; obiekt statyczny słychać tylko wtedy, \
+gdy palec się po nim przesuwa. Rozstrzyga pierwsza pasująca zasada:
+  1. obiekt przedstawiający ludzi lub zwierzęta jest dynamiczny, także gdy odpoczywają lub śpią \
+i gdy występują razem ze swoimi rzeczami (wóz z ludźmi, łodzie z wioślarzami),
+  2. gdy jedna rzecz działa na drugą, dynamiczna jest ta, która działa, a statyczna ta, na którą \
+działa: człowiek stukający kijem o drogę jest dynamiczny, droga statyczna; narzędzie należy do \
+tego, kto go używa,
+  3. miejsce (drzewa, staw, pole) jest dynamiczne tylko wtedy, gdy widać w nim żywe istoty i to \
+ich dźwięk mu przypisujesz: drzewa z kraczącymi wronami; drzewo ze śpiewem ptaków, których na \
+obrazie nie ma, jest statyczne,
+  4. ogień jest dynamiczny; woda jest dynamiczna jako pojedyncze zdarzenie (załamująca się fala, \
+lejąca się struga), a statyczna jako przestrzeń (morze, staw, rzeka); wiatr nigdy nie czyni \
+obiektu dynamicznym,
+  5. wszystko inne jest statyczne: ziemia, niebo, góry, rośliny, budynki, meble, jedzenie,
+  6. w razie wątpliwości static.
 
 Zasady audiodeskrypcji dla wszystkich opisów:
 - opisuj to, co widać, w czasie teraźniejszym; bez interpretacji, ocen i wiedzy spoza obrazu,
@@ -87,6 +103,7 @@ def output_schema(sounds: list[str]) -> dict:
                         "en",
                         "sound",
                         "texture",
+                        "role",
                     ],
                     "properties": {
                         "label": {"type": "string"},
@@ -103,6 +120,7 @@ def output_schema(sounds: list[str]) -> dict:
                         "en": texts("label", "shortDescription", "longDescription", "story"),
                         "sound": {"type": "string", "enum": sounds},
                         "texture": {"type": "string", "enum": ["smooth", "soft", "grainy", "rough"]},
+                        "role": {"type": "string", "enum": ["dynamic", "static"]},
                     },
                 },
             },

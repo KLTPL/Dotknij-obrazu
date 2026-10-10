@@ -20,6 +20,7 @@
       "story": "",
       "sound": "horse",
       "texture": "grainy",
+      "role": "dynamic",
       "en": {
         "label": "horses",
         "shortDescription": "Two frightened horses gallop with flying manes.",
@@ -41,6 +42,7 @@
       "story": "W XIX wieku zimą podróżowano saniami, bo po ubitym śniegu jechało się szybciej niż wozem po błocie. Woźnica odpowiadał za konie i za bezpieczeństwo podróżnych, a w czasie ucieczki przed wilkami wszystko zależało od jego szybkiej reakcji.",
       "sound": "whip",
       "texture": "soft",
+      "role": "dynamic",
       "en": {
         "label": "driver",
         "shortDescription": "The driver stands in the sleigh and lashes the horses with a whip.",
@@ -62,6 +64,7 @@
       "story": "",
       "sound": "bells",
       "texture": "rough",
+      "role": "dynamic",
       "polygons": [
         [
           [
@@ -147,6 +150,7 @@
       "story": "W XIX wieku wilki żyły w wielu lasach na ziemiach polskich, a zimą, głodne, podchodziły pod wsie i drogi. Napad wilków na sanie był jednym z ulubionych tematów Wierusza-Kowalskiego i powracał na wielu jego obrazach, za każdym razem w trochę innej odsłonie.",
       "sound": "howl",
       "texture": "grainy",
+      "role": "dynamic",
       "en": {
         "label": "wolves",
         "shortDescription": "Two grey wolves leap at the sleigh.",
@@ -168,6 +172,7 @@
       "story": "",
       "sound": "wind",
       "texture": "grainy",
+      "role": "static",
       "en": {
         "label": "frosted bushes",
         "shortDescription": "Bushes white with frost in the background.",

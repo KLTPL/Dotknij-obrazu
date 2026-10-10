@@ -31,7 +31,8 @@
         "longDescription": "The woman stands in the middle of the picture, leaning slightly, her eyes lowered to the jug. She wears a white linen cap on her head. She has a yellow jacket with rolled-up green sleeves, a blue apron and a red skirt. Light from the window falls on her face and forearms."
       },
       "sound": "hum",
-      "texture": "soft"
+      "texture": "soft",
+      "role": "dynamic"
     },
     {
       "id": 2,
@@ -44,7 +45,8 @@
         "longDescription": "The woman holds a tilted, brown earthenware jug in both hands. A thin, white trickle of milk flows from its mouth. The milk falls into a wide earthenware bowl with two handles, which stands on the table."
       },
       "sound": "pour",
-      "texture": "smooth"
+      "texture": "smooth",
+      "role": "dynamic"
     },
     {
       "id": 3,
@@ -57,7 +59,8 @@
         "longDescription": "On the table, in the lower left part of the picture, stands a flat wicker basket with a large, round loaf. Next to it lie smaller rolls and broken pieces of bread. The crust is golden brown and rough, and tiny points of light glitter on it."
       },
       "sound": "crunch",
-      "texture": "rough"
+      "texture": "rough",
+      "role": "static"
     },
     {
       "id": 4,
@@ -70,7 +73,8 @@
         "longDescription": "In the upper left corner of the picture is a tall window divided into small, rectangular panes. One of them is cracked. Cool daylight comes in through the window and lights the whole kitchen."
       },
       "sound": "bird",
-      "texture": "smooth"
+      "texture": "smooth",
+      "role": "static"
     },
     {
       "id": 5,
@@ -83,7 +87,8 @@
         "longDescription": "The lower left corner of the picture is taken up by a table covered with a dark green cloth. A crumpled blue fabric hangs from its edge. On the table stand the bread basket, the bowl and a blue stoneware jug with a lid."
       },
       "sound": "knock",
-      "texture": "grainy"
+      "texture": "grainy",
+      "role": "static"
     }
   ]
 }
