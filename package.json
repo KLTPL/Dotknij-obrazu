@@ -1,0 +1,23 @@
+{
+  "name": "best-hacks-2026",
+  "private": true,
+  "version": "0.0.0",
+  "packageManager": "pnpm@12.10.1",
+  "engines": {
+    "node": ">=22.12"
+  },
+  "scripts": {
+    "postinstall": "pnpm --filter @repo/shared build && pnpm db:generate",
+    "dev": "pnpm --filter @repo/shared build && pnpm -r --parallel dev",
+    "build": "pnpm -r build",
+    "lint": "pnpm -r lint",
+    "typecheck": "pnpm -r typecheck",
+    "test": "pnpm -r test",
+    "db:up": "docker compose up -d --wait",
+    "db:down": "docker compose down",
+    "db:reset": "docker compose down -v && docker compose up -d --wait && pnpm db:migrate",
+    "db:generate": "pnpm --filter @repo/api exec prisma generate",
+    "db:migrate": "pnpm --filter @repo/api exec prisma migrate dev",
+    "db:studio": "pnpm --filter @repo/api exec prisma studio"
+  }
+}
