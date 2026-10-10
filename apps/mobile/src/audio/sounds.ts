@@ -2,7 +2,8 @@ import type { AudioSource } from 'expo-audio';
 
 /**
  * Looping sounds an artwork object can use, keyed by ArtworkObject.sound.
- * All of them are synthesized by scripts/generate-sounds.mjs.
+ * Cut from CC0 recordings by pipeline/sounds.py (see assets/sounds/ATTRIBUTION.md),
+ * except for the synthesized ones from scripts/generate-sounds.mjs.
  */
 export const SOUNDS: Record<string, AudioSource> = {
   bird: require('../../assets/sounds/bird.wav'),

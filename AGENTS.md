@@ -54,8 +54,7 @@ Bez nadmiarowych abstrakcji, bez funkcji „na zapas”.
 ```
 apps/mobile/
   assets/artworks/<id>/   paczki dzieł — WYNIK pipeline'u, nie edytować ręcznie
-  assets/sounds/          pętle WAV — WYNIK scripts/generate-sounds.mjs
-  scripts/sounds/         przepisy syntezy dźwięków
+  assets/sounds/          pętle WAV — WYNIK pipeline/sounds.py (nagrania CC0) i scripts/generate-sounds.mjs
   src/app/                ekrany: index (galeria), artwork/[id] (eksploracja), training
   src/artworks/           odczyt paczki (dekodowanie warstw), registry.ts (generowany)
   src/exploration/        ExplorationBoard + hooki dźwięku, mowy i orientacji — wspólne
@@ -66,6 +65,7 @@ pipeline/
   artworks/<id>/          source.json (źródło i licencja), objects.json (obiekty i opisy)
   build.py                orkiestracja; kroki w describe.py, depth.py, segment.py, pack.py
   import_met.py           source.json z API The Met
+  sounds.py, sounds.json  pętle dźwięków wycinane z nagrań CC0
   work/                   cache (gitignored): pobrane obrazy, głębia, podglądy masek
 ```
 
@@ -75,7 +75,7 @@ pipeline/
 pnpm install
 pnpm dev              # Expo dev server — zeskanuj QR w Expo Go na telefonie
 pnpm lint | typecheck
-pnpm --filter @repo/mobile sounds                      # po zmianie przepisów dźwięków
+pipeline/.venv/bin/python pipeline/sounds.py           # po zmianie sounds.json
 pipeline/.venv/bin/python pipeline/build.py --all      # po zmianie objects.json lub pipeline'u
 ```
 
@@ -91,9 +91,11 @@ zablokuje — dopisz ją do `allowBuilds` w `pnpm-workspace.yaml`.
 - Kontrakt: `packages/shared/src/artwork-package.ts`. Zmiana formatu = zmiana typów,
   `pipeline/pack.py` i `apps/mobile/src/artworks/artwork.ts` w jednym commicie.
 - Warstwy (id obiektu, głębia, krawędzie) to surowe bajty w base64, nie PNG.
-- Nowy dźwięk: przepis w `apps/mobile/scripts/sounds/`, wpis w `generate-sounds.mjs`
-  i w `apps/mobile/src/audio/sounds.ts`. Pętla nie może mieć ciszy dłuższej niż ok. 0,3 s,
-  bo palec na obiekcie nie może trafić w pustkę. Tylko synteza albo CC0 z atrybucją.
+- Nowy dźwięk: wpis w `pipeline/sounds.json` (nagranie CC0 z bigsoundbank.com, początek
+  i długość fragmentu) → `pipeline/sounds.py`, potem wpis w `apps/mobile/src/audio/sounds.ts`.
+  Pętla nie może mieć ciszy dłuższej niż ok. 0,5 s, bo palec na obiekcie nie może trafić
+  w pustkę. Tylko CC0 z atrybucją (`ATTRIBUTION.md` generuje się sam) albo własna synteza
+  w `apps/mobile/scripts/generate-sounds.mjs`.
 - Nowe dzieło: `source.json` → `build.py` → poprawki w `objects.json` (pole `polygons`
   zastępuje maskę z SAM) → `build.py` → podgląd w `pipeline/work/<id>/preview.jpg`.
   Tylko domena publiczna / CC0, bez scen religijnych i politycznych.

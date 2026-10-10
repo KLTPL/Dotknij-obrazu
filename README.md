@@ -122,8 +122,11 @@ dlatego maski liczy SAM 2.1 z ramką.
 
 Dokładne adresy są w `pipeline/artworks/<id>/source.json` i w `manifest.json` każdej paczki.
 
-Wszystkie dźwięki są syntezowane przez nas: `pnpm --filter @repo/mobile sounds`
-(`apps/mobile/scripts/generate-sounds.mjs`). Nie używamy żadnych nagrań.
+Dźwięki obiektów to zapętlone fragmenty nagrań z [BigSoundBank](https://bigsoundbank.com/licenses.html)
+udostępnionych na licencji CC0; listę nagrań z autorami zawiera
+[`apps/mobile/assets/sounds/ATTRIBUTION.md`](./apps/mobile/assets/sounds/ATTRIBUTION.md).
+Fragmenty wycina `pipeline/sounds.py` według `pipeline/sounds.json` (wymaga ffmpeg).
+Jedyny dźwięk bez nagrania, nucenie, syntezujemy sami: `pnpm --filter @repo/mobile sounds`.
 
 ## Pytania, które mogą paść
 
@@ -155,7 +158,8 @@ uruchomienie pipeline'u i korekta kuratora.
 | `pnpm dev`                            | serwer deweloperski Expo          |
 | `pnpm lint`                           | lint                              |
 | `pnpm typecheck`                      | sprawdzenie typów                 |
-| `pnpm --filter @repo/mobile sounds`   | synteza dźwięków                  |
+| `pnpm --filter @repo/mobile sounds`   | synteza dźwięku nucenia           |
+| `pipeline/.venv/bin/python pipeline/sounds.py` | pętle z nagrań CC0       |
 | `pipeline/.venv/bin/python pipeline/build.py --all` | przebudowa paczek dzieł |
 
 Konwencje i szczegóły architektury: [AGENTS.md](./AGENTS.md).
