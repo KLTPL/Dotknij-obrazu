@@ -39,25 +39,34 @@ Bez nadmiarowych abstrakcji, bez funkcji „na zapas”.
 
 ## Stack
 
-| Warstwa  | Technologia                                                   |
-| -------- | ------------------------------------------------------------- |
+| Warstwa  | Technologia                                                    |
+| -------- | -------------------------------------------------------------- |
 | Monorepo | pnpm workspaces (`nodeLinker: hoisted` — wymagane przez Metro) |
-| Mobile   | Expo (React Native) + TypeScript + expo-router                |
-| Audio    | expo-audio (na razie; docelowo react-native-audio-api)        |
-| Haptyka  | expo-haptics                                                  |
-| Mowa     | expo-speech (systemowy TTS, offline)                          |
-| Wspólne  | `@repo/shared` — kontrakty (np. format paczki dzieła)         |
-
-Planowane: pipeline w Pythonie przygotowujący „paczki sensoryczne” dzieł
-(mapa głębi, maski obiektów, opisy) — jeszcze go nie ma.
+| Mobile   | Expo SDK 57 (React Native) + TypeScript + expo-router          |
+| Audio    | expo-audio (pętle grają stale, zmienia się tylko głośność)     |
+| Haptyka  | expo-haptics                                                   |
+| Mowa     | expo-speech (systemowy TTS, offline)                           |
+| Wspólne  | `@repo/shared` — typy formatu paczki dzieła (tylko typy)       |
+| Pipeline | Python 3.10–3.12: transformers (Depth Anything V2, SAM 2.1), Claude API |
 
 ## Struktura
 
 ```
-apps/
-  mobile/             aplikacja Expo
-packages/
-  shared/             wspólne typy
+apps/mobile/
+  assets/artworks/<id>/   paczki dzieł — WYNIK pipeline'u, nie edytować ręcznie
+  assets/sounds/          pętle WAV — WYNIK scripts/generate-sounds.mjs
+  scripts/sounds/         przepisy syntezy dźwięków
+  src/app/                ekrany: index (galeria), artwork/[id] (eksploracja), training
+  src/artworks/           odczyt paczki (dekodowanie warstw), registry.ts (generowany)
+  src/exploration/        ExplorationBoard + hooki dźwięku, mowy i orientacji — wspólne
+                          dla eksploracji dzieła i treningu
+  src/readability-test/   plansza treningowa i pomiar czasu
+packages/shared/          kontrakt paczki: src/artwork-package.ts
+pipeline/
+  artworks/<id>/          source.json (źródło i licencja), objects.json (obiekty i opisy)
+  build.py                orkiestracja; kroki w describe.py, depth.py, segment.py, pack.py
+  import_met.py           source.json z API The Met
+  work/                   cache (gitignored): pobrane obrazy, głębia, podglądy masek
 ```
 
 ## Komendy (z roota)
@@ -66,11 +75,29 @@ packages/
 pnpm install
 pnpm dev              # Expo dev server — zeskanuj QR w Expo Go na telefonie
 pnpm lint | typecheck
+pnpm --filter @repo/mobile sounds                      # po zmianie przepisów dźwięków
+pipeline/.venv/bin/python pipeline/build.py --all      # po zmianie objects.json lub pipeline'u
 ```
+
+Sprawdzenie bundla bez telefonu: `npx expo export --platform android --output-dir <katalog tymczasowy>`
+w `apps/mobile`.
 
 Dodawanie zależności do aplikacji: `pnpm --filter @repo/mobile exec expo install <pkg>`
 (dobiera wersję zgodną z SDK). Jeśli nowa paczka ma skrypt instalacyjny, pnpm go
 zablokuje — dopisz ją do `allowBuilds` w `pnpm-workspace.yaml`.
+
+## Paczka dzieła
+
+- Kontrakt: `packages/shared/src/artwork-package.ts`. Zmiana formatu = zmiana typów,
+  `pipeline/pack.py` i `apps/mobile/src/artworks/artwork.ts` w jednym commicie.
+- Warstwy (id obiektu, głębia, krawędzie) to surowe bajty w base64, nie PNG.
+- Nowy dźwięk: przepis w `apps/mobile/scripts/sounds/`, wpis w `generate-sounds.mjs`
+  i w `apps/mobile/src/audio/sounds.ts`. Pętla nie może mieć ciszy dłuższej niż ok. 0,3 s,
+  bo palec na obiekcie nie może trafić w pustkę. Tylko synteza albo CC0 z atrybucją.
+- Nowe dzieło: `source.json` → `build.py` → poprawki w `objects.json` (pole `polygons`
+  zastępuje maskę z SAM) → `build.py` → podgląd w `pipeline/work/<id>/preview.jpg`.
+  Tylko domena publiczna / CC0, bez scen religijnych i politycznych.
+- Obiekt musi być na ekranie telefonu co najmniej wielkości opuszka palca.
 
 ## Konwencje
 
@@ -78,5 +105,9 @@ zablokuje — dopisz ją do `allowBuilds` w `pnpm-workspace.yaml`.
 - Kod, nazwy i commity po angielsku; teksty w UI po polsku.
 - Po zmianach uruchom `pnpm typecheck` i `pnpm lint`.
 - Małe commity, komunikaty w stylu `feat: ...`, `fix: ...`.
-- Dopóki nie potrzebujemy natywnych modułów spoza Expo Go, aplikacja ma działać w Expo Go
-  (nikt w zespole nie musi mieć Android SDK).
+- Aplikacja ma działać w Expo Go (nikt w zespole nie musi mieć Android SDK), więc bez modułów
+  natywnych spoza Expo Go.
+- Gesty, haptykę i opóźnienie dźwięku da się sprawdzić tylko na telefonie — po zmianach w
+  `src/exploration/` napisz, co trzeba przetestować ręcznie.
+- Pliki poniżej ok. 300 linii; komentarze tłumaczą „dlaczego”, bo jury pyta o kod.
+- Python w `pipeline/`: komunikaty dla użytkownika po polsku, kod i komentarze po angielsku.
