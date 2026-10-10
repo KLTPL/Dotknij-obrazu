@@ -38,4 +38,15 @@ export const ARTWORKS: ArtworkEntry[] = [
       6: require('../../assets/artworks/mysliwi/highlight-6.png'),
     },
   },
+  {
+    manifest: require('../../assets/artworks/wielka-fala/manifest.json'),
+    image: require('../../assets/artworks/wielka-fala/image.jpg'),
+    loadLayers: () => require('../../assets/artworks/wielka-fala/layers.json'),
+    highlights: {
+      1: require('../../assets/artworks/wielka-fala/highlight-1.png'),
+      2: require('../../assets/artworks/wielka-fala/highlight-2.png'),
+      3: require('../../assets/artworks/wielka-fala/highlight-3.png'),
+      4: require('../../assets/artworks/wielka-fala/highlight-4.png'),
+    },
+  },
 ];

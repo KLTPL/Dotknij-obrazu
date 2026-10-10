@@ -1,0 +1,45 @@
+{
+  "description": "Barwny drzeworyt przedstawia wzburzone morze. Z lewej strony wznosi się ogromna fala, która zajmuje ponad połowę wysokości ryciny i załamuje się nad trzema długimi łodziami. W oddali, pośrodku, nisko nad horyzontem, widać mały, ośnieżony stożek góry Fudżi. Kolorystyka jest oszczędna: granat i błękit wody, biel piany oraz beż i szarość nieba.",
+  "objects": [
+    {
+      "label": "wielka fala",
+      "segmentationPrompt": "giant breaking wave",
+      "box": { "x0": 0.0, "y0": 0.08, "x1": 0.60, "y1": 0.75 },
+      "polygons": [[[0, 0.40], [0.10, 0.30], [0.20, 0.20], [0.30, 0.10], [0.41, 0.09], [0.50, 0.17], [0.59, 0.30], [0.57, 0.42], [0.50, 0.38], [0.42, 0.50], [0.41, 0.60], [0.32, 0.68], [0.12, 0.75], [0, 0.72]]],
+      "shortDescription": "Ogromna granatowa fala z białą, postrzępioną pianą.",
+      "longDescription": "Fala wyrasta z lewej strony ryciny i wygina się łukiem w prawo, ponad łodziami. Jej wnętrze jest granatowe, w jaśniejsze, niebieskie pasy. Grzbiet kończy się białą pianą, która rozszczepia się na dziesiątki zakrzywionych wypustek podobnych do szponów. Z piany odrywają się drobne białe krople.",
+      "sound": "waves"
+    },
+    {
+      "label": "morze",
+      "segmentationPrompt": "rough sea with smaller waves",
+      "box": { "x0": 0.0, "y0": 0.45, "x1": 1.0, "y1": 1.0 },
+      "polygons": [[[0, 0.72], [0.12, 0.75], [0.32, 0.68], [0.41, 0.60], [0.47, 0.66], [0.56, 0.74], [0.74, 0.79], [0.86, 0.67], [0.94, 0.52], [1, 0.45], [1, 1], [0, 1]]],
+      "shortDescription": "Wzburzona woda i mniejsze fale w dolnej części ryciny.",
+      "longDescription": "Dolną część ryciny wypełnia wzburzone morze. Po prawej stronie podnosi się druga, mniejsza fala o łagodnym, zaokrąglonym kształcie. Woda jest niebieska, z ciemniejszymi granatowymi pasami, a jej brzegi obrysowuje biała piana.",
+      "sound": "water"
+    },
+    {
+      "label": "łodzie",
+      "segmentationPrompt": "three long rowing boats",
+      "box": { "x0": 0.03, "y0": 0.50, "x1": 0.92, "y1": 0.94 },
+      "polygons": [
+        [[0.03, 0.55], [0.10, 0.60], [0.21, 0.64], [0.22, 0.70], [0.16, 0.74], [0.09, 0.72], [0.04, 0.64]],
+        [[0.55, 0.68], [0.62, 0.72], [0.72, 0.72], [0.84, 0.62], [0.91, 0.51], [0.91, 0.60], [0.83, 0.70], [0.70, 0.77], [0.60, 0.77]],
+        [[0.40, 0.76], [0.47, 0.83], [0.60, 0.87], [0.72, 0.87], [0.82, 0.85], [0.81, 0.93], [0.62, 0.95], [0.50, 0.94], [0.42, 0.86]]
+      ],
+      "shortDescription": "Trzy wąskie łodzie z wioślarzami wśród fal.",
+      "longDescription": "Między falami płyną trzy długie, wąskie łodzie z jasnego drewna. Jedna jest po lewej stronie, pod grzbietem wielkiej fali, dwie pozostałe pośrodku i u dołu. W każdej siedzą rzędem wioślarze w granatowych ubraniach. Pochylają się nisko nad burtami.",
+      "sound": "oars"
+    },
+    {
+      "label": "góra Fudżi",
+      "segmentationPrompt": "small snow-capped Mount Fuji",
+      "box": { "x0": 0.57, "y0": 0.62, "x1": 0.71, "y1": 0.72 },
+      "polygons": [[[0.555, 0.715], [0.615, 0.615], [0.66, 0.615], [0.72, 0.715]]],
+      "shortDescription": "Mały, ośnieżony stożek góry daleko na horyzoncie.",
+      "longDescription": "Pośrodku ryciny, daleko za falami, wznosi się góra Fudżi. Ma kształt regularnego stożka z białym, ośnieżonym szczytem i granatowym podnóżem. Jest niewielka, znacznie mniejsza od fal na pierwszym planie. Niebo nad nią jest ciemnoszare.",
+      "sound": "wind"
+    }
+  ]
+}

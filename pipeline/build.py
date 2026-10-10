@@ -79,10 +79,13 @@ def build(artwork_id: str, redo: set[str]) -> None:
     objects_file = artwork_dir / "objects.json"
     if "describe" in redo or not objects_file.exists():
         print("  opisuję obiekty (Claude)")
-        sounds = sorted(path.stem for path in SOUNDS_DIR.glob("*.wav"))
-        described = describe_artwork(image, source, sounds)
+        described = describe_artwork(image, source, sorted(path.stem for path in SOUNDS_DIR.glob("*.wav")))
         objects_file.write_text(json.dumps(described, ensure_ascii=False, indent=2) + "\n")
     described = json.loads(objects_file.read_text())
+    sounds = {path.stem for path in SOUNDS_DIR.glob("*.wav")}
+    for item in described["objects"]:
+        if item["sound"] not in sounds:
+            raise SystemExit(f"Obiekt „{item['label']}” używa nieznanego dźwięku: {item['sound']}")
 
     depth_file = work_dir / "depth.npy"
     if "depth" in redo or not depth_file.exists():
