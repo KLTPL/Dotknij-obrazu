@@ -12,7 +12,8 @@
       },
       "shortDescription": "Szare, ciężkie niebo nad płaskim stepem.",
       "longDescription": "Niebo zajmuje całą górną połowę obrazu. Jest szare i jednolicie zachmurzone, bez słońca. Tuż nad horyzontem, po lewej stronie, biegnie wąski, jaśniejszy pas żółtawego światła.",
-      "sound": "wind"
+      "sound": "wind",
+      "texture": "smooth"
     },
     {
       "label": "błotnista droga",
@@ -25,7 +26,8 @@
       },
       "shortDescription": "Rozjeżdżona droga pełna błota i kałuż.",
       "longDescription": "Dolną połowę obrazu wypełnia szeroka, rozmokła droga. Błoto jest ciemnobrązowe i czarne, poprzecinane koleinami. W kałużach odbija się szare niebo, a spod końskich kopyt pryska woda.",
-      "sound": "mud"
+      "sound": "mud",
+      "texture": "rough"
     },
     {
       "label": "konie",
@@ -39,6 +41,7 @@
       "shortDescription": "Cztery gniade konie w pełnym galopie.",
       "longDescription": "Cztery gniade konie biegną obok siebie prosto na widza, rozciągnięte na całą szerokość środka obrazu. Mają rozwiane grzywy, rozdęte chrapy i otwarte pyski. Ich uprząż zdobią okrągłe, błyszczące mosiężne krążki. Kopyta rozbryzgują błoto.",
       "sound": "horse",
+      "texture": "grainy",
       "polygons": [
         [
           [
@@ -132,6 +135,7 @@
       "shortDescription": "Dwaj mężczyźni na drewnianym wozie za końmi.",
       "longDescription": "Za końmi, pośrodku obrazu, jedzie drewniany wóz. Siedzi na nim dwóch mężczyzn. Woźnica w wysokiej futrzanej czapce i białym kożuchu pochyla się do przodu i trzyma lejce. Obok niego siedzi drugi mężczyzna w czerwonej kamizelce, z fajką w ustach.",
       "sound": "cart",
+      "texture": "soft",
       "polygons": [
         [
           [

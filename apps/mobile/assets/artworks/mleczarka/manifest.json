@@ -17,35 +17,40 @@
       "label": "kobieta",
       "shortDescription": "Młoda służąca w żółtym kaftanie i niebieskim fartuchu.",
       "longDescription": "Kobieta stoi pośrodku obrazu, lekko pochylona, ze wzrokiem spuszczonym na dzbanek. Na głowie ma biały płócienny czepek. Nosi żółty kaftan z podwiniętymi zielonymi rękawami, niebieski fartuch i czerwoną spódnicę. Jej twarz i przedramiona oświetla światło z okna.",
-      "sound": "hum"
+      "sound": "hum",
+      "texture": "soft"
     },
     {
       "id": 2,
       "label": "dzbanek z mlekiem",
       "shortDescription": "Z glinianego dzbanka leje się cienka strużka mleka.",
       "longDescription": "Kobieta trzyma oburącz przechylony, brązowy gliniany dzbanek. Z jego otworu spływa cienka, biała strużka mleka. Mleko wpada do szerokiej glinianej misy z dwoma uchami, która stoi na stole.",
-      "sound": "pour"
+      "sound": "pour",
+      "texture": "smooth"
     },
     {
       "id": 3,
       "label": "chleb",
       "shortDescription": "Wiklinowy kosz z bochenkiem i kawałki chleba na stole.",
       "longDescription": "Na stole, w lewej dolnej części obrazu, stoi płaski wiklinowy kosz z dużym, okrągłym bochenkiem. Obok leżą mniejsze bułki i ułamane kawałki chleba. Skórka jest złocistobrązowa i chropowata, błyszczą na niej drobne punkty światła.",
-      "sound": "crunch"
+      "sound": "crunch",
+      "texture": "rough"
     },
     {
       "id": 4,
       "label": "okno",
       "shortDescription": "Wysokie okno z małymi szybkami, źródło światła.",
       "longDescription": "W lewym górnym rogu obrazu znajduje się wysokie okno podzielone na małe, prostokątne szybki. Jedna z nich jest pęknięta. Przez okno wpada chłodne, dzienne światło, które oświetla całą kuchnię.",
-      "sound": "bird"
+      "sound": "bird",
+      "texture": "smooth"
     },
     {
       "id": 5,
       "label": "stół",
       "shortDescription": "Stół nakryty ciemnozielonym obrusem.",
       "longDescription": "Lewy dolny róg obrazu zajmuje stół nakryty ciemnozielonym obrusem. Z jego krawędzi zwisa zmięta niebieska tkanina. Na stole stoją kosz z chlebem, misa oraz niebieski kamionkowy dzban z pokrywką.",
-      "sound": "knock"
+      "sound": "knock",
+      "texture": "grainy"
     }
   ]
 }

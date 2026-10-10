@@ -9,6 +9,7 @@ MIN_REGION_SHARE = 0.002  # specks smaller than this share of the image are drop
 DEPTH_STEP = 4  # change of depth per pixel (on the 0-255 scale) that counts as a silhouette
 MIN_CONTOUR_PX = 40  # shorter silhouette fragments are noise
 CONTOUR_RADIUS_PX = 9  # the vibration fades out this far from a contour, about 3 mm on a phone
+FAR_CONTOUR_STRENGTH = 0.5  # the most distant contour is felt at this share of the nearest one
 
 
 def polygon_mask(polygons: list[list[list[float]]], size: tuple[int, int]) -> np.ndarray:
@@ -72,10 +73,11 @@ def mask_outline(mask: np.ndarray) -> np.ndarray:
 
 
 def contour_layer(depth: np.ndarray, precise_masks: list[np.ndarray]) -> np.ndarray:
-    """How close each pixel is to a contour worth tracing with a finger: 255 on it, 0 far away.
+    """How close each pixel is to a contour worth tracing with a finger, 0 far away from any.
 
     Contours are silhouettes found as sudden changes of depth (a horse against the road)
     and outlines of the masks segmented by SAM. Hand-drawn polygons are too rough to trace.
+    The value on a contour grows with depth, so the outline of a near thing feels stronger.
     """
     smooth = ndimage.gaussian_filter(depth.astype(float), 1.0)
     slope = np.hypot(ndimage.sobel(smooth, axis=0), ndimage.sobel(smooth, axis=1)) / 8
@@ -86,5 +88,11 @@ def contour_layer(depth: np.ndarray, precise_masks: list[np.ndarray]) -> np.ndar
     for mask in precise_masks:
         contours |= mask_outline(mask)
 
-    distance = ndimage.distance_transform_edt(~contours)
-    return (np.clip(1 - distance / CONTOUR_RADIUS_PX, 0, 1) * 255).astype(np.uint8)
+    # A silhouette belongs to the thing in front, so take the nearer side of the depth step
+    nearness = ndimage.maximum_filter(depth, size=5) / 255
+    strength = FAR_CONTOUR_STRENGTH + (1 - FAR_CONTOUR_STRENGTH) * nearness
+
+    # Every pixel takes the strength of its nearest contour pixel, fading with the distance to it
+    distance, (rows, columns) = ndimage.distance_transform_edt(~contours, return_indices=True)
+    closeness = np.clip(1 - distance / CONTOUR_RADIUS_PX, 0, 1)
+    return (closeness * strength[rows, columns] * 255).astype(np.uint8)

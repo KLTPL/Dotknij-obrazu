@@ -9,6 +9,9 @@
  *   contours.png      transparent overlay drawing the contour layer as white lines
  */
 
+/** How the surface of an object feels under a moving finger, from no vibration to strong, sparse bumps. */
+export type ArtworkTexture = 'smooth' | 'soft' | 'grainy' | 'rough';
+
 export type ArtworkObject = {
   /** Value of this object's pixels in the object-id layer: 1..255. 0 is the background. */
   id: number;
@@ -20,6 +23,7 @@ export type ArtworkObject = {
   longDescription: string;
   /** File name without extension from apps/mobile/assets/sounds. */
   sound: string;
+  texture: ArtworkTexture;
 };
 
 export type ArtworkManifest = {
@@ -50,8 +54,9 @@ export type ArtworkLayers = {
   /** 0 = far, 255 = near. */
   depth: string;
   /**
-   * Closeness to the nearest contour worth tracing with a finger: 255 on the contour,
-   * falling to 0 a few pixels away. Drives the vibration.
+   * Closeness to the nearest contour worth tracing with a finger, falling to 0 a few pixels
+   * away from it. On the contour the value grows with its depth: outlines of things close
+   * to the viewer reach 255, distant ones about half of that. Drives the vibration.
    */
   contours: string;
 };

@@ -58,6 +58,7 @@ def write_package(
                 "shortDescription": item["shortDescription"],
                 "longDescription": item["longDescription"],
                 "sound": item["sound"],
+                "texture": item["texture"],
             }
             for index, item in enumerate(described["objects"])
         ],

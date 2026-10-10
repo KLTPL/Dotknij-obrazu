@@ -56,7 +56,7 @@ export default function TrainingScreen() {
         objectAt={(x, y) => objectAt(trial.layout, x, y)}
         onTouchStart={trial.markTouch}
         onObjectChange={(object) => sounds.setActive(object?.id ?? null)}
-        onHold={(object) => namesOnHold && speaker.speak(object.name)}
+        onHold={(object) => object && namesOnHold && speaker.speak(object.name)}
         onDoubleTap={(object) => {
           if (mode === 'test') trial.confirm(object);
           else if (object) speaker.speak(object.name);

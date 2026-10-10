@@ -91,8 +91,8 @@ zablokuje — dopisz ją do `allowBuilds` w `pnpm-workspace.yaml`.
 - Kontrakt: `packages/shared/src/artwork-package.ts`. Zmiana formatu = zmiana typów,
   `pipeline/pack.py` i `apps/mobile/src/artworks/artwork.ts` w jednym commicie.
 - Warstwy (id obiektu, głębia, kontury) to surowe bajty w base64, nie PNG. Warstwa konturów
-  to bliskość linii (255 na konturze, 0 kilka pikseli dalej); steruje wibracją
-  w `src/exploration/use-contour-haptics.ts`.
+  to bliskość linii (0 kilka pikseli od konturu, na konturze tym więcej, im bliżej widza);
+  steruje wibracją w `src/exploration/use-touch-haptics.ts`, gdzie są też faktury obiektów.
 - Nowy dźwięk: wpis w `pipeline/sounds.json` (nagranie CC0 z bigsoundbank.com, początek
   i długość fragmentu) → `pipeline/sounds.py`, potem wpis w `apps/mobile/src/audio/sounds.ts`.
   Pętla nie może mieć ciszy dłuższej niż ok. 0,5 s, bo palec na obiekcie nie może trafić

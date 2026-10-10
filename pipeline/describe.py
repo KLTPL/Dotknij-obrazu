@@ -28,7 +28,10 @@ Dla każdego obiektu podaj:
 obrazu, punkt (0, 0) to lewy górny róg,
 - shortDescription: jedno zdanie, najwyżej 12 słów,
 - longDescription: 2-4 zdania,
-- sound: jeden z dostępnych dźwięków, najlepiej pasujący do obiektu; każdy obiekt inny dźwięk.
+- sound: jeden z dostępnych dźwięków, najlepiej pasujący do obiektu; każdy obiekt inny dźwięk,
+- texture: fakturę powierzchni wyczuwaną wibracją pod palcem: smooth (gładka: szkło, lód, niebo), \
+soft (miękka: tkanina, spokojna woda), grainy (drobnoziarnista: sierść, drewno), rough (szorstka: \
+skała, błoto, kora); sąsiadujące obiekty powinny mieć różne faktury.
 
 Zasady audiodeskrypcji dla wszystkich opisów:
 - opisuj to, co widać, w czasie teraźniejszym; bez interpretacji, ocen i wiedzy spoza obrazu,
@@ -61,6 +64,7 @@ def output_schema(sounds: list[str]) -> dict:
                         "shortDescription",
                         "longDescription",
                         "sound",
+                        "texture",
                     ],
                     "properties": {
                         "label": {"type": "string"},
@@ -74,6 +78,7 @@ def output_schema(sounds: list[str]) -> dict:
                         "shortDescription": {"type": "string"},
                         "longDescription": {"type": "string"},
                         "sound": {"type": "string", "enum": sounds},
+                        "texture": {"type": "string", "enum": ["smooth", "soft", "grainy", "rough"]},
                     },
                 },
             },

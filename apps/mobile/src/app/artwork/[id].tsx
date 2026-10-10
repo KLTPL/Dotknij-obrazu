@@ -5,7 +5,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { type ArtworkEntry, decodeLayers, pixelIndex } from '@/artworks/artwork';
+import { type ArtworkEntry, contourOwner, decodeLayers, pixelIndex } from '@/artworks/artwork';
 import { ARTWORKS } from '@/artworks/registry';
 import { SOUNDS } from '@/audio/sounds';
 import { ExplorationBoard } from '@/exploration/exploration-board';
@@ -15,6 +15,8 @@ import { useSpeaker } from '@/exploration/use-speaker';
 
 // The farthest point of the artwork still plays at this share of full loudness
 const FAR_GAIN = 0.55;
+// Resting the finger this close to the middle of a contour names the outline instead of the object
+const ON_CONTOUR = 0.35;
 const GESTURES = 'Przytrzymaj: nazwa · stuknij 2 razy: opis obiektu · dwa palce: opis obrazu';
 const HOLD_LANDSCAPE = '↻ Trzymaj telefon poziomo';
 const HOLD_PORTRAIT = 'Trzymaj telefon pionowo';
@@ -54,6 +56,17 @@ function ArtworkExplorer({ entry }: { entry: ArtworkEntry }) {
     return speaker.stop;
   }, [manifest, landscape, speaker]);
 
+  const contourAt = (x: number, y: number) => (layers.contours[pixelIndex(layers, x, y)] ?? 0) / 255;
+
+  const nameWhatIsHeld = (object: ArtworkObject | null, x: number, y: number) => {
+    if (contourAt(x, y) >= ON_CONTOUR) {
+      const owner = objectsById.get(contourOwner(layers, x, y));
+      speaker.speak(owner ? `Obrys: ${owner.label}` : 'Obrys elementu w tle');
+    } else if (object) {
+      speaker.speak(object.label);
+    }
+  };
+
   // The largest board with the artwork's proportions that fits the free area
   const boardWidth = Math.min(area.width, area.height * aspectRatio);
   const boardSize = { width: boardWidth, height: boardWidth / aspectRatio };
@@ -86,7 +99,8 @@ function ArtworkExplorer({ entry }: { entry: ArtworkEntry }) {
             style={boardSize}
             accessibilityLabel={`Obraz ${manifest.title}. Aby poznawać go palcem, wstrzymaj czytnik ekranu.`}
             objectAt={(x, y) => objectsById.get(layers.objectIds[pixelIndex(layers, x, y)]) ?? null}
-            contourAt={(x, y) => (layers.contours[pixelIndex(layers, x, y)] ?? 0) / 255}
+            contourAt={contourAt}
+            textureOf={(object) => object.texture}
             onMove={(x, y) => {
               const depth = layers.depth[pixelIndex(layers, x, y)] ?? 0;
               sounds.setGain(FAR_GAIN + (1 - FAR_GAIN) * (depth / 255));
@@ -95,7 +109,7 @@ function ArtworkExplorer({ entry }: { entry: ArtworkEntry }) {
               sounds.setActive(object?.id ?? null);
               setActive(object);
             }}
-            onHold={(object) => speaker.speak(object.label)}
+            onHold={nameWhatIsHeld}
             onDoubleTap={(object) =>
               speaker.speak(object ? `${object.label}. ${object.longDescription}` : 'Tutaj nie ma opisanego obiektu.')
             }

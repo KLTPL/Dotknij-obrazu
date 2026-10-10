@@ -1,3 +1,4 @@
+import type { ArtworkTexture } from '@repo/shared';
 import * as Haptics from 'expo-haptics';
 import { type ReactNode, useRef, useState } from 'react';
 import {
@@ -10,7 +11,7 @@ import {
   type ViewStyle,
 } from 'react-native';
 
-import { useContourHaptics } from './use-contour-haptics';
+import { useTouchHaptics } from './use-touch-haptics';
 
 const HOLD_MS = 600;
 const HOLD_SLOP_PX = 12;
@@ -26,11 +27,14 @@ type Props<T extends { id: string | number }> = {
   objectAt: (x: number, y: number) => T | null;
   /** Closeness to a contour that can be traced, 0..1; felt as vibration. */
   contourAt?: (x: number, y: number) => number;
+  /** Surface of an object, felt while the finger moves over it. */
+  textureOf?: (object: T) => ArtworkTexture;
   onTouchStart?: () => void;
   onMove?: (x: number, y: number) => void;
   /** Fires on entering or leaving an object, and with null when the finger lifts. */
   onObjectChange: (object: T | null) => void;
-  onHold: (object: T) => void;
+  /** The finger rested in one place; the object is null on the background. */
+  onHold: (object: T | null, x: number, y: number) => void;
   onDoubleTap: (object: T | null) => void;
   onTwoFingerTap?: () => void;
   accessibilityLabel?: string;
@@ -43,15 +47,18 @@ const distance = (a: Point, b: Point) => Math.hypot(a.x - b.x, a.y - b.y);
 
 /**
  * Touch surface explored with one finger: reports the object under the finger, ticks when
- * the object changes, vibrates along contours and recognizes hold, double tap and two-finger tap.
+ * the object changes, vibrates along contours and over textures, and recognizes hold,
+ * double tap and two-finger tap.
  */
 export function ExplorationBoard<T extends { id: string | number }>(props: Props<T>) {
-  const { objectAt, contourAt, onTouchStart, onMove, onObjectChange, onHold, onDoubleTap, onTwoFingerTap } = props;
-  const contourHaptics = useContourHaptics();
+  const { objectAt, contourAt, textureOf, onTouchStart, onMove, onObjectChange } = props;
+  const { onHold, onDoubleTap, onTwoFingerTap } = props;
+  const haptics = useTouchHaptics();
   const sizeRef = useRef({ width: 1, height: 1 });
   const currentRef = useRef<T['id'] | null>(null);
   const holdTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const holdAnchorRef = useRef<Point>({ x: 0, y: 0 });
+  const lastPointRef = useRef<Point>({ x: 0, y: 0 });
   const lastTapRef = useRef<{ time: number; point: Point } | null>(null);
   const touchStartedAtRef = useRef(0);
   const twoFingersRef = useRef(false);
@@ -76,13 +83,14 @@ export function ExplorationBoard<T extends { id: string | number }>(props: Props
   const restartHold = (object: T | null, point: Point) => {
     cancelHold();
     holdAnchorRef.current = point;
-    if (object) holdTimerRef.current = setTimeout(() => onHold(object), HOLD_MS);
+    const { x, y } = normalized(point);
+    holdTimerRef.current = setTimeout(() => onHold(object, x, y), HOLD_MS);
   };
 
   const leaveObject = () => {
     cancelHold();
     cursorOpacity.setValue(0);
-    contourHaptics.setStrength(0);
+    haptics.setContour(0);
     if (currentRef.current !== null) onObjectChange(null);
     currentRef.current = null;
   };
@@ -92,10 +100,12 @@ export function ExplorationBoard<T extends { id: string | number }>(props: Props
     cursor.setValue(point);
     onMove?.(x, y);
 
-    contourHaptics.setStrength(contourAt?.(x, y) ?? 0);
-
     const object = objectAt(x, y);
     const id = object?.id ?? null;
+    haptics.setContour(contourAt?.(x, y) ?? 0);
+    if (object && textureOf) haptics.travel(distance(point, lastPointRef.current), textureOf(object));
+    lastPointRef.current = point;
+
     if (id !== currentRef.current) {
       // A single distinct tick marks the moment the sound changes
       void Haptics.selectionAsync();
@@ -112,7 +122,8 @@ export function ExplorationBoard<T extends { id: string | number }>(props: Props
     touchStartedAtRef.current = Date.now();
     twoFingersRef.current = false;
     cursorOpacity.setValue(1);
-    track(pointOf(event));
+    lastPointRef.current = pointOf(event);
+    track(lastPointRef.current);
   };
 
   // Fires for every finger put down, also the ones joining a gesture that already started

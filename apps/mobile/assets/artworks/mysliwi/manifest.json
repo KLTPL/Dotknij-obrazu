@@ -17,42 +17,48 @@
       "label": "myśliwi",
       "shortDescription": "Trzej myśliwi z włóczniami brną przez śnieg.",
       "longDescription": "Trzech mężczyzn idzie od lewej strony w głąb obrazu, plecami do widza. Są przygarbieni, mają ciemne, grube ubrania i niosą na ramionach długie włócznie. Jeden z nich dźwiga na plecach upolowanego lisa. Ich stopy zapadają się w głębokim śniegu.",
-      "sound": "steps"
+      "sound": "steps",
+      "texture": "soft"
     },
     {
       "id": 2,
       "label": "psy",
       "shortDescription": "Gromada chudych psów myśliwskich idzie za ludźmi.",
       "longDescription": "W lewym dolnym rogu obrazu, za myśliwymi, idzie kilkanaście psów. Są chude, mają długie nogi i podkulone ogony. Ich sierść jest brązowa, ruda i szara. Idą ze spuszczonymi łbami, węsząc po śniegu.",
-      "sound": "dogs"
+      "sound": "dogs",
+      "texture": "grainy"
     },
     {
       "id": 3,
       "label": "ognisko",
       "shortDescription": "Ludzie rozpalają ognisko przed gospodą.",
       "longDescription": "Po lewej stronie, przed ceglanym budynkiem gospody, płonie duże ognisko. Żółtopomarańczowe płomienie pochylają się na wietrze. Wokół ognia krząta się kilka osób w ciemnych ubraniach, jedna z nich dokłada do niego słomy.",
-      "sound": "fire"
+      "sound": "fire",
+      "texture": "grainy"
     },
     {
       "id": 4,
       "label": "drzewa z ptakami",
       "shortDescription": "Wysokie, nagie drzewa, a na gałęziach czarne ptaki.",
       "longDescription": "Górną lewą część obrazu przecinają ciemne pnie i nagie gałęzie wysokich drzew, wyraźnie odcinające się od zielonkawego nieba. Na gałęziach siedzi kilka czarnych ptaków. Jeden ptak z rozłożonymi skrzydłami szybuje nad doliną.",
-      "sound": "crow"
+      "sound": "crow",
+      "texture": "rough"
     },
     {
       "id": 5,
       "label": "zamarznięte stawy",
       "shortDescription": "Na zielonkawym lodzie ludzie jeżdżą na łyżwach.",
       "longDescription": "W dolinie, w prawej części obrazu, leżą dwa prostokątne zamarznięte stawy. Lód ma szarozielony kolor. Poruszają się po nim dziesiątki drobnych, ciemnych sylwetek: ludzie jeżdżą na łyżwach, ciągną sanki i grają kijami.",
-      "sound": "skates"
+      "sound": "skates",
+      "texture": "smooth"
     },
     {
       "id": 6,
       "label": "góry",
       "shortDescription": "Ostre, ośnieżone szczyty na horyzoncie.",
       "longDescription": "W prawym górnym rogu obrazu, daleko na horyzoncie, wznoszą się strome, poszarpane skały pokryte śniegiem. U ich stóp leży niewielka wioska. Nad górami rozciąga się gładkie, szarozielone niebo.",
-      "sound": "wind"
+      "sound": "wind",
+      "texture": "rough"
     }
   ]
 }

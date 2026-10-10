@@ -57,8 +57,9 @@ Potrzebne są **słuchawki przewodowe** — Bluetooth opóźnia dźwięk względ
 | Gest                      | Działanie                                         |
 | ------------------------- | ------------------------------------------------- |
 | wodzenie jednym palcem    | dźwięk obiektu pod palcem, tyknięcie przy zmianie obiektu |
-| jazda palcem po konturze  | pulsująca wibracja, która gęstnieje na środku linii |
-| przytrzymanie palca       | nazwa obiektu                                     |
+| jazda palcem po konturze  | pulsująca wibracja, która gęstnieje na środku linii; kontury bliższych rzeczy są mocniejsze |
+| ruch palca wewnątrz obiektu | faktura: gładka, miękka, ziarnista albo szorstka |
+| przytrzymanie palca       | nazwa obiektu, a na konturze: czyj to obrys       |
 | podwójne stuknięcie       | dłuższy opis obiektu                              |
 | stuknięcie dwoma palcami  | opis całego obrazu albo przerwanie mowy           |
 
@@ -92,7 +93,7 @@ Wejście to `pipeline/artworks/<id>/source.json` (tytuł, autor, licencja, adres
 
 1. pobiera obraz,
 2. **opis** — Claude (`claude-opus-5-5`, structured outputs) wybiera 3–6 dużych obiektów
-   i zwraca dla każdego polską nazwę, ramkę, opisy zgodne z zasadami audiodeskrypcji i dźwięk
+   i zwraca dla każdego polską nazwę, ramkę, opisy zgodne z zasadami audiodeskrypcji, fakturę i dźwięk
    z listy plików w `apps/mobile/assets/sounds`; wynik trafia do `objects.json`,
 3. **głębia** — Depth Anything V2 Small,
 4. **maski i kontury** — SAM 2.1 z ramką obiektu daje mapę id obiektów; mapa konturów powstaje
@@ -143,7 +144,10 @@ wskazanego widoku bez wyłączania VoiceOver — to naturalny następny krok w n
 **Jak działa wodzenie po konturach?** Telefon nie potrafi wibrować z zadaną siłą, więc siłę
 udajemy rytmem: na skraju konturu są rzadkie, krótkie impulsy, a na środku linii zlewają się
 w ciągłe brzęczenie. Zjechanie z linii od razu słychać w palcu, więc da się obrysować sylwetkę
-konia albo pień drzewa.
+konia albo pień drzewa. Kontur rzeczy bliskiej widzowi wibruje mocniej niż kontur tła, a po
+przytrzymaniu palca na linii aplikacja mówi, czyj to obrys. Wewnątrz obiektu czuć jego fakturę:
+jeden impuls na każde kilkanaście punktów ruchu palca, więc nieruchomy palec nie czuje nic —
+tak jak na prawdziwej powierzchni.
 
 **Dlaczego głębia steruje tylko głośnością?** expo-audio nie ma panoramy ani filtrów.
 Panorama stereo i filtr zależny od głębi wymagają `react-native-audio-api`, czyli własnego

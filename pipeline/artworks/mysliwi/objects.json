@@ -4,56 +4,362 @@
     {
       "label": "myśliwi",
       "segmentationPrompt": "three hunters walking in the snow",
-      "box": { "x0": 0.23, "y0": 0.52, "x1": 0.43, "y1": 0.91 },
-      "polygons": [[[0.24, 0.58], [0.27, 0.54], [0.31, 0.55], [0.33, 0.62], [0.37, 0.64], [0.42, 0.63], [0.43, 0.70], [0.41, 0.77], [0.38, 0.80], [0.38, 0.86], [0.35, 0.90], [0.28, 0.91], [0.28, 0.83], [0.31, 0.76], [0.29, 0.73], [0.24, 0.70]]],
+      "box": {
+        "x0": 0.23,
+        "y0": 0.52,
+        "x1": 0.43,
+        "y1": 0.91
+      },
       "shortDescription": "Trzej myśliwi z włóczniami brną przez śnieg.",
       "longDescription": "Trzech mężczyzn idzie od lewej strony w głąb obrazu, plecami do widza. Są przygarbieni, mają ciemne, grube ubrania i niosą na ramionach długie włócznie. Jeden z nich dźwiga na plecach upolowanego lisa. Ich stopy zapadają się w głębokim śniegu.",
-      "sound": "steps"
+      "sound": "steps",
+      "texture": "soft",
+      "polygons": [
+        [
+          [
+            0.24,
+            0.58
+          ],
+          [
+            0.27,
+            0.54
+          ],
+          [
+            0.31,
+            0.55
+          ],
+          [
+            0.33,
+            0.62
+          ],
+          [
+            0.37,
+            0.64
+          ],
+          [
+            0.42,
+            0.63
+          ],
+          [
+            0.43,
+            0.7
+          ],
+          [
+            0.41,
+            0.77
+          ],
+          [
+            0.38,
+            0.8
+          ],
+          [
+            0.38,
+            0.86
+          ],
+          [
+            0.35,
+            0.9
+          ],
+          [
+            0.28,
+            0.91
+          ],
+          [
+            0.28,
+            0.83
+          ],
+          [
+            0.31,
+            0.76
+          ],
+          [
+            0.29,
+            0.73
+          ],
+          [
+            0.24,
+            0.7
+          ]
+        ]
+      ]
     },
     {
       "label": "psy",
       "segmentationPrompt": "pack of hunting dogs",
-      "box": { "x0": 0.02, "y0": 0.68, "x1": 0.30, "y1": 1.0 },
-      "polygons": [[[0.03, 0.74], [0.08, 0.71], [0.16, 0.69], [0.19, 0.72], [0.28, 0.73], [0.29, 0.79], [0.25, 0.84], [0.19, 0.86], [0.19, 0.93], [0.10, 0.98], [0.02, 0.97], [0.02, 0.86], [0.06, 0.82], [0.03, 0.79]]],
+      "box": {
+        "x0": 0.02,
+        "y0": 0.68,
+        "x1": 0.3,
+        "y1": 1.0
+      },
       "shortDescription": "Gromada chudych psów myśliwskich idzie za ludźmi.",
       "longDescription": "W lewym dolnym rogu obrazu, za myśliwymi, idzie kilkanaście psów. Są chude, mają długie nogi i podkulone ogony. Ich sierść jest brązowa, ruda i szara. Idą ze spuszczonymi łbami, węsząc po śniegu.",
-      "sound": "dogs"
+      "sound": "dogs",
+      "texture": "grainy",
+      "polygons": [
+        [
+          [
+            0.03,
+            0.74
+          ],
+          [
+            0.08,
+            0.71
+          ],
+          [
+            0.16,
+            0.69
+          ],
+          [
+            0.19,
+            0.72
+          ],
+          [
+            0.28,
+            0.73
+          ],
+          [
+            0.29,
+            0.79
+          ],
+          [
+            0.25,
+            0.84
+          ],
+          [
+            0.19,
+            0.86
+          ],
+          [
+            0.19,
+            0.93
+          ],
+          [
+            0.1,
+            0.98
+          ],
+          [
+            0.02,
+            0.97
+          ],
+          [
+            0.02,
+            0.86
+          ],
+          [
+            0.06,
+            0.82
+          ],
+          [
+            0.03,
+            0.79
+          ]
+        ]
+      ]
     },
     {
       "label": "ognisko",
       "segmentationPrompt": "people around a bonfire in front of an inn",
-      "box": { "x0": 0.01, "y0": 0.50, "x1": 0.19, "y1": 0.68 },
-      "polygons": [[[0.02, 0.55], [0.08, 0.52], [0.16, 0.52], [0.19, 0.57], [0.18, 0.65], [0.10, 0.67], [0.03, 0.66]]],
+      "box": {
+        "x0": 0.01,
+        "y0": 0.5,
+        "x1": 0.19,
+        "y1": 0.68
+      },
       "shortDescription": "Ludzie rozpalają ognisko przed gospodą.",
       "longDescription": "Po lewej stronie, przed ceglanym budynkiem gospody, płonie duże ognisko. Żółtopomarańczowe płomienie pochylają się na wietrze. Wokół ognia krząta się kilka osób w ciemnych ubraniach, jedna z nich dokłada do niego słomy.",
-      "sound": "fire"
+      "sound": "fire",
+      "texture": "grainy",
+      "polygons": [
+        [
+          [
+            0.02,
+            0.55
+          ],
+          [
+            0.08,
+            0.52
+          ],
+          [
+            0.16,
+            0.52
+          ],
+          [
+            0.19,
+            0.57
+          ],
+          [
+            0.18,
+            0.65
+          ],
+          [
+            0.1,
+            0.67
+          ],
+          [
+            0.03,
+            0.66
+          ]
+        ]
+      ]
     },
     {
       "label": "drzewa z ptakami",
       "segmentationPrompt": "bare trees with crows",
-      "box": { "x0": 0.08, "y0": 0.0, "x1": 0.62, "y1": 0.5 },
-      "polygons": [[[0.08, 0], [0.62, 0], [0.60, 0.22], [0.50, 0.32], [0.48, 0.52], [0.30, 0.50], [0.20, 0.36], [0.10, 0.28]]],
+      "box": {
+        "x0": 0.08,
+        "y0": 0.0,
+        "x1": 0.62,
+        "y1": 0.5
+      },
       "shortDescription": "Wysokie, nagie drzewa, a na gałęziach czarne ptaki.",
       "longDescription": "Górną lewą część obrazu przecinają ciemne pnie i nagie gałęzie wysokich drzew, wyraźnie odcinające się od zielonkawego nieba. Na gałęziach siedzi kilka czarnych ptaków. Jeden ptak z rozłożonymi skrzydłami szybuje nad doliną.",
-      "sound": "crow"
+      "sound": "crow",
+      "texture": "rough",
+      "polygons": [
+        [
+          [
+            0.08,
+            0
+          ],
+          [
+            0.62,
+            0
+          ],
+          [
+            0.6,
+            0.22
+          ],
+          [
+            0.5,
+            0.32
+          ],
+          [
+            0.48,
+            0.52
+          ],
+          [
+            0.3,
+            0.5
+          ],
+          [
+            0.2,
+            0.36
+          ],
+          [
+            0.1,
+            0.28
+          ]
+        ]
+      ]
     },
     {
       "label": "zamarznięte stawy",
       "segmentationPrompt": "frozen ponds with skaters",
-      "box": { "x0": 0.58, "y0": 0.50, "x1": 1.0, "y1": 0.72 },
-      "polygons": [[[0.60, 0.56], [0.72, 0.52], [0.96, 0.53], [0.97, 0.60], [0.92, 0.63], [0.86, 0.70], [0.74, 0.71], [0.62, 0.69], [0.58, 0.62]]],
+      "box": {
+        "x0": 0.58,
+        "y0": 0.5,
+        "x1": 1.0,
+        "y1": 0.72
+      },
       "shortDescription": "Na zielonkawym lodzie ludzie jeżdżą na łyżwach.",
       "longDescription": "W dolinie, w prawej części obrazu, leżą dwa prostokątne zamarznięte stawy. Lód ma szarozielony kolor. Poruszają się po nim dziesiątki drobnych, ciemnych sylwetek: ludzie jeżdżą na łyżwach, ciągną sanki i grają kijami.",
-      "sound": "skates"
+      "sound": "skates",
+      "texture": "smooth",
+      "polygons": [
+        [
+          [
+            0.6,
+            0.56
+          ],
+          [
+            0.72,
+            0.52
+          ],
+          [
+            0.96,
+            0.53
+          ],
+          [
+            0.97,
+            0.6
+          ],
+          [
+            0.92,
+            0.63
+          ],
+          [
+            0.86,
+            0.7
+          ],
+          [
+            0.74,
+            0.71
+          ],
+          [
+            0.62,
+            0.69
+          ],
+          [
+            0.58,
+            0.62
+          ]
+        ]
+      ]
     },
     {
       "label": "góry",
       "segmentationPrompt": "rocky snow-covered mountains",
-      "box": { "x0": 0.62, "y0": 0.10, "x1": 1.0, "y1": 0.40 },
-      "polygons": [[[0.64, 0.30], [0.74, 0.24], [0.80, 0.14], [0.86, 0.18], [0.92, 0.15], [1.0, 0.22], [1.0, 0.40], [0.80, 0.38], [0.64, 0.36]]],
+      "box": {
+        "x0": 0.62,
+        "y0": 0.1,
+        "x1": 1.0,
+        "y1": 0.4
+      },
       "shortDescription": "Ostre, ośnieżone szczyty na horyzoncie.",
       "longDescription": "W prawym górnym rogu obrazu, daleko na horyzoncie, wznoszą się strome, poszarpane skały pokryte śniegiem. U ich stóp leży niewielka wioska. Nad górami rozciąga się gładkie, szarozielone niebo.",
-      "sound": "wind"
+      "sound": "wind",
+      "texture": "rough",
+      "polygons": [
+        [
+          [
+            0.64,
+            0.3
+          ],
+          [
+            0.74,
+            0.24
+          ],
+          [
+            0.8,
+            0.14
+          ],
+          [
+            0.86,
+            0.18
+          ],
+          [
+            0.92,
+            0.15
+          ],
+          [
+            1.0,
+            0.22
+          ],
+          [
+            1.0,
+            0.4
+          ],
+          [
+            0.8,
+            0.38
+          ],
+          [
+            0.64,
+            0.36
+          ]
+        ]
+      ]
     }
   ]
 }
