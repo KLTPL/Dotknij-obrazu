@@ -50,7 +50,7 @@ pnpm install
 pnpm dev          # scan the QR code in Expo Go
 ```
 
-Ready-made packages of the four artworks are in the repo, so the pipeline is not needed to run the app.
+Ready-made packages of the seven artworks are in the repo, so the pipeline is not needed to run the app.
 **Wired headphones** are required — Bluetooth delays the sound relative to the finger.
 
 ## Controls
@@ -61,8 +61,8 @@ Ready-made packages of the four artworks are in the repo, so the pipeline is not
 | resting the finger        | dynamic objects (people, animals, fire) keep sounding, more quietly; static ones (sky, ground, a table) fall silent |
 | tracing a contour         | pulsing vibration that gets denser in the middle of the line; contours of closer things are stronger |
 | moving a finger inside an object | texture: smooth, soft, grainy or rough     |
-| double tap                | name and description of the object                |
-| two-finger tap            | description of the whole picture, or interrupting speech |
+| double tap                | name and description of the object; once more on the same object: its story |
+| two-finger tap            | description of the whole picture (once more: its story), or interrupting speech |
 
 Entering an object is two rising tones and two vibration taps, leaving it for the background is two
 falling tones and one tap. Object sounds crossfade smoothly, so only this cue tells exactly where
@@ -163,7 +163,7 @@ English texts live next to the Polish ones, in `en` fields of `source.json` and 
 After editing only texts, `build.py --all --texts` rewrites the manifests in a second, without
 running any model.
 
-Current state: the descriptions and objects of the four artworks in the repo were prepared by
+Current state: the descriptions and objects of the seven artworks in the repo were prepared by
 hand in this mode (areas such as the sky are easier to outline than to segment; horses, dogs,
 hunters and boats are outlined roughly and SAM finds their silhouettes).
 The Claude step is implemented but has not yet been run with a real API key.
@@ -178,6 +178,9 @@ so the masks are computed by SAM 2.1 with a bounding box.
 | Johannes Vermeer, "The Milkmaid", c. 1660 | Rijksmuseum / Wikimedia Commons               | public domain     |
 | Pieter Bruegel the Elder, "Hunters in the Snow", 1565 | Kunsthistorisches Museum / Wikimedia Commons | public domain |
 | Katsushika Hokusai, "The Great Wave off Kanagawa", c. 1830–1832 | The Met Open Access | CC0               |
+| Alfred Wierusz-Kowalski, "Wolves Attacking a Sleigh", 1880 | National Museum in Warsaw / Wikimedia Commons | public domain |
+| Rembrandt van Rijn, "The Night Watch", 1642 | Rijksmuseum / Wikimedia Commons               | public domain     |
+| Pieter Bruegel the Elder, "The Harvesters", 1565 | The Met Open Access                          | CC0               |
 
 The exact URLs are in `pipeline/artworks/<id>/source.json` and in each package's `manifest.json`.
 
@@ -217,6 +220,25 @@ the sounds crossfade instead of jumping.
 by the 2019 Act on ensuring accessibility. Tactile reliefs are expensive and are made for single
 artworks, and audio guides give only a linear audio description. Here, preparing an artwork is one
 pipeline run and a curator's correction.
+
+**Who writes the descriptions and can they be wrong?** The pipeline proposes objects, names and
+descriptions (Claude with structured outputs, following audio description guidelines), but the text
+lives in `pipeline/artworks/<id>/objects.json` and a human corrects it (curator mode above). The
+descriptions of the seven artworks in the repo were written and corrected by hand; the Claude step
+has not yet been run with a real API key. In a product the museum would have the last word.
+
+**Was it tested with blind people?** Not yet. The "Test" tab of the training measures how fast a
+blindfolded sighted person finds an object by sound alone (goal: under 20 s), which checks the core idea
+(sound says what, finger knows where) but is no substitute for blind users. Tests with blind users are
+the first item of the roadmap.
+
+**Why Expo Go and no native modules?** Anyone on the team, and any Android phone, can run the app
+with a QR code, without the Android SDK. The price is the missing audio panning and filters, and no
+VoiceOver "direct interaction" trait (see the questions above); both need a native build.
+
+**What about copyright?** Pictures are public domain or CC0 (sources and licenses in the table above and
+in each `source.json`). Sounds are CC0 or public domain recordings, listed with authors in
+`apps/mobile/assets/sounds/ATTRIBUTION.md` (generated), plus one sound we synthesize ourselves.
 
 ## Useful commands
 
