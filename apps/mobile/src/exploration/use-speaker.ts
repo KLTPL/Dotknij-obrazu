@@ -1,5 +1,5 @@
 import * as Speech from 'expo-speech';
-import { useEffect, useMemo, useRef } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { AppState } from 'react-native';
 
 import { useScreenReader } from '@/accessibility/screen-reader';
@@ -18,12 +18,18 @@ async function bestVoice(language: string): Promise<string | undefined> {
   return voices[0]?.identifier;
 }
 
+// The phone has one voice for the whole app, so stopping it stops every screen. A new screen
+// introduces itself before the old one learns it was left, so only the last speaker may stop it.
+let lastSpeaker: object | null = null;
+
 /** Speaks text in the chosen language and lowers the object sound while the voice is talking. */
 export function useSpeaker(setDucked: (ducked: boolean) => void) {
   const { language, t } = useLanguage();
   const screenReader = useScreenReader();
   const speakingRef = useRef(false);
   const voiceRef = useRef<string | undefined>(undefined);
+  // Identifies this speaker as the lastSpeaker
+  const [self] = useState(() => ({}));
 
   useEffect(() => {
     // Until the list arrives, and when it is empty, the engine's default voice for the language speaks
@@ -50,6 +56,7 @@ export function useSpeaker(setDucked: (ducked: boolean) => void) {
     };
     const speak = (text: string) => {
       void Speech.stop();
+      lastSpeaker = self;
       Speech.speak(text, {
         language: t.locale,
         voice: voiceRef.current,
@@ -74,9 +81,12 @@ export function useSpeaker(setDucked: (ducked: boolean) => void) {
       },
       stop: () => {
         finished();
+        // Leaving the gallery must not cut off the painting that has just started its introduction
+        if (lastSpeaker !== self) return;
+        lastSpeaker = null;
         void Speech.stop();
       },
       isSpeaking: () => speakingRef.current,
     };
-  }, [setDucked, t.locale, screenReader]);
+  }, [setDucked, t.locale, screenReader, self]);
 }
