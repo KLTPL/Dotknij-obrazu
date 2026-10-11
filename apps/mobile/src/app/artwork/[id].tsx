@@ -182,6 +182,9 @@ function ArtworkExplorer({ entry }: { entry: ArtworkEntry }) {
             textureOf={(object) => object.texture}
             onTouchStart={stopSoundscape}
             onTouchEnd={resumeSoundscape}
+            // A tap over the introduction means the user knows it already; a finger moving across
+            // the painting, as the introduction itself asks, lets it finish
+            onTap={speaker.skipIntroduction}
             onMove={(x, y, distance) => {
               sounds.stroke(distance);
               const depth = layers.depth[pixelIndex(layers, x, y)] ?? 0;

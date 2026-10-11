@@ -18,6 +18,8 @@ import { useTouchHaptics } from './use-touch-haptics';
 
 const HOLD_MS = 600;
 const HOLD_SLOP_PX = 12;
+// A touch this short that stays within HOLD_SLOP_PX is a tap, not exploring
+const TAP_MS = 300;
 const DOUBLE_TAP_MS = 350;
 const DOUBLE_TAP_SLOP_PX = 40;
 // Nothing else on the board uses two fingers, so a slow, careful tap still counts
@@ -42,6 +44,8 @@ type Props<T extends { id: string | number }> = {
   onObjectChange: (object: T | null) => void;
   /** The finger rested in one place; the object is null on the background. */
   onHold?: (object: T | null, x: number, y: number) => void;
+  /** One finger touched the board and lifted at once, without moving; fires also for each half of a double tap. */
+  onTap?: () => void;
   onDoubleTap: (object: T | null) => void;
   onTwoFingerTap?: () => void;
   /**
@@ -69,7 +73,7 @@ const distance = (a: Point, b: Point) => Math.hypot(a.x - b.x, a.y - b.y);
  */
 export function ExplorationBoard<T extends { id: string | number }>(props: Props<T>) {
   const { objectAt, contourAt, textureOf, onTouchStart, onMove, onObjectChange } = props;
-  const { onTouchEnd, onHold, onDoubleTap, onTwoFingerTap, exploreByHover = false } = props;
+  const { onTouchEnd, onHold, onTap, onDoubleTap, onTwoFingerTap, exploreByHover = false } = props;
   const haptics = useTouchHaptics();
   const borderCue = useBorderCue();
   const sizeRef = useRef({ width: 1, height: 1 });
@@ -79,6 +83,7 @@ export function ExplorationBoard<T extends { id: string | number }>(props: Props
   const lastPointRef = useRef<Point>({ x: 0, y: 0 });
   const lastTapRef = useRef<{ time: number; point: Point } | null>(null);
   const touchStartedAtRef = useRef(0);
+  const touchStartPointRef = useRef<Point>({ x: 0, y: 0 });
   const twoFingersRef = useRef(false);
   const insideRef = useRef(true);
   const hoveringRef = useRef(false);
@@ -165,8 +170,9 @@ export function ExplorationBoard<T extends { id: string | number }>(props: Props
   const handleGrant = (event: GestureResponderEvent) => {
     // The touch's own time, so a JavaScript thread busy with the first finger's object does not make a quick tap look slow
     touchStartedAtRef.current = event.nativeEvent.timestamp;
+    touchStartPointRef.current = pointOf(event);
     twoFingersRef.current = false;
-    begin(pointOf(event));
+    begin(touchStartPointRef.current);
   };
 
   const handleHover = (event: PointerEvent) => {
@@ -215,6 +221,10 @@ export function ExplorationBoard<T extends { id: string | number }>(props: Props
 
     const point = pointOf(event);
     const now = Date.now();
+    const touchMs = event.nativeEvent.timestamp - touchStartedAtRef.current;
+    if (touchMs < TAP_MS && distance(point, touchStartPointRef.current) < HOLD_SLOP_PX) {
+      onTap?.();
+    }
     const lastTap = lastTapRef.current;
     if (lastTap && now - lastTap.time < DOUBLE_TAP_MS && distance(point, lastTap.point) < DOUBLE_TAP_SLOP_PX) {
       lastTapRef.current = null;

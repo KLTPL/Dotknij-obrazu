@@ -50,6 +50,8 @@ export default function TrainingScreen() {
         accessibilityLabel={t.training.boardLabel}
         objectAt={(x, y) => objectAt(trial.layout, x, y)}
         onTouchStart={trial.markTouch}
+        // As on a painting: a tap cuts the introduction short, a moving finger lets it finish
+        onTap={speaker.skipIntroduction}
         onObjectChange={(object) => sounds.setActive(object?.id ?? null)}
         onHold={(object) => object && namesOnHold && speaker.speak(names[object.id])}
         onDoubleTap={(object) => {

@@ -27,6 +27,8 @@ export function useSpeaker(setDucked: (ducked: boolean) => void) {
   const { language, t } = useLanguage();
   const screenReader = useScreenReader();
   const speakingRef = useRef(false);
+  // Whether the last thing this speaker said was an introduction, which the user may cut short
+  const introducingRef = useRef(false);
   const voiceRef = useRef<string | undefined>(undefined);
   // Identifies this speaker as the lastSpeaker
   const [self] = useState(() => ({}));
@@ -55,6 +57,7 @@ export function useSpeaker(setDucked: (ducked: boolean) => void) {
       setDucked(false);
     };
     const speak = (text: string) => {
+      introducingRef.current = false;
       void Speech.stop();
       lastSpeaker = self;
       Speech.speak(text, {
@@ -69,6 +72,14 @@ export function useSpeaker(setDucked: (ducked: boolean) => void) {
         onError: finished,
       });
     };
+    const stop = () => {
+      introducingRef.current = false;
+      finished();
+      // Leaving the gallery must not cut off the painting that has just started its introduction
+      if (lastSpeaker !== self) return;
+      lastSpeaker = null;
+      void Speech.stop();
+    };
     return {
       /** Speech the user asked for with a gesture. */
       speak,
@@ -77,15 +88,15 @@ export function useSpeaker(setDucked: (ducked: boolean) => void) {
        * already reads the screen from its labels, so two voices would talk over each other.
        */
       introduce: (text: string) => {
-        if (!screenReader) speak(text);
+        if (screenReader) return;
+        speak(text);
+        introducingRef.current = true;
       },
-      stop: () => {
-        finished();
-        // Leaving the gallery must not cut off the painting that has just started its introduction
-        if (lastSpeaker !== self) return;
-        lastSpeaker = null;
-        void Speech.stop();
+      /** Stops an introduction the user no longer needs; speech they asked for keeps going. */
+      skipIntroduction: () => {
+        if (introducingRef.current) stop();
       },
+      stop,
       isSpeaking: () => speakingRef.current,
     };
   }, [setDucked, t.locale, screenReader, self]);
