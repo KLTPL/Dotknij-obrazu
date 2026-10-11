@@ -113,17 +113,6 @@
   .pairs span:first-child { font-weight: 500; }
   .pairs span:last-child { color: var(--muted); text-align: right; }
 
-  .steps { margin-top: 1.8mm; counter-reset: s; }
-  .steps li {
-    list-style: none; display: flex; gap: 2.4mm; padding: .6mm 0; border-top: .5pt solid var(--rule);
-  }
-  .steps li::before {
-    counter-increment: s; content: counter(s);
-    font-family: "Fraunces Text"; font-weight: 600; color: var(--accent); flex: 0 0 3mm;
-  }
-  .steps li span { flex: 1; min-width: 0; }
-
-
   /* ---------- pull quote ---------- */
   .quote {
     margin-top: 3.2mm; padding: 2.2mm 0; border-top: 1.2pt solid var(--ink); border-bottom: .5pt solid var(--ink);
@@ -245,12 +234,12 @@
         mleko. Gdy nikt nie dotyka ekranu, grają wszystkie naraz, bliższe głośniej.
       </p>
       <div class="pairs">
-        <div><span>Ruch palcem</span><span>dźwięk tego, co pod nim</span></div>
-        <div><span>Wnętrze obiektu</span><span>faktura, np. ziarnista</span></div>
+        <div><span>Ruch palcem</span><span>słychać to, co jest pod nim</span></div>
+        <div><span>Wnętrze obiektu</span><span>czuć fakturę, np. ziarnistą</span></div>
         <div><span>Granica obiektu</span><span>sygnał i&nbsp;wibracja</span></div>
         <div><span>Wodzenie po konturze</span><span>pulsująca wibracja</span></div>
-        <div><span>Dwa stuknięcia</span><span>nazwa i&nbsp;opis</span></div>
-        <div><span>Stuknięcie dwoma palcami</span><span>opis całości</span></div>
+        <div><span>Dwa stuknięcia</span><span>nazwa i&nbsp;opis, potem historia</span></div>
+        <div><span>Stuknięcie dwoma palcami</span><span>opis całego obrazu</span></div>
       </div>
     </section>
 
@@ -261,11 +250,11 @@
         można je oglądać także w&nbsp;domu, przed wizytą w&nbsp;muzeum albo po niej.
       </p>
       <div class="pairs">
-        <div><span>Obrazy</span><span>7 dzieł, 35 obiektów</span></div>
-        <div><span>Obiekt</span><span>dźwięk, kontur, faktura, opis</span></div>
+        <div><span>Obrazy</span><span>7 dzieł, a&nbsp;w&nbsp;nich 35 obiektów</span></div>
+        <div><span>Każdy obiekt</span><span>ma dźwięk, kontur, fakturę i&nbsp;opis</span></div>
         <div><span>Dźwięki</span><span>25 pętli z&nbsp;wolnych nagrań i&nbsp;syntezy</span></div>
-        <div><span>Trening</span><span>20&nbsp;s na prostych kształtach</span></div>
-        <div><span>Tryb testu</span><span>mierzy czas szukania obiektu</span></div>
+        <div><span>Trening</span><span>wystarczy 20&nbsp;s na prostych kształtach</span></div>
+        <div><span>Historie</span><span>np. kim był kapitan ze „Straży nocnej”</span></div>
         <div><span>Języki</span><span>polski i&nbsp;angielski</span></div>
       </div>
     </section>
@@ -275,7 +264,7 @@
     <b>Dostępność</b>
     Aplikacja współpracuje z&nbsp;TalkBackiem: nie zagłusza czytnika, a&nbsp;opis obrazu, historię
     i&nbsp;listę obiektów czyta sam czytnik, głosem użytkownika. Ekran Info ma wszystkie opisy jako
-    tekst. Dla słabowidzących: kontrast min. 4,5:1 (WCAG&nbsp;AA) i&nbsp;przyciski od 48&nbsp;dp.
+    tekst. Słabowidzącym pomaga kontrast co najmniej 4,5:1 (WCAG&nbsp;AA) i&nbsp;przyciski od 48&nbsp;dp.
   </p>
 
   <div class="quote">
@@ -292,22 +281,21 @@
       <h2><span class="no">04</span>Czym się różnimy</h2>
       <div class="market">
         <div><span>Audiodeskrypcja</span><span>lektor czyta opis w&nbsp;stałej kolejności; <em>nie zbadasz obrazu sam</em></span></div>
-        <div><span>Tyflografika</span><span>wypukła kopia robiona ręcznie; <em>drogo, więc tylko pojedyncze dzieła</em></span></div>
-        <div><span>Seeing AI (Microsoft)</span><span>mówi, co jest pod palcem na zdjęciu; <em>opisy są automatyczne</em></span></div>
-        <div><span>Touching Masterpieces</span><span>rękawice haptyczne VR w&nbsp;Pradze (2018); <em>specjalny sprzęt na miejscu</em></span></div>
-        <div class="ours"><span>Dotknij obrazu</span><span>dźwięk i&nbsp;kontur pod palcem, opisy sprawdza człowiek, wystarczy telefon</span></div>
+        <div><span>Tyflografika</span><span>wypukła kopia robiona ręcznie; <em>jest droga, więc powstaje rzadko</em></span></div>
+        <div><span>Seeing AI (Microsoft)</span><span>mówi, co jest pod palcem na zdjęciu; <em>opisów z&nbsp;AI nikt nie sprawdza</em></span></div>
+        <div><span>Touching Masterpieces</span><span>rękawice haptyczne VR w&nbsp;Pradze (2018); <em>działają tylko na miejscu</em></span></div>
+        <div class="ours"><span>Dotknij obrazu</span><span>obraz słychać i&nbsp;czuć, opisy sprawdza człowiek, wystarczy telefon</span></div>
       </div>
     </section>
 
     <section class="col">
       <h2><span class="no">05</span>Skąd się biorą obrazy</h2>
-      <p>Z&nbsp;reprodukcji robimy „pakiet zmysłowy”:</p>
-      <ol class="steps">
-        <li><span>Depth Anything V2: co blisko, co daleko</span></li>
-        <li><span>SAM 2.1: sylwetki koni, łodzi, ludzi</span></li>
-        <li><span>Claude: obiekty, dźwięki, opisy</span></li>
-        <li><span>Człowiek: poprawki opisów i&nbsp;obrysów</span></li>
-      </ol>
+      <p>
+        Z&nbsp;reprodukcji robimy „pakiet zmysłowy”. Depth Anything V2 ocenia, co jest blisko,
+        a&nbsp;co daleko. SAM 2.1 rysuje obrysy koni, łodzi i&nbsp;ludzi. Claude wybiera obiekty,
+        dobiera dźwięki i&nbsp;szkicuje opisy. Opisy i&nbsp;obrysy poprawiamy dziś sami, a&nbsp;docelowo
+        ostatnie słowo co do treści będzie miało muzeum.
+      </p>
     </section>
   </div>
 
@@ -316,13 +304,13 @@
     <div class="cells four">
       <div class="cell">
         <h3>Czytnik ekranu zabiera dotyk</h3>
-        <p>TalkBack zamienia ruch palca w&nbsp;hover i&nbsp;plansza go obsługuje.
-          Gdy czytnik jest wstrzymany, mówi aplikacja.</p>
+        <p>TalkBack zamienia ruch palca w&nbsp;hover, a&nbsp;plansza go obsługuje.
+          Gdy czytnik jest wstrzymany, opisy czyta sama aplikacja.</p>
       </div>
       <div class="cell">
         <h3>Wibracja ma jedną siłę</h3>
-        <p>Siłę udajemy rytmem: na brzegu linii rzadkie impulsy, na środku ciągłe brzęczenie.
-          Da się obrysować konia.</p>
+        <p>Siłę udajemy rytmem: impulsy są rzadkie na brzegu linii, a&nbsp;na środku zlewają się
+          w&nbsp;brzęczenie. Tak da się obrysować konia.</p>
       </div>
       <div class="cell">
         <h3>Opóźnienie dźwięku</h3>
@@ -347,18 +335,18 @@
       </div>
       <div class="cell">
         <h3>Za co</h3>
-        <p>Roczny abonament za kolekcję w&nbsp;aplikacji. Obrazy dodaje pipeline, więc muzeum
-          może pokazać w&nbsp;niej całą galerię.</p>
+        <p>Muzeum płaci roczny abonament za kolekcję w&nbsp;aplikacji. Obrazy dodaje pipeline,
+          więc może pokazać całą galerię.</p>
       </div>
       <div class="cell">
         <h3>Skala</h3>
         <p>The Met daje ponad 400&nbsp;tys. zdjęć dzieł na CC0, importer już mamy.
-          Ten sam format pasuje do ilustracji w&nbsp;podręcznikach.</p>
+          Ciekawostki o&nbsp;obrazach przydadzą się też widzącym.</p>
       </div>
       <div class="cell">
         <h3>Co dalej</h3>
-        <p>Testy z&nbsp;osobami niewidomymi, pilot w&nbsp;jednym muzeum, wersja natywna
-          z&nbsp;VoiceOverem bez wyłączania.</p>
+        <p>Najpierw testy z&nbsp;osobami niewidomymi, potem pilot w&nbsp;muzeum i&nbsp;wersja
+          natywna z&nbsp;włączonym VoiceOverem.</p>
       </div>
     </div>
   </section>
