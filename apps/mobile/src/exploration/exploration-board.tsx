@@ -20,7 +20,8 @@ const HOLD_MS = 600;
 const HOLD_SLOP_PX = 12;
 const DOUBLE_TAP_MS = 350;
 const DOUBLE_TAP_SLOP_PX = 40;
-const TWO_FINGER_TAP_MS = 500;
+// Nothing else on the board uses two fingers, so a slow, careful tap still counts
+const TWO_FINGER_TAP_MS = 800;
 const CURSOR_SIZE = 44;
 
 type Point = { x: number; y: number };
@@ -162,7 +163,8 @@ export function ExplorationBoard<T extends { id: string | number }>(props: Props
   };
 
   const handleGrant = (event: GestureResponderEvent) => {
-    touchStartedAtRef.current = Date.now();
+    // The touch's own time, so a JavaScript thread busy with the first finger's object does not make a quick tap look slow
+    touchStartedAtRef.current = event.nativeEvent.timestamp;
     twoFingersRef.current = false;
     begin(pointOf(event));
   };
@@ -207,7 +209,7 @@ export function ExplorationBoard<T extends { id: string | number }>(props: Props
     onTouchEnd?.();
     if (wasTwoFingers) {
       lastTapRef.current = null;
-      if (Date.now() - touchStartedAtRef.current < TWO_FINGER_TAP_MS) onTwoFingerTap?.();
+      if (event.nativeEvent.timestamp - touchStartedAtRef.current < TWO_FINGER_TAP_MS) onTwoFingerTap?.();
       return;
     }
 
@@ -239,7 +241,9 @@ export function ExplorationBoard<T extends { id: string | number }>(props: Props
         sizeRef.current = event.nativeEvent.layout;
       }}
       onStartShouldSetResponder={() => true}
-      onMoveShouldSetResponder={() => true}
+      // React Native on Android releases the board as soon as the first of two fingers lifts; the
+      // finger left behind must not take it again and light up the object under it as a new touch
+      onMoveShouldSetResponder={() => !twoFingersRef.current}
       onResponderTerminationRequest={() => false}
       onResponderGrant={handleGrant}
       onResponderStart={handleStart}
