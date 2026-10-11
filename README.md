@@ -68,9 +68,10 @@ Entering an object is two rising tones and two vibration taps, leaving it for th
 falling tones and one tap. Object sounds crossfade smoothly, so only this cue tells exactly where
 the boundary is.
 
-When nobody is touching the screen, you hear the **soundscape**: all objects play at once, the closer
-ones louder. Touching the screen mutes it and only the sound under the finger remains; the soundscape
-returns a moment after the finger is lifted. The app does not speak names on its own — an object is
+When nobody is touching the screen, you hear the **soundscape**: all dynamic objects play at once, the
+closer ones louder, while static ones stay silent, as under a resting finger. Touching the screen
+mutes it and only the sound under the finger remains; the soundscape returns a moment after the
+finger is lifted. The app does not speak names on its own — an object is
 recognized by its sound and vibration, and its name and description are given only on a double tap.
 
 Wide pictures rotate the screen to landscape so that objects are as large as possible. The screen

@@ -23,7 +23,9 @@ const FAR_GAIN = 0.55;
 // loudness whatever the finger does and a sound that goes on after the finger stops means action;
 // a static one falls silent and is heard only when stroked
 const REST_LEVEL: Record<ArtworkRole, number> = { dynamic: 1, static: 0 };
-// Soundscape: every object plays at once, the farthest at the first level, the nearest at the second
+// Soundscape: with no finger on the painting every object is at rest, so it plays at its rest level:
+// what acts by itself is heard, the farthest at the first level, the nearest at the second, while the
+// static background stays silent instead of drowning it out (the sky's wind covered the galloping horses)
 const SOUNDSCAPE_FAR = 0.3;
 const SOUNDSCAPE_NEAR = 0.65;
 // The soundscape returns this long after the finger lifts, so taps do not make it flicker
@@ -61,16 +63,16 @@ function ArtworkExplorer({ entry }: { entry: ArtworkEntry }) {
     [manifest],
   );
   const sounds = useObjectSounds(objectSounds);
-  const soundscape = useMemo(
-    () =>
-      new Map(
-        [...objectNearness(layers)].map(([objectId, nearness]) => [
-          objectId,
-          SOUNDSCAPE_FAR + (SOUNDSCAPE_NEAR - SOUNDSCAPE_FAR) * nearness,
-        ]),
-      ),
-    [layers],
-  );
+  const soundscape = useMemo(() => {
+    const nearness = objectNearness(layers);
+    return new Map(
+      manifest.objects.map((object) => [
+        object.id,
+        REST_LEVEL[object.role] *
+          (SOUNDSCAPE_FAR + (SOUNDSCAPE_NEAR - SOUNDSCAPE_FAR) * (nearness.get(object.id) ?? 0)),
+      ]),
+    );
+  }, [manifest, layers]);
   const screenReader = useScreenReader();
   const ambient = useMemo(
     () =>
@@ -114,7 +116,7 @@ function ArtworkExplorer({ entry }: { entry: ArtworkEntry }) {
 
   useFocusEffect(
     useCallback(() => {
-      // The whole artwork plays whenever no finger is on it; a touch leaves only what is under the finger.
+      // The soundscape plays whenever no finger is on the artwork; a touch leaves only what is under the finger.
       // Another screen on top, like the details, silences it.
       sounds.setAmbient(ambient);
       return () => {
