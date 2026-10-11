@@ -1,5 +1,5 @@
 import { useRouter } from 'expo-router';
-import { useRef, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import { FlatList, StyleSheet, Text, View, type ViewToken } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -30,14 +30,18 @@ function Gallery() {
   const { t } = useLanguage();
   const listRef = useRef<FlatList<ArtworkEntry>>(null);
   const [height, setHeight] = useState(0);
+  // The height the list last measured itself at
+  const listHeightRef = useRef(0);
   // Null while the end of the gallery is on screen
   const [page, setPage] = useState<number | null>(0);
   const preview = useGalleryPreview(page === null ? null : ARTWORKS[page]);
-  // FlatList requires a callback that never changes
-  const [onViewableItemsChanged] = useState(
-    () =>
-      ({ viewableItems }: { viewableItems: ViewToken<ArtworkEntry>[] }) =>
-        setPage(viewableItems[0]?.index ?? null),
+  // FlatList requires a callback that never changes; this one changes only together with the list's key
+  const onViewableItemsChanged = useCallback(
+    ({ viewableItems }: { viewableItems: ViewToken<ArtworkEntry>[] }) => {
+      // A list no longer one page tall is about to be replaced, and its old offset shows another painting
+      if (listHeightRef.current === height) setPage(viewableItems[0]?.index ?? null);
+    },
+    [height],
   );
 
   const open = (entry: ArtworkEntry) =>
@@ -59,6 +63,14 @@ function Gallery() {
       <View style={styles.pager} onLayout={(event) => setHeight(event.nativeEvent.layout.height)}>
         {height > 0 && (
           <FlatList
+            // A landscape painting turns the gallery underneath it too, and a scroll offset kept from
+            // one page height lands between pages at another; so each height gets a new list opened at
+            // the same page. The end of the gallery is not an item, so there it opens at the last painting.
+            key={height}
+            initialScrollIndex={page ?? ARTWORKS.length - 1}
+            onLayout={(event) => {
+              listHeightRef.current = event.nativeEvent.layout.height;
+            }}
             ref={listRef}
             data={ARTWORKS}
             keyExtractor={(entry) => entry.manifest.id}
