@@ -52,7 +52,7 @@ const pl = {
     gestureList: [
       'Wódź jednym palcem: słychać obiekt pod palcem, a kontury drgają.',
       'Stuknij dwa razy: nazwa i opis obiektu. Jeszcze raz: jego historia.',
-      'Stuknij dwoma palcami: opis obrazu albo zatrzymanie mowy.',
+      'Stuknij dwoma palcami: opis obrazu. Jeszcze raz: jego historia, a w trakcie opisu: cisza.',
       'W galerii przesuń w górę lub w dół, aby zmienić obraz.',
       'Gest wstecz, czyli przesunięcie palcem od krawędzi ekranu do środka: powrót do galerii.',
     ],
@@ -161,7 +161,7 @@ const en: Strings = {
     gestureList: [
       'Move one finger: you hear the object under it, and outlines vibrate.',
       'Double tap: name and description of an object. Again: its story.',
-      'Tap with two fingers: description of the painting, or stop speech.',
+      'Tap with two fingers: description of the painting. Again: its story, or silence while it is being read.',
       'In the gallery swipe up or down to change the painting.',
       'The back gesture, a swipe from the edge of the screen towards the middle: back to the gallery.',
     ],

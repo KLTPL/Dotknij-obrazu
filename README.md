@@ -62,7 +62,7 @@ Ready-made packages of the seven artworks are in the repo, so the pipeline is no
 | tracing a contour         | pulsing vibration that gets denser in the middle of the line; contours of closer things are stronger |
 | moving a finger inside an object | texture: smooth, soft, grainy or rough     |
 | double tap                | name and description of the object; once more on the same object: its story |
-| two-finger tap            | description of the whole picture (once more: its story), or interrupting speech |
+| two-finger tap            | description of the whole picture, also over the intro or an object's description; once more: its story, or silence while it is being read |
 
 Entering an object is two rising tones and two vibration taps, leaving it for the background is two
 falling tones and one tap. Object sounds crossfade smoothly, so only this cue tells exactly where
