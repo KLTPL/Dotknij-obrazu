@@ -19,9 +19,10 @@ import { Button } from '@/ui/button';
 
 // The farthest point of the artwork still plays at this share of full loudness
 const FAR_GAIN = 0.55;
-// Share of full loudness under a resting finger: a dynamic object keeps sounding, so a sound that goes
-// on after the finger stops means action; a static one falls silent and is heard only when stroked
-const REST_LEVEL: Record<ArtworkRole, number> = { dynamic: 0.6, static: 0 };
+// Share of full loudness under a resting finger. A dynamic object acts by itself, so it plays at full
+// loudness whatever the finger does and a sound that goes on after the finger stops means action;
+// a static one falls silent and is heard only when stroked
+const REST_LEVEL: Record<ArtworkRole, number> = { dynamic: 1, static: 0 };
 // Soundscape: every object plays at once, the farthest at the first level, the nearest at the second
 const SOUNDSCAPE_FAR = 0.3;
 const SOUNDSCAPE_NEAR = 0.65;

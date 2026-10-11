@@ -108,8 +108,8 @@ will block it — add the package to `allowBuilds` in `pnpm-workspace.yaml`.
   sounding under a resting finger, a `static` one (sky, ground, a table) is heard only while the
   finger moves over it. The rules deciding which is which are listed at `ArtworkRole` in the
   contract and, in Polish, in the prompt in `pipeline/describe.py` — keep the two in step.
-  Loudness follows the finger's speed in `src/exploration/use-object-sounds.ts`; the rest levels
-  are in `src/app/artwork/[id].tsx`.
+  A static object's loudness follows the finger's speed in `src/exploration/use-object-sounds.ts`,
+  a dynamic one plays at full loudness; the rest levels are in `src/app/artwork/[id].tsx`.
 - New sound: an entry in `pipeline/sounds.json` (a CC0 recording from bigsoundbank.com, or a
   public domain file with `url` and `license` fields, e.g. from Wikimedia Commons; start and
   length of the fragment) → `pipeline/sounds.py`, then an entry in `apps/mobile/src/audio/sounds.ts`.
