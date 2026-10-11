@@ -1,5 +1,5 @@
 import type { ArtworkTexture } from '@repo/shared';
-import { type ReactNode, useRef, useState } from 'react';
+import { type ReactNode, useEffect, useRef, useState } from 'react';
 import {
   type AccessibilityActionEvent,
   type AccessibilityActionInfo,
@@ -93,6 +93,14 @@ export function ExplorationBoard<T extends { id: string | number }>(props: Props
     x: point.x / sizeRef.current.width,
     y: point.y / sizeRef.current.height,
   });
+
+  // A hold timer still running when the screen closes would speak over the next one
+  useEffect(
+    () => () => {
+      if (holdTimerRef.current) clearTimeout(holdTimerRef.current);
+    },
+    [],
+  );
 
   const cancelHold = () => {
     if (holdTimerRef.current) clearTimeout(holdTimerRef.current);

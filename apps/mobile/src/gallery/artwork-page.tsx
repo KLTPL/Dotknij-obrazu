@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { AccessibilityInfo, Image, Pressable, StyleSheet, Text, View } from 'react-native';
 
 import { useScreenReader } from '@/accessibility/screen-reader';
@@ -28,6 +28,14 @@ export function ArtworkPage({ entry, height, onOpen, onRepeat, onDetails }: Prop
   const { title, author, year, objects, layers, description, story } = manifest;
   const teaser = teaserOf(manifest);
   const landscape = layers.width > layers.height;
+
+  // A single tap waiting to be told from a double one must not repeat the introduction after the page is gone
+  useEffect(
+    () => () => {
+      if (tapTimerRef.current) clearTimeout(tapTimerRef.current);
+    },
+    [],
+  );
 
   const press = () => {
     // A screen reader turns its own double tap into one press
