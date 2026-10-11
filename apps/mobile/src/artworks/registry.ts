@@ -52,6 +52,7 @@ export const ARTWORKS: ArtworkEntry[] = [
       3: require('../../assets/artworks/napad-wilkow/highlight-3.png'),
       4: require('../../assets/artworks/napad-wilkow/highlight-4.png'),
       5: require('../../assets/artworks/napad-wilkow/highlight-5.png'),
+      6: require('../../assets/artworks/napad-wilkow/highlight-6.png'),
     },
   },
   {

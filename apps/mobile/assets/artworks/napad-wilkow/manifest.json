@@ -95,6 +95,20 @@
       "sound": "wind",
       "texture": "grainy",
       "role": "static"
+    },
+    {
+      "id": 6,
+      "label": "zaśnieżona równina",
+      "shortDescription": "Gruby, biały śnieg, po którym pędzą sanie.",
+      "longDescription": "Dolną połowę obrazu wypełnia płaska równina pokryta grubą warstwą śniegu. Śnieg jest biały z szaroniebieskimi cieniami, a wokół płóz i kopyt jest rozkopany. Po lewej stronie równina ginie w szarej zamieci na horyzoncie, a na dole wystają ze śniegu pojedyncze suche gałązki.",
+      "en": {
+        "label": "snowy plain",
+        "shortDescription": "Thick white snow that the sleigh races across.",
+        "longDescription": "The lower half of the picture is filled with a flat plain under a thick layer of snow. The snow is white with grey-blue shadows and churned up around the runners and hooves. On the left the plain fades into grey blowing snow at the horizon, and at the bottom a few dry twigs stick out of the snow."
+      },
+      "sound": "steps",
+      "texture": "soft",
+      "role": "static"
     }
   ]
 }
