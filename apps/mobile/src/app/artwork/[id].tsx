@@ -104,7 +104,9 @@ function ArtworkExplorer({ entry }: { entry: ArtworkEntry }) {
   useScreenOrientation(landscape);
 
   useEffect(() => {
-    // The screen turns by itself, but a blind user has to be told how to hold the phone
+    // The screen turns by itself, but a blind user has to be told how to hold the phone.
+    // Forgetting what was told before keeps a two-finger tap over the intro from taking it for the painting's text
+    lastSpokenRef.current = null;
     speaker.introduce(t.artwork.intro(manifest.title, manifest.author, landscape));
     return speaker.stop;
   }, [manifest, landscape, speaker, t]);
@@ -196,11 +198,12 @@ function ArtworkExplorer({ entry }: { entry: ArtworkEntry }) {
               }
               tell(object.id, `${object.label}. ${object.longDescription}`, object.story, t.artwork.storyHintObject);
             }}
-            onTwoFingerTap={() =>
-              speaker.isSpeaking()
-                ? speaker.stop()
-                : tell(0, manifest.description, manifest.story, t.artwork.storyHintArtwork)
-            }
+            onTwoFingerTap={() => {
+              // Only the painting's own text is stopped; the intro, which itself asks for this
+              // gesture, or an object's description gives way to the painting instead
+              if (speaker.isSpeaking() && lastSpokenRef.current?.id === 0) speaker.stop();
+              else tell(0, manifest.description, manifest.story, t.artwork.storyHintArtwork);
+            }}
           >
             <Image source={entry.image} style={styles.layer} resizeMode="stretch" />
             {/* Faint lines show the audience which contours the finger can feel */}
