@@ -8,8 +8,10 @@ const FADE_IN_MS = 140;
 const FADE_OUT_MS = 420;
 const TICK_MS = 15;
 const DUCKED_LEVEL = 0.45;
-// Finger speed, in points per second, at which a sound reaches its full loudness
-const FULL_SPEED = 80;
+// Finger speed, in points per second, at which a sound reaches its full loudness. Low, so any
+// ordinary stroke plays at full: the sound tells what is under the finger, and the finger already
+// feels its own speed. Only a crawl stays quieter, which softens the jitter of a resting finger.
+const FULL_SPEED = 20;
 // The sound of a stroke lingers this long after the finger stops
 const MOTION_FADE_MS = 250;
 const MOTION_DECAY = Math.exp(-TICK_MS / MOTION_FADE_MS);
